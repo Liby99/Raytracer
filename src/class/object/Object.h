@@ -1,16 +1,26 @@
+#ifndef OBJECT_H
+#define OBJECT_H
+
+#include "util/Transform.h"
+#include "material/Material.h"
+
 class Object {
-private:
+protected:
+    
+    const static vec3 DEFAULT_POSITION;
+    const static vec3 DEFAULT_SCALER;
+    const static vec3 DEFAULT_ROTATION;
     
     // Materials
     vector<Material *> materials;
     
     // Transform properties
     vec3 position;
-    vec3 scale;
+    vec3 scaler;
     vec3 rotation;
     
     // Get transformation helper method
-    mat4 getTransformation();
+    mat4 getTransformMatrix();
     
 public:
     
@@ -20,12 +30,10 @@ public:
     // Material Related
     int materialAmount();
     Material & getMaterial(int i);
-    void addMaterial(Material * material);
-    
-    // Overall Transformation
-    void setTransform(mat4 matrix);
+    void addMaterial(Material & material);
     
     // Rotate Transformation
+    void rotate(vec3 rotation);
     void rotateX(float degX);
     void rotateY(float degY);
     void rotateZ(float degZ);
@@ -37,8 +45,12 @@ public:
     void translateZ(float z);
     
     // Scale Transformation
-    void scale(vec3 scale);
-    void scaleX(vec3 scaleX);
-    void scaleY(vec3 scaleY);
-    void scaleZ(vec3 scaleZ);
-}
+    void scale(vec3 scaler);
+    void scaleX(float scaleX);
+    void scaleY(float scaleY);
+    void scaleZ(float scaleZ);
+    
+    virtual Intersection intersect(Ray & ray);
+};
+
+#endif
