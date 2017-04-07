@@ -1,0 +1,3 @@
+class MeshCube : public MeshObject {
+    
+}
