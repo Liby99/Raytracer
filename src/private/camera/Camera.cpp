@@ -26,27 +26,27 @@ void Camera::lookAt(vec3 position, vec3 focalPoint, vec3 up) {
 }
 
 void setPosition(vec3 position) {
-    this.position = position;
+    this->position = position;
 }
 
 void setFocalPoint(vec3 focalPoint) {
-    this.focalPoint = focalPoint;
+    this->focalPoint = focalPoint;
 }
 
 void setUp(vec3 up) {
-    this.up = up;
+    this->up = up;
 }
 
 vec3 getPosition() {
-    return this.position;
+    return position;
 }
 
 vec3 getFocalPoint() {
-    return this.focalPoint;
+    return focalPoint;
 }
 
 vec3 getUp() {
-    return this.up;
+    return up;
 }
 
 void setSize(int width, int height) {
@@ -55,15 +55,15 @@ void setSize(int width, int height) {
 }
 
 void setWidth(int width) {
-    this.width = width;
+    this->width = width;
 }
 
 void setHeight(int height) {
-    this.height = height;
+    this->height = height;
 }
 
 void setFovy(float fovy) {
-    this.fovy = fovy;
+    this->fovy = fovy;
 }
 
 Bitmap render(const Scene & scene) {
