@@ -4,6 +4,9 @@
 class Light {
 private:
     
+    const static Color DEFAULT_COLOR;
+    const static vec3 DEFAULT_FALL_OFF;
+    
     // Private color
     Color color;
     vec3 fallOff;
@@ -11,7 +14,9 @@ private:
 public:
     
     // Constructor
+    Light();
     Light(Color c);
+    Light(Color c, vec3 fallOff);
     
     // Color related setter getter
     Color getColor();
