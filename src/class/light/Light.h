@@ -2,14 +2,13 @@
 #define LIGHT_H
 
 class Light {
-private:
+protected:
     
     const static Color DEFAULT_COLOR;
-    const static vec3 DEFAULT_FALL_OFF;
+    const static float DEFAULT_INTENSITY;
     
     // Private color
     Color color;
-    vec3 fallOff;
     
 public:
     
@@ -21,13 +20,12 @@ public:
     // Color related setter getter
     Color getColor();
     void setColor(Color color);
-    
-    // Fall Off related setter getter
-    vec3 getFallOff();
-    void setFallOff(vec3 fallOff);
+    float getIntensity();
+    void setIntensity(float intensity);
     
     // Illuminate
-    virtual float illuminate(Intersection & intersection);
+    virtual float getBrightness(Intersection & intersection);
+    virtual vec3 getToLightDirection(Intersection & intersection);
 };
 
 #endif

@@ -1,21 +1,14 @@
 #include "light/Light.h"
 
 Light::DEFAULT_COLOR = Color(1, 1, 1);
-Light::DEFAULT_FALL_OFF = vec3(0, 0, 1);
+Light::DEFAULT_INTENSITY = 1;
 
 Light::Light() {
     setColor(DEFAULT_COLOR);
-    setFallOff(DEFAULT_FALL_OFF);
 }
 
 Light::Light(Color c) {
     setColor(c);
-    setFallOff(DEFAULT_FALL_OFF);
-}
-
-Light::Light(Color c, vec3 fallOff) {
-    setColor(c);
-    setFallOff(fallOff);
 }
 
 Color Light::getColor() {
@@ -23,17 +16,21 @@ Color Light::getColor() {
 }
 
 void Light::setColor(Color color) {
-    this.color = color;
+    this->color = color;
 }
 
-vec3 getFallOff() {
-    return fallOff;
+float getIntensity() {
+    return intensity;
 }
 
-void setFallOff(vec3 fallOff) {
-    this.fallOff = fallOff;
+void setIntensity(float intensity) {
+    this->intensity = intensity;
 }
 
-float illuminate(Intersection & intersection) {
+float getBrightness(Intersection & intersection) {
     return 0;
+}
+
+vec3 getToLightDirection(Intersection & intersection) {
+    return vec3(0, 0, 0);
 }
