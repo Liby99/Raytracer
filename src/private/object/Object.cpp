@@ -77,6 +77,6 @@ void Object::scaleZ(float scaleZ) {
     scale.z *= scaleZ;
 }
 
-Intersection Object::intersect(Ray & ray) {
+void Object::intersect(Ray & ray) {
     return Intersection(ray, &this);
 }

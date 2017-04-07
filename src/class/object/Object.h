@@ -50,7 +50,7 @@ public:
     void scaleY(float scaleY);
     void scaleZ(float scaleZ);
     
-    virtual Intersection intersect(Ray & ray);
+    virtual bool intersect(Ray & ray, Intersection & intersection);
 };
 
 #endif
