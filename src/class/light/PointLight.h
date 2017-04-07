@@ -1,22 +1,26 @@
 #ifndef POINT_LIGHT_H
 #define POINT_LIGHT_H
 
-#include "util/Transform.h"
+#include "light/Light.h"
 
 class PointLight : public Light {
 protected:
     
-    // Default Fall Off
-    const static vec3 DEFAULT_FALL_OFF;
+    // Default Fall Off and position
     const static vec3 DEFAULT_POSITION;
+    const static vec3 DEFAULT_FALL_OFF;
     
     // Basic Variables
     vec3 position;
     vec3 fallOff;
     
+    // Helper method for getting brightness
+    float calcBrightness(float distance);
+    
 public:
     
     // Constructor
+    PointLight();
     PointLight(Color color);
     PointLight(Color color, vec3 position);
     
@@ -29,7 +33,7 @@ public:
     void setFallOff(vec3 fallOff);
     
     // Inherited brightness and tolight
-    virtual float getBrightness(Intersection & intersection);
+    virtual float getBrightness(Scene & scene, Intersection & intersection);
     virtual vec3 getToLightDirection(Intersection & intersection);
 };
 
