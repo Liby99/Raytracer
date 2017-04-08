@@ -20,6 +20,8 @@ RM = /bin/rm -f
 
 all: p1s1
 p1s1: $(CPP_FILES)
-	$(CC) $(CFLAGS) -o ./build/$@ ./src/p1s1.cpp $(CPP_FILES) $(INCFLAGS)
+	$(CC) $(CFLAGS) -o ./build/$@ ./test/p1s1.cpp $(CPP_FILES) $(INCFLAGS)
+p1t1: $(CPP_FILES)
+	$(CC) $(CFLAGS) -o ./build/$@ ./test/p1t1.cpp $(CPP_FILES) $(INCFLAGS)
 clean:
 	$(RM) build/p1s1 *.o *.d *.DSYM
