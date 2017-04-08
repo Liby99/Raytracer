@@ -1,3 +1,5 @@
+#include "util/Bitmap.h"
+
 struct BitmapHeader {
     int fileSize;
     int reserved;
@@ -19,23 +21,23 @@ Bitmap::~Bitmap() {
     delete [] pixel;
 }
 
-int getWidth() {
+int Bitmap::getWidth() {
     return width;
 }
 
-int getHeight() {
+int Bitmap::getHeight() {
     return height;
 }
 
-Color getPixel(int x, int y) {
+Color Bitmap::getPixel(int x, int y) {
     return Color::parse(pixel[y * width + x]);
 }
 
-void setPixel(int x, int y, Color color) {
+void Bitmap::setPixel(int x, int y, Color color) {
     pixel[y * width + x] = color.toInt();
 }
 
-bool saveImage(const char * filename) {
+bool Bitmap::saveImage(const char * filename) {
     BitmapHeader head;
     head.fileSize = sizeof(BitmapHeader) + 2 + width * height * sizeof(int);
     head.reserved = 0;
