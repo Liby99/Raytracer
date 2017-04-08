@@ -33,7 +33,7 @@ bool Cube::updateIntersect(Ray & ray, Intersection & intersection) {
         return false;
     }
     
-    if (!intersection.hit() || t < intersection.getT()) {
+    if (intersection.needUpdate(t)) {
         
         vec3 normals [] = { vec3(1, 0, 0), vec3(0, 1, 0), vec3(0, 0, 1) };
         

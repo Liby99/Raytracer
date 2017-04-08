@@ -9,13 +9,13 @@ const float Camera::DEFAULT_FOVY = 90;
 
 Camera::Camera() {
     lookAt(DEFAULT_POSITION, DEFAULT_FOCAL_POINT, DEFAULT_UP);
-    setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    setResolution(DEFAULT_WIDTH, DEFAULT_HEIGHT);
     setFovy(DEFAULT_FOVY);
 }
 
 Camera::Camera(vec3 position, vec3 focalPoint, vec3 up) {
     lookAt(position, focalPoint, up);
-    setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    setResolution(DEFAULT_WIDTH, DEFAULT_HEIGHT);
     setFovy(DEFAULT_FOVY);
 }
 
@@ -49,7 +49,7 @@ vec3 Camera::getUp() {
     return up;
 }
 
-void Camera::setSize(int width, int height) {
+void Camera::setResolution(int width, int height) {
     setWidth(width);
     setHeight(height);
 }

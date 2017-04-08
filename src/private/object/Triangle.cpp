@@ -48,7 +48,7 @@ bool Triangle::updateIntersect(Ray & ray, Intersection & intersection) {
         lambda.x >= 0 && lambda.x <= 1 &&
         lambda.y >= 0 && lambda.y <= 1 &&
         lambda.z >= 0 && lambda.z <= 1 &&
-        (!intersection.hit() || t < intersection.getT())) {
+        intersection.needUpdate(t)) {
             
         // Then update the input intersection
         intersection.setHit(true);

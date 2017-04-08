@@ -7,6 +7,10 @@ const float Color::DEFAULT_R = 0;
 const float Color::DEFAULT_G = 0;
 const float Color::DEFAULT_B = 0;
 
+float bound(float f) {
+    return (f <= 0) ? 0 : (f >= 1) ? 1 : f;
+}
+
 Color::Color() {
     setR(DEFAULT_R);
     setG(DEFAULT_G);
@@ -60,46 +64,46 @@ int Color::toInt() {
 }
 
 Color Color::operator+(Color c) {
-    return Color(fmin(1.0f, r + c.r), fmin(1.0f, g + c.g), fmin(1.0f, b + c.b));
+    return Color(bound(r + c.r), bound(g + c.g), bound(b + c.b));
 }
 
 Color & Color::operator+=(Color c) {
-    r += c.r;
-    g += c.g;
-    b += c.b;
+    r = bound(r + c.r);
+    g = bound(g + c.g);
+    b = bound(b + c.b);
     return *this;
 }
 
 Color Color::operator-(Color c) {
-    return Color(fmax(0.0f, r - c.r), fmax(0.0f, g - c.g), fmax(0.0f, b - c.b));
+    return Color(bound(r - c.r), bound(g - c.g), bound(b - c.b));
 }
 
 Color & Color::operator-=(Color c) {
-    r -= c.r;
-    g -= c.g;
-    b -= c.b;
+    r = bound(r - c.r);
+    g = bound(g - c.g);
+    b = bound(b - c.b);
     return *this;
 }
 
 Color Color::operator*(Color c) {
-    return Color(r * c.r, g * c.g, b * c.b);
+    return Color(bound(r * c.r), bound(g * c.g), bound(b * c.b));
 }
 
 Color & Color::operator*=(Color c) {
-    r *= c.r;
-    g *= c.g;
-    b *= c.b;
+    r = bound(r * c.r);
+    g = bound(g * c.g);
+    b = bound(b * c.b);
     return *this;
 }
 
 Color Color::operator*(float scale) {
-    return Color(r * scale, g * scale, b * scale);
+    return Color(bound(r * scale), bound(g * scale), bound(b * scale));
 }
 
 Color & Color::operator*=(float scale) {
-    r *= scale;
-    g *= scale;
-    b *= scale;
+    r = bound(r * scale);
+    g = bound(g * scale);
+    b = bound(b * scale);
     return *this;
 }
 

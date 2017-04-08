@@ -39,6 +39,7 @@ public:
     void setNormal(vec3 normal);
     
     float getDistanceToOrigin();
+    bool needUpdate(float t);
     
     void transform(mat4 transform);
 };

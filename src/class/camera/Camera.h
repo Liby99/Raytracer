@@ -43,7 +43,7 @@ public:
     vec3 getFocalPoint();
     vec3 getUp();
     
-    void setSize(int width, int height);
+    void setResolution(int width, int height);
     void setWidth(int width);
     void setHeight(int height);
     void setFovy(float fovy);
