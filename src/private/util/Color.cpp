@@ -2,7 +2,7 @@
 
 using namespace std;
 
-const float Color::MAX = 256.0f;
+const float Color::MAX = 255.0f;
 const float Color::DEFAULT_R = 0;
 const float Color::DEFAULT_G = 0;
 const float Color::DEFAULT_B = 0;
@@ -32,15 +32,15 @@ float Color::getB() {
 }
 
 int Color::getIntR() {
-    return int(r * MAX);
+    return int(r * MAX) & 0xff;
 }
 
 int Color::getIntG() {
-    return int(g * MAX);
+    return int(g * MAX) & 0xff;
 }
 
 int Color::getIntB() {
-    return int(b * MAX);
+    return int(b * MAX) & 0xff;
 }
 
 void Color::setR(float r) {
@@ -103,11 +103,15 @@ Color & Color::operator*=(float scale) {
     return *this;
 }
 
+Color::operator string() {
+    return "rgb(" + to_string(getIntR()) + ", " +
+                    to_string(getIntG()) + ", " +
+                    to_string(getIntB()) + ")";
+}
+
 Color Color::parse(int c) {
-    int digit = (sizeof(int) - 1) * 8;
-    int mask = ((unsigned int) -1) << digit >> digit;
-    int r = (float) ((c >> 16) & mask) / MAX;
-    int g = (float) ((c >> 8) & mask) / MAX;
-    int b = (float) (c & mask) / MAX;
+    int r = (float) ((c >> 16) & 0xff) / MAX;
+    int g = (float) ((c >> 8) & 0xff) / MAX;
+    int b = (float) (c & 0xff) / MAX;
     return Color(r, g, b);
 }

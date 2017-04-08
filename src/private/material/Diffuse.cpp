@@ -1,6 +1,8 @@
 #include "material/Diffuse.h"
 #include "scene/Scene.h"
 
+#include <iostream>
+
 Diffuse::Diffuse(Color diffuse) : Material() {
     setDiffuse(diffuse);
 }

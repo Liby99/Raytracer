@@ -68,9 +68,9 @@ void Ray::increment() {
 
 Ray Ray::transform(mat4 transf) {
     vec4 o = transf * vec4(origin, 1);
-    vec3 origin = vec3(o) / o.w;
-    vec3 direction = vec3(transf * vec4(direction, 0));
-    return Ray(origin, direction);
+    vec3 no = vec3(o) / o.w;
+    vec3 nd = vec3(transf * vec4(direction, 0));
+    return Ray(no, nd);
 }
 
 Ray Ray::inverseTransform(mat4 transf) {

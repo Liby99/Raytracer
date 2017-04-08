@@ -75,7 +75,7 @@ Bitmap Camera::render(Scene & scene) {
     ray.setOrigin(position);
     
     // Setup camera variables
-    vec3 w = normalize(position - focalPoint);
+    vec3 w = normalize(focalPoint - position);
     vec3 u = normalize(cross(w, up));
     vec3 v = cross(w, u);
     
@@ -86,19 +86,14 @@ Bitmap Camera::render(Scene & scene) {
     float halfHeight = height / 2.0f;
     
     // Iterate through all the rays
-    for (int j = 0; j < height; j++) {
-        for (int i = 0; i < width; i++) {
-            
-            // First get the ni and nj
-            float ni = i + 0.5;
-            float nj = j + 0.5;
+    for (int i = 0; i < width; i++) {
+        for (int j = 0; j < height; j++) {
             
             // Then calculate alpha and beta then direction of ray
-            float alpha = alphaMult * (ni - halfWidth) / halfWidth;
-            float beta = betaMult * (nj - halfHeight) / halfHeight;
-            vec3 dir = normalize(alpha * u + beta * v - w);
+            float alpha = alphaMult * (halfWidth - i + 0.5f) / halfWidth;
+            float beta = betaMult * (j - halfHeight + 0.5f) / halfHeight;
+            vec3 dir = normalize(alpha * u + beta * v + w);
             
-            // Set the ray direction
             ray.setDirection(dir);
             
             // Set the related pixel color

@@ -1,5 +1,7 @@
 #include "object/Triangle.h"
 
+#include <iostream>
+
 vec3 Triangle::getBaryCentric(vec3 position) {
     vec3 result = vec3(0, 0, 0);
     vec3 p1 = v1->getPosition();
@@ -32,10 +34,10 @@ bool Triangle::intersect(Ray & ray, Intersection & intersection) {
     vec3 p1 = v1->getPosition();
     vec3 p2 = v2->getPosition();
     vec3 p3 = v3->getPosition();
-
+    
     // Same the variables
     vec3 normal = -cross(p2 - p1, p3 - p1);
-
+    
     // If three points are in a straight line, then intersection not exist
     if (normal.x == 0 && normal.y == 0 && normal.z == 0) {
         return false;
@@ -44,11 +46,11 @@ bool Triangle::intersect(Ray & ray, Intersection & intersection) {
     
     // Calculate t
     float t = (dot(p1, normal) - dot(transfRay.getOrigin(), normal)) / dot(transfRay.getDirection(), normal);
-
+    
     // Pre cache the position of the intersection
     vec3 position = transfRay.getOrigin() + t * transfRay.getDirection();
     vec3 lambda = getBaryCentric(position);
-
+    
     // Check if t is greater then 0 and the position is inside the triangle
     if (t > 0 &&
         lambda.x >= 0 && lambda.x <= 1 &&
@@ -63,7 +65,7 @@ bool Triangle::intersect(Ray & ray, Intersection & intersection) {
             intersection.setHit(true);
             intersection.setT(t);
             intersection.setPosition(position);
-            intersection.setNormal(-normal);
+            intersection.setNormal(normal);
             intersection.transform(getTransformMatrix());
         }
         

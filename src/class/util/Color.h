@@ -2,6 +2,9 @@
 #define COLOR_H
 
 #include "util/Transform.h"
+#include <string>
+
+using namespace std;
 
 class Color {
 private:
@@ -48,6 +51,7 @@ public:
     Color & operator*=(Color c);
     Color operator*(float scale);
     Color & operator*=(float scale);
+    operator string();
     
     static Color parse(int c);
 };

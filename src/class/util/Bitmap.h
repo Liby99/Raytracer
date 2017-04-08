@@ -3,9 +3,12 @@
 
 #define __STDC_WANT_LIB_EXT1__ 1
 
-#include <stdio.h>
+#include <iostream>
+#include <string>
 
 #include "util/Color.h"
+
+using namespace std;
 
 class Bitmap {
 private:
