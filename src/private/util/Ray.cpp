@@ -57,12 +57,15 @@ void Ray::setInside(bool inside) {
     this->inside = inside;
 }
 
-Ray Ray:;inverseTransform(mat4 transf) {
-    mat4 inv = inverse(transf);
-    vec4 o = inv * vec4(origin, 1);
+Ray Ray::transform(mat4 transf) {
+    vec4 o = transf * vec4(origin, 1);
     vec3 origin = vec3(o) / o.w;
-    vec3 direction = vec3(inverseTransf * vec4(direction, 0));
+    vec3 direction = vec3(transf * vec4(direction, 0));
     return Ray(origin, direction);
+}
+
+Ray Ray::inverseTransform(mat4 transf) {
+    return transform(inverse(transf));
 }
 
 int Ray::getMaxDepth() {

@@ -33,6 +33,7 @@ public:
     void setInside();
     
     // Transform
+    Ray transform(mat4 transf);
     Ray inverseTransform(mat4 transf);
     
     // Static getter and setter
