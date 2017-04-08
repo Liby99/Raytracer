@@ -9,7 +9,7 @@ Object & Intersection::getObject() {
     return *object;
 }
 
-void Intersection:;setObject(Object & object) {
+void Intersection::setObject(Object & object) {
     this->object = &object;
 }
 
@@ -53,7 +53,12 @@ void Intersection::setNormal(vec3 normal) {
     this->normal = normal;
 }
 
-void Intersection::applyTransformation(mat4 transform) {
+float Intersection::getDistanceToOrigin() {
+    vec3 diff = position - ray->getOrigin();
+    return sqrt(dot(diff, diff));
+}
+
+void Intersection::transform(mat4 transform) {
     vec4 nPos = transform * vec4(position, 1);
     vec4 nNorm = transpose(inverse(transform)) * vec4(normal, 0);
     setPosition(vec3(nPos) / nPos.w);

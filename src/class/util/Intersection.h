@@ -3,6 +3,7 @@
 
 #include "util/Transform.h"
 #include "util/Ray.h"
+#include "object/Object.h"
 
 class Intersection {
 private:
@@ -36,7 +37,9 @@ public:
     vec3 getNormal();
     void setNormal(vec3 normal);
     
-    void applyTransformation(mat4 transform);
+    float getDistanceToOrigin();
+    
+    void transform(mat4 transform);
 };
 
 #endif
