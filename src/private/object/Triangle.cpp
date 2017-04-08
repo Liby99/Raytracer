@@ -43,21 +43,18 @@ bool Triangle::updateIntersect(Ray & ray, Intersection & intersection) {
     vec3 position = ray.getOrigin() + t * ray.getDirection();
     vec3 lambda = getBaryCentric(position);
     
-    // Check if t is greater then 0 and the position is inside the triangle
+    // Check if t is greater then 0 and the position is inside the triangle and need update
     if (t > 0 &&
         lambda.x >= 0 && lambda.x <= 1 &&
         lambda.y >= 0 && lambda.y <= 1 &&
-        lambda.z >= 0 && lambda.z <= 1) {
-        
-        // If the passed in intersection has not hit yet or it's further
-        if (!intersection.hit() || t < intersection.getT()) {
+        lambda.z >= 0 && lambda.z <= 1 &&
+        (!intersection.hit() || t < intersection.getT())) {
             
-            // Then update the input intersection
-            intersection.setHit(true);
-            intersection.setT(t);
-            intersection.setPosition(position);
-            intersection.setNormal(normal);
-        }
+        // Then update the input intersection
+        intersection.setHit(true);
+        intersection.setT(t);
+        intersection.setPosition(position);
+        intersection.setNormal(normal);
         
         // Since intersect, return true
         return true;

@@ -39,10 +39,12 @@ void MeshObject::clearVertices() {
     for (int i = 0; i < vertices.size(); i++) {
         delete vertices[i];
     }
+    vertices = vector<Vertex *>();
 }
 
 void MeshObject::clearTriangles() {
     for (int i = 0; i < triangles.size(); i++) {
         delete triangles[i];
     }
+    triangles = vector<Triangle *>();
 }
