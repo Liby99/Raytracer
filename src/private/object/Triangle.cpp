@@ -61,10 +61,10 @@ bool Triangle::intersect(Ray & ray, Intersection & intersection) {
         if (!intersection.hit() || t < intersection.getT()) {
             
             // Then update the input intersection
-            intersection.setObject(&this);
+            intersection.setObject(*this);
             intersection.setHit(true);
             intersection.setT(t);
-            intersection.setIntersect(position);
+            intersection.setPosition(position);
             intersection.setNormal(-normal);
             intersection.applyTransformation(transform);
         }
