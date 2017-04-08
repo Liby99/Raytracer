@@ -2,6 +2,8 @@
 #define MESH_OBJECT_H
 
 #include "object/Object.h"
+#include "object/Triangle.h"
+#include "util/Vertex.h"
 
 class MeshObject : public Object {
 private:

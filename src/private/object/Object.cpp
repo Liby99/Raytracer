@@ -1,13 +1,15 @@
-Object::DEFAULT_POSITION = vec3(0, 0, 0);
-Object::DEFAULT_SCALER = vec3(1, 1, 1);
-Object::DEFAULT_ROTATION = vec3(0, 0, 0);
+#include "object/Object.h"
+
+const vec3 Object::DEFAULT_POSITION = vec3(0, 0, 0);
+const vec3 Object::DEFAULT_SCALER = vec3(1, 1, 1);
+const vec3 Object::DEFAULT_ROTATION = vec3(0, 0, 0);
 
 mat4 Object::getTransformMatrix() {
     mat4 scale = Transform::scale(scaler.x, scaler.y, scaler.z);
     mat4 translate = Transform::translate(position.x, position.y, position.z);
-    mat4 rotationX = Transform::rotate(vec3(1, 0, 0), rotation.x);
-    mat4 rotationY = Transform::rotate(vec3(1, 0, 0), rotation.x);
-    mat4 rotationZ = Transform::rotate(vec3(1, 0, 0), rotation.x);
+    mat4 rotationX = Transform::rotate(rotation.x, vec3(1, 0, 0));
+    mat4 rotationY = Transform::rotate(rotation.y, vec3(0, 1, 0));
+    mat4 rotationZ = Transform::rotate(rotation.z, vec3(0, 0, 1));
     return translate * rotationZ * rotationY * rotationX * scale;
 }
 
@@ -70,13 +72,13 @@ void Object::scaleX(float scaleX) {
 }
 
 void Object::scaleY(float scaleY) {
-    scale.y *= scaleY;
+    scaler.y *= scaleY;
 }
 
 void Object::scaleZ(float scaleZ) {
-    scale.z *= scaleZ;
+    scaler.z *= scaleZ;
 }
 
-void Object::intersect(Ray & ray) {
-    return Intersection(ray, &this);
+bool Object::intersect(Ray & ray, Intersection & intersection) {
+    return false;
 }

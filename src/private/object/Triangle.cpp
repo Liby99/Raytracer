@@ -1,4 +1,5 @@
 #include "object/Triangle.h"
+#include "util/Intersection.h"
 
 vec3 Triangle::getBaryCentric(vec3 position) {
     vec3 result = vec3(0, 0, 0);
@@ -26,16 +27,14 @@ Triangle::Triangle(Vertex * v1, Vertex * v2, Vertex * v3) {
 
 bool Triangle::intersect(Ray & ray, Intersection & intersection) {
     
+    Ray transfRay = ray.inverseTransform(getTransformMatrix());
+    
     // Pre cache the positions
     vec3 p1 = v1->getPosition();
     vec3 p2 = v2->getPosition();
     vec3 p3 = v3->getPosition();
-    mat4 inverseTransf = inverse(transform);
 
     // Same the variables
-    vec4 o = inverseTransf * vec4(ray.getOrigin(), 1);
-    vec3 origin = vec3(o) / o.w;
-    vec3 direction = vec3(inverseTransf * vec4(ray.getDirection(), 0));
     vec3 normal = -cross(p2 - p1, p3 - p1);
 
     // If three points are in a straight line, then intersection not exist
@@ -45,10 +44,10 @@ bool Triangle::intersect(Ray & ray, Intersection & intersection) {
     normal = normalize(normal);
     
     // Calculate t
-    float t = (dot(p1, normal) - dot(origin, normal)) / dot(direction, normal);
+    float t = (dot(p1, normal) - dot(transfRay.getOrigin(), normal)) / dot(transfRay.getDirection(), normal);
 
     // Pre cache the position of the intersection
-    vec3 position = origin + t * direction;
+    vec3 position = transfRay.getOrigin() + t * transfRay.getDirection();
     vec3 lambda = getBaryCentric(position);
 
     // Check if t is greater then 0 and the position is inside the triangle
@@ -66,7 +65,7 @@ bool Triangle::intersect(Ray & ray, Intersection & intersection) {
             intersection.setT(t);
             intersection.setPosition(position);
             intersection.setNormal(-normal);
-            intersection.applyTransformation(transform);
+            intersection.transform(getTransformMatrix());
         }
         
         // Since intersect, return true

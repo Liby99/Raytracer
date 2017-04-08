@@ -32,7 +32,9 @@ MeshCube::MeshCube(float width, float height, float length) : Object() {
     mesh.addTriangle(1, 3, 7);
 }
 
-bool intersect(Ray & ray, Intersection & intersection) {
-    Ray transfRay = ray.inverseTransf();
-    return mesh.intersect(transfRay, intersection);
+bool MeshCube::intersect(Ray & ray, Intersection & intersection) {
+    Ray transfRay = ray.inverseTransform(getTransformMatrix());
+    bool result = mesh.intersect(transfRay, intersection);
+    intersection.transform(getTransformMatrix());
+    return result;
 }

@@ -2,7 +2,12 @@
 #define OBJECT_H
 
 #include "util/Transform.h"
+#include "util/Ray.h"
 #include "material/Material.h"
+
+#include <vector>
+
+class Intersection;
 
 class Object {
 protected:

@@ -33,11 +33,14 @@ void MeshObject::addTriangle(int i1, int i2, int i3) {
     triangles.push_back(new Triangle(vertices[i1], vertices[i2], vertices[i3]));
 }
 
-bool intersect(Ray & ray, Intersection & intersection) {
-    Ray transfRay = ray.inverseTransf(getTransformMatrix());
-    bool result;
+bool MeshObject::intersect(Ray & ray, Intersection & intersection) {
+    Ray transfRay = ray.inverseTransform(getTransformMatrix());
+    bool hit = false;
     for (int i = 0; i < triangles.size(); i++) {
-        result = triangles[i]->intersect(transfRay, intersection);
+        if (triangles[i]->intersect(transfRay, intersection)) {
+            hit = true;
+        }
     }
-    return result;
+    intersection.transform(getTransformMatrix);
+    return hit;
 }
