@@ -1,11 +1,18 @@
+#ifndef RAY_H
+#define RAY_H
+
+#include "util/Transform.h"
+
 class Ray {
 private:
+    
+    static int maxDepth;
     
     //
     vec3 origin;
     vec3 direction;
     int depth;
-    bool insideFlag;
+    bool inside;
     
 public:
     
@@ -13,20 +20,24 @@ public:
     Ray();
     Ray(vec3 origin, vec3 direction);
     Ray(vec3 origin, vec3 direction, int depth);
+    Ray(vec3 origin, vec3 direction, int depth, bool inside);
     
     // Setter
-    void setOrigin(vec3 origin);
-    void setDirection(vec3 direction);
-    
-    // Getter
     vec3 getOrigin();
+    void setOrigin(vec3 origin);
     vec3 getDirection();
-    
-    // Inside or Outside Getter Setter
+    void setDirection(vec3 direction);
+    int getDepth();
+    void setDepth(int depth);
+    bool isInside();
     void setInside();
-    void setOutside();
-    bool inside();
     
     // Transform
     Ray inverseTransform(mat4 transf);
-}
+    
+    // Static getter and setter
+    static int getMaxDepth();
+    static void setMaxDepth(int maxDepth);
+};
+
+#endif
