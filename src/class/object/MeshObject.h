@@ -11,10 +11,10 @@ private:
     // Vertex and Triangle Array
     vector<Vertex *> vertices;
     vector<Triangle *> triangles;
+protected:
     
-    // Destructor helper methods
-    void clearVertices();
-    void clearTriangles();
+    // Intersect
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
 public:
     
     // Constructor and Destructor
@@ -26,8 +26,10 @@ public:
     void addVertex(vec3 position, vec3 normal);
     void addTriangle(int i1, int i2, int i3);
     
-    // Intersect
-    virtual bool intersect(Ray & ray, Intersection & intersection);
+    // Destructor helper methods
+    void clear();
+    void clearVertices();
+    void clearTriangles();
 };
 
 #endif

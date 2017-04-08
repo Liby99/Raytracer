@@ -1,6 +1,10 @@
 #include "object/MeshCube.h"
 
-MeshCube::MeshCube(float width, float height, float length) : Object() {
+void MeshCube::clear() {
+    mesh.clear();
+}
+
+void MeshCube::construct() {
     
     // First calculate half
     float halfWidth = width / 2;
@@ -32,10 +36,49 @@ MeshCube::MeshCube(float width, float height, float length) : Object() {
     mesh.addTriangle(1, 3, 7);
 }
 
-bool MeshCube::intersect(Ray & ray, Intersection & intersection) {
-    Ray transfRay = ray.inverseTransform(getTransformMatrix());
-    bool result = mesh.intersect(transfRay, intersection);
-    intersection.transform(getTransformMatrix());
-    intersection.setObject(*this);
-    return result;
+void MeshCube::reconstruct() {
+    clearCube();
+    constructCube();
+}
+
+bool MeshCube::updateIntersect(Ray & ray, Intersection & intersection) {
+    if (mesh.intersect(transfRay, intersection)) {
+        intersection.setObject(*this);
+        return true;
+    }
+    return false;
+}
+
+MeshCube::MeshCube(float width, float height, float length) : Object() {
+    setWidth(width);
+    setHeight(height);
+    setLength(length);
+    constructCube();
+}
+
+float MeshCube::getWidth() {
+    return width;
+}
+
+void MeshCube::setWidth(float width) {
+    this->width = width;
+    reconstruct();
+}
+
+float MeshCube::getHeight() {
+    return height;
+}
+
+void MeshCube::setHeight(float height) {
+    this->height = height;
+    reconstruct();
+}
+
+float MeshCube::getLength() {
+    return length;
+}
+
+void MeshCube::setLength(float length) {
+    this->length = length;
+    reconstruct();
 }

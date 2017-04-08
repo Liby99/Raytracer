@@ -15,13 +15,14 @@ private:
     
     // Helper methods
     vec3 getBaryCentric(vec3 position);
+protected:
+    
+    // Intersection with ray
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
 public:
     
     // Constructor
     Triangle(Vertex * v1, Vertex * v2, Vertex * v3);
-    
-    // Intersection with ray
-    virtual bool intersect(Ray & ray, Intersection & intersection);
 };
 
 #endif

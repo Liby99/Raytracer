@@ -14,6 +14,12 @@ private:
     // Corner getter
     vec3 getMaxCorner();
     vec3 getMinCorner();
+    
+protected:
+    
+    // Intersection
+    bool updateIntersect(Ray & ray, Intersection & intersection);
+    
 public:
     
     // Constructor with the size of the cube
@@ -27,9 +33,6 @@ public:
     void setHeight(float height);
     float getLength();
     void setLength(float length);
-    
-    // Intersection
-    bool intersect(Ray & ray, Intersection & intersection);
 };
 
 #endif

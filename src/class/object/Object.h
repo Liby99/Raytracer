@@ -23,6 +23,8 @@ protected:
     vec3 scaler;
     vec3 rotation;
     
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    
 public:
     
     // Constructor
@@ -58,7 +60,7 @@ public:
     mat4 getTransformMatrix();
     
     // Virtaul intersect method
-    virtual bool intersect(Ray & ray, Intersection & intersection);
+    bool intersect(Ray & ray, Intersection & intersection);
 };
 
 #endif

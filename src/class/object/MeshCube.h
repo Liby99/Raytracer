@@ -6,9 +6,19 @@
 class MeshCube : public Object {
 private:
     MeshObject mesh;
+    void clear();
+    void construct();
+    void reconstruct();
+protected:
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
 public:
     MeshCube(float width, float height, float length);
-    virtual bool intersect(Ray & ray, Intersection & intersection);
+    float getWidth();
+    void setWidth(float width);
+    float getHeight();
+    void setHeight(float height);
+    float getLength();
+    void setLength(float length);
 };
 
 #endif

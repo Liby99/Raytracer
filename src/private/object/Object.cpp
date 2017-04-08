@@ -4,6 +4,10 @@ const vec3 Object::DEFAULT_POSITION = vec3(0, 0, 0);
 const vec3 Object::DEFAULT_SCALER = vec3(1, 1, 1);
 const vec3 Object::DEFAULT_ROTATION = vec3(0, 0, 0);
 
+bool updateIntersect(Ray & ray, Intersection & intersection) {
+    return false;
+}
+
 Object::Object() {
     setRotate(DEFAULT_ROTATION);
     setTranslate(DEFAULT_POSITION);
@@ -92,5 +96,11 @@ mat4 Object::getTransformMatrix() {
 }
 
 bool Object::intersect(Ray & ray, Intersection & intersection) {
-    return false;
+    Ray transfRay = ray.inverseTransform(getTransformMatrix());
+    if (intersectWrapper(transfRay, intersection)) {
+        intersection.transform(getTransformMatrix());
+    }
+    else {
+        return false;
+    }
 }

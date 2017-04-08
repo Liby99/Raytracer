@@ -20,15 +20,7 @@ vec3 Triangle::getBaryCentric(vec3 position) {
     return result;
 }
 
-Triangle::Triangle(Vertex * v1, Vertex * v2, Vertex * v3) {
-    this->v1 = v1;
-    this->v2 = v2;
-    this->v3 = v3;
-}
-
-bool Triangle::intersect(Ray & ray, Intersection & intersection) {
-    
-    Ray transfRay = ray.inverseTransform(getTransformMatrix());
+bool Triangle::updateIntersect(Ray & ray, Intersection & intersection) {
     
     // Pre cache the positions
     vec3 p1 = v1->getPosition();
@@ -45,10 +37,10 @@ bool Triangle::intersect(Ray & ray, Intersection & intersection) {
     normal = normalize(normal);
     
     // Calculate t
-    float t = (dot(p1, normal) - dot(transfRay.getOrigin(), normal)) / dot(transfRay.getDirection(), normal);
+    float t = (dot(p1, normal) - dot(ray.getOrigin(), normal)) / dot(ray.getDirection(), normal);
     
     // Pre cache the position of the intersection
-    vec3 position = transfRay.getOrigin() + t * transfRay.getDirection();
+    vec3 position = ray.getOrigin() + t * ray.getDirection();
     vec3 lambda = getBaryCentric(position);
     
     // Check if t is greater then 0 and the position is inside the triangle
@@ -66,7 +58,6 @@ bool Triangle::intersect(Ray & ray, Intersection & intersection) {
             intersection.setT(t);
             intersection.setPosition(position);
             intersection.setNormal(normal);
-            intersection.transform(getTransformMatrix());
         }
         
         // Since intersect, return true
@@ -75,4 +66,10 @@ bool Triangle::intersect(Ray & ray, Intersection & intersection) {
     
     // Not intersected
     return false;
+}
+
+Triangle::Triangle(Vertex * v1, Vertex * v2, Vertex * v3) : Object() {
+    this->v1 = v1;
+    this->v2 = v2;
+    this->v3 = v3;
 }
