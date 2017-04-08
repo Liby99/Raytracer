@@ -36,7 +36,7 @@ bool Triangle::intersect(Ray & ray, Intersection & intersection) {
     vec3 p3 = v3->getPosition();
     
     // Same the variables
-    vec3 normal = -cross(p2 - p1, p3 - p1);
+    vec3 normal = cross(p2 - p1, p3 - p1);
     
     // If three points are in a straight line, then intersection not exist
     if (normal.x == 0 && normal.y == 0 && normal.z == 0) {
