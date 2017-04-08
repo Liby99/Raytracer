@@ -102,7 +102,7 @@ Bitmap render(const Scene & scene) {
             ray.setDirection(dir);
             
             // Set the related pixel color
-            bitmap.setPixel(i, j, Scene.getRayColor(ray).toInt());
+            bitmap.setPixel(i, j, scene.getRayColor(ray).toInt());
         }
     }
     
