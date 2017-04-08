@@ -14,6 +14,6 @@ float Material::getOpacity() {
     return opacity;
 }
 
-Color shade(Scene & scene, Intersection & intersection) {
+Color Material::shade(Scene & scene, Intersection & intersection) {
     return Color();
 }

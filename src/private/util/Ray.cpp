@@ -3,6 +3,8 @@
 
 const float Ray::INCREMENT = 0.0001;
 
+int Ray::maxDepth = 5;
+
 Ray::Ray() {
     
 }

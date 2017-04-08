@@ -3,7 +3,8 @@
 
 #include "util/Transform.h"
 #include "util/Ray.h"
-#include "object/Object.h"
+
+class Object;
 
 class Intersection {
 private:

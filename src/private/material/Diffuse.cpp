@@ -21,5 +21,5 @@ Color Diffuse::shade(Scene & scene, Intersection & intersection) {
         Color lambert = diffuse * max(dot(intersection.getNormal(), light.getToLightDirection(intersection)), 0.0f);
         color += lc * lambert;
     }
-    return color;
+    return color * opacity;
 }

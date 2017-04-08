@@ -1,5 +1,4 @@
 #include "object/Triangle.h"
-#include "util/Intersection.h"
 
 vec3 Triangle::getBaryCentric(vec3 position) {
     vec3 result = vec3(0, 0, 0);

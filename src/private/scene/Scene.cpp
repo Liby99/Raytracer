@@ -8,7 +8,7 @@ Color Scene::getBackgroundColor() {
     return background;
 }
 
-void Scene::setBackgroundColor(Color & color) {
+void Scene::setBackgroundColor(Color color) {
     this->background = color;
 }
 

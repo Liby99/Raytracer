@@ -3,11 +3,10 @@
 
 #include "util/Transform.h"
 #include "util/Ray.h"
+#include "util/Intersection.h"
 #include "material/Material.h"
 
 #include <vector>
-
-class Intersection;
 
 class Object {
 protected:

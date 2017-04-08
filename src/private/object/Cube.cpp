@@ -1,6 +1,4 @@
-vec3 Cube::NORMALS[] = {
-    vec3(1, 0, 0), vec3(0, 1, 0), vec3(0, 0, 1)
-}
+#include "object/Cube.h"
 
 Cube::Cube() {
     setWidth(1);
@@ -84,12 +82,15 @@ bool Cube::intersect(Ray & ray, Intersection & intersection) {
     
     if (!intersection.hit() || t < intersection.getT()) {
         
+        vec3 normals [] = { vec3(1, 0, 0), vec3(0, 1, 0), vec3(0, 0, 1) };
+        
+        // Calculate the normal
         vec3 position = ray.getOrigin() + t * ray.getDirection();
         float xy = position.y / position.x;
         float zy = position.y / position.z;
         int index = (xy >= -1 && xy <= 1) ? 1 : (zy >= -1 && zy <= 1) ? 2 : 0;
-        int sign = position[index] > 0 ? 1 : -1;
-        vec3 normal = NORMALS[index] * sign;
+        float sign = position[index] > 0 ? 1.0f : -1.0f;
+        vec3 normal = normals[index] * sign;
         
         intersection.setObject(*this);
         intersection.setHit(true);

@@ -1,4 +1,5 @@
 #include "util/Intersection.h"
+#include "object/Object.h"
 
 Intersection::Intersection(Ray & ray) {
     setRay(ray);

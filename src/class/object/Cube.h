@@ -6,8 +6,6 @@
 class Cube : public Object {
 private:
     
-    static const vec3 NORMALS[3];
-    
     // Private parameters
     float width;
     float length;
@@ -24,11 +22,11 @@ public:
     
     // Basic getter and setter
     float getWidth();
-    void setWidth();
+    void setWidth(float width);
     float getHeight();
-    void setHeight();
+    void setHeight(float height);
     float getLength();
-    void setLength();
+    void setLength(float length);
     
     // Intersection
     bool intersect(Ray & ray, Intersection & intersection);

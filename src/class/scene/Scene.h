@@ -22,7 +22,7 @@ public:
     Scene();
     
     Color getBackgroundColor();
-    void setBackgroundColor(Color & color);
+    void setBackgroundColor(Color color);
     
     //
     unsigned int lightAmount();

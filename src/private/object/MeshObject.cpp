@@ -41,6 +41,6 @@ bool MeshObject::intersect(Ray & ray, Intersection & intersection) {
             hit = true;
         }
     }
-    intersection.transform(getTransformMatrix);
+    intersection.transform(getTransformMatrix());
     return hit;
 }
