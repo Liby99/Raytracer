@@ -37,23 +37,19 @@ void MeshCube::construct() {
 }
 
 void MeshCube::reconstruct() {
-    clearCube();
-    constructCube();
+    clear();
+    construct();
 }
 
 bool MeshCube::updateIntersect(Ray & ray, Intersection & intersection) {
-    if (mesh.intersect(transfRay, intersection)) {
-        intersection.setObject(*this);
-        return true;
-    }
-    return false;
+    return mesh.intersect(ray, intersection);
 }
 
 MeshCube::MeshCube(float width, float height, float length) : Object() {
     setWidth(width);
     setHeight(height);
     setLength(length);
-    constructCube();
+    construct();
 }
 
 float MeshCube::getWidth() {

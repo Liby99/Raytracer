@@ -46,7 +46,6 @@ bool Cube::updateIntersect(Ray & ray, Intersection & intersection) {
         float sign = position[index] > 0 ? 1.0f : -1.0f;
         vec3 normal = normals[index] * sign;
         
-        intersection.setObject(*this);
         intersection.setHit(true);
         intersection.setT(t);
         intersection.setPosition(position);

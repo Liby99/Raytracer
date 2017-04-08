@@ -1,11 +1,7 @@
-#include "object/Object.h"
+#include "object/InstanceObject.h"
 
 bool InstanceObject::updateIntersect(Ray & ray, Intersection & intersection) {
-    if (object.intersect(ray, intersection)) {
-        intersection.setObject(*this);
-        return true;
-    }
-    return false;
+    return object->intersect(ray, intersection);
 }
 
 InstanceObject::InstanceObject(Object & object) : Object() {

@@ -53,7 +53,6 @@ bool Triangle::updateIntersect(Ray & ray, Intersection & intersection) {
         if (!intersection.hit() || t < intersection.getT()) {
             
             // Then update the input intersection
-            intersection.setObject(*this);
             intersection.setHit(true);
             intersection.setT(t);
             intersection.setPosition(position);
