@@ -3,6 +3,8 @@
 
 #include "material/Material.h"
 
+using namespace std;
+
 class Ambient : public Material {
 private:
     Color ambient;
@@ -13,4 +15,4 @@ public:
     virtual Color shade(Scene & scene, Intersection & intersection);
 };
 
-#endif;
+#endif

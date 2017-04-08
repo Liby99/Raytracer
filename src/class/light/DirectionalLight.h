@@ -1,5 +1,9 @@
 #ifndef DIRECTIONAL_LIGHT_H
-#define DIRECTINOAL_LIGHT_H
+#define DIRECTIONAL_LIGHT_H
+
+#include "light/Light.h"
+
+using namespace std;
 
 class DirectionalLight : public Light {
 protected:
@@ -25,4 +29,4 @@ public:
     virtual vec3 getToLightDirection(Intersection & intersection);
 };
 
-#endif;
+#endif

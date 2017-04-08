@@ -3,6 +3,8 @@
 
 #include "material/Material.h"
 
+using namespace std;
+
 class Diffuse : public Material {
 private:
     Color diffuse;

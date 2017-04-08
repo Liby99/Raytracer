@@ -1,6 +1,8 @@
 #ifndef SPECULAR_H
 #define SPECULAR_H
 
+using namespace std;
+
 class Specular : public Material {
 private:
     Color specular;

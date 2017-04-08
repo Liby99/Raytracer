@@ -3,6 +3,11 @@
 
 #include "util/Color.h"
 
+using namespace std;
+
+class Scene;
+class Intersection;
+
 class Material {
 protected:
     const static float DEFAULT_OPACITY;

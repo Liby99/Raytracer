@@ -1,9 +1,10 @@
 #include "light/PointLight.h"
+#include "scene/Scene.h"
 
-PointLight::DEFAULT_FALL_OFF = vec3(0, 0, 1);
-PointLight::DEFAULT_POSITION = vec3(0, 0, 0);
+const vec3 PointLight::DEFAULT_FALL_OFF = vec3(0, 0, 1);
+const vec3 PointLight::DEFAULT_POSITION = vec3(0, 0, 0);
 
-float calcBrightness(float distance) {
+float PointLight::calcBrightness(float dist) {
     return intensity / (fallOff.x + fallOff.y * dist + fallOff.z * dist * dist);
 }
 
@@ -39,7 +40,7 @@ void PointLight::setFallOff(vec3 fallOff) {
     this->fallOff = fallOff;
 }
 
-float getBrightness(Scene & scene, Intersection & intersection) {
+float PointLight::getBrightness(Scene & scene, Intersection & intersection) {
     
     // Setup basic parameters
     vec3 diff = position - intersection.getPosition();
@@ -50,11 +51,10 @@ float getBrightness(Scene & scene, Intersection & intersection) {
         
         Ray ray = Ray(intersection.getPosition(), diff);
         ray.increment(); // Must do to avoid floating point
-        Intersection barrier = scene.getIntersection(ray);
-        bool hasShadow = barrier.hit() && barrier.getDistanceToOrigin() < dist;
+        Intersection barrier = Intersection(ray);
         
         // Check shadow
-        if (hasShadow) {
+        if (scene.getIntersection(ray, barrier) && barrier.getDistanceToOrigin() < dist) {
             return 0;
         }
     }
@@ -63,6 +63,6 @@ float getBrightness(Scene & scene, Intersection & intersection) {
     return calcBrightness(dist);
 }
 
-float getToLightDirection(Intersection & intersection) {
+vec3 PointLight::getToLightDirection(Intersection & intersection) {
     return normalize(position - intersection.getPosition());
 }

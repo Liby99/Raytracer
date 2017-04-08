@@ -1,6 +1,7 @@
 #include "light/DirectionalLight.h"
+#include "scene/Scene.h"
 
-DirectionalLight::DEFAULT_DIRECTION = vec3(-1, -1, -1);
+const vec3 DirectionalLight::DEFAULT_DIRECTION = vec3(-1, -1, -1);
 
 DirectionalLight::DirectionalLight() : Light() {
     setDirection(DEFAULT_DIRECTION);
@@ -22,17 +23,17 @@ void DirectionalLight::setDirection(vec3 direction) {
     this->direction = normalize(direction);
 }
 
-float getBrightness(Scene & scene, Intersection & intersection) {
+float DirectionalLight::getBrightness(Scene & scene, Intersection & intersection) {
     
     // Chcek cast shadow
     if (castShadow) {
         
         Ray ray = Ray(intersection.getPosition(), -direction);
         ray.increment(); // Must do to avoid floating point
-        Intersection barrier = scene.getIntersection(ray);
+        Intersection barrier = Intersection(ray);
         
         // Check shadow
-        if (barrier.hit()) {
+        if (scene.getIntersection(ray, barrier)) {
             return 0;
         }
     }
@@ -41,6 +42,6 @@ float getBrightness(Scene & scene, Intersection & intersection) {
     return intensity;
 }
 
-vec3 getToLightDirection(Intersection & intersection) {
+vec3 DirectionalLight::getToLightDirection(Intersection & intersection) {
     return -direction;
 }

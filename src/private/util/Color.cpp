@@ -1,13 +1,11 @@
 #include "util/Color.h"
 
-Color::MAX = 256.0f;
-Color::MASK = -1 << ((sizeof(int) - 1) * 8) >> ((sizeof(int) - 1) * 8);
-Color::DEFAULT_R = 0;
-Color::DEFAULT_G = 0;
-Color::DEFAULT_B = 0;
-Color::R_POSITION = 16;
-Color::G_POSITION = 8;
-Color::B_POSITION = 0;
+using namespace std;
+
+const float Color::MAX = 256.0f;
+const float Color::DEFAULT_R = 0;
+const float Color::DEFAULT_G = 0;
+const float Color::DEFAULT_B = 0;
 
 Color::Color() {
     setR(DEFAULT_R);
@@ -58,30 +56,58 @@ void Color::setB(float b) {
 }
 
 int Color::toInt() {
-    return (getIntR() << R_POSITION) |
-           (getIntG() << G_POSITION) |
-           (getIntB() << B_POSITION);
+    return (getIntR() << 16) | (getIntG() << 8) | getIntB();
 }
 
 Color Color::operator+(Color c) {
-    return Color(min(1, r + c.r), min(1, g + c.g), min(1, b + c.b));
+    return Color(fmin(1.0f, r + c.r), fmin(1.0f, g + c.g), fmin(1.0f, b + c.b));
+}
+
+Color & Color::operator+=(Color c) {
+    r += c.r;
+    g += c.g;
+    b += c.b;
+    return *this;
 }
 
 Color Color::operator-(Color c) {
-    return Color(max(0, r - c.r), max(0, g - c.g), max(0, b - c.b));
+    return Color(fmax(0.0f, r - c.r), fmax(0.0f, g - c.g), fmax(0.0f, b - c.b));
+}
+
+Color & Color::operator-=(Color c) {
+    r -= c.r;
+    g -= c.g;
+    b -= c.b;
+    return *this;
 }
 
 Color Color::operator*(Color c) {
     return Color(r * c.r, g * c.g, b * c.b);
 }
 
+Color & Color::operator*=(Color c) {
+    r *= c.r;
+    g *= c.g;
+    b *= c.b;
+    return *this;
+}
+
 Color Color::operator*(float scale) {
     return Color(r * scale, g * scale, b * scale);
 }
 
-static Color Color::parse(int c) {
-    int r = ((c >> R_POSITION) & MASK) / MAX;
-    int g = ((g >> G_POSITION) & MASK) / MAX;
-    int b = ((b >> B_POSITION) & MASK) / MAX;
+Color & Color::operator*=(float scale) {
+    r *= scale;
+    g *= scale;
+    b *= scale;
+    return *this;
+}
+
+Color Color::parse(int c) {
+    int digit = (sizeof(int) - 1) * 8;
+    int mask = ((unsigned int) -1) << digit >> digit;
+    int r = (float) ((c >> 16) & mask) / MAX;
+    int g = (float) ((c >> 8) & mask) / MAX;
+    int b = (float) (c & mask) / MAX;
     return Color(r, g, b);
 }

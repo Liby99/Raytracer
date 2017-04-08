@@ -47,8 +47,7 @@ bool Bitmap::saveImage(const char * filename) {
     head.height = height;
     head.colorPlanes = 1;
     head.bitsPerPixel = 32;
-    FILE * f = 0;
-    fopen_s(&f, filename, "wb");
+    FILE * f = fopen(filename, "wb");
     if (f == 0) {
         printf("Can't open '%s'\n",filename);
         return false;

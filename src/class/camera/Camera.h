@@ -1,10 +1,13 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include "scene/Scene.h"
 #include "util/Color.h"
 #include "util/Transform.h"
 #include "util/Bitmap.h"
 #include "util/Ray.h"
+
+using namespace std;
 
 class Camera {
 private:
@@ -15,7 +18,7 @@ private:
     const static vec3 DEFAULT_UP;
     const static int DEFAULT_WIDTH;
     const static int DEFAULT_HEIGHT;
-    const static float fovy;
+    const static float DEFAULT_FOVY;
     
     // Private position vectors
     vec3 position;
@@ -46,7 +49,7 @@ public:
     void setFovy(float fovy);
     
     // Render Functions
-    Bitmap render(const Scene & scene);
+    Bitmap render(Scene & scene);
 };
 
 #endif

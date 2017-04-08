@@ -1,8 +1,11 @@
 #ifndef BITMAP_H
 #define BITMAP_H
 
-#include "util"
+#define __STDC_WANT_LIB_EXT1__ 1
+
 #include <stdio.h>
+
+#include "util/Color.h"
 
 class Bitmap {
 private:

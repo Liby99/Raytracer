@@ -3,6 +3,8 @@
 
 #include "light/Light.h"
 
+using namespace std;
+
 class PointLight : public Light {
 protected:
     

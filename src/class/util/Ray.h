@@ -6,7 +6,8 @@
 class Ray {
 private:
     
-    static int maxDepth;
+    // Constants
+    const static float INCREMENT;
     
     //
     vec3 origin;
@@ -15,6 +16,9 @@ private:
     bool inside;
     
 public:
+
+    // Static Max Depth Constraint
+    static int maxDepth;
     
     // Constructors
     Ray();
@@ -30,7 +34,9 @@ public:
     int getDepth();
     void setDepth(int depth);
     bool isInside();
-    void setInside();
+    void setInside(bool inside);
+    
+    void increment();
     
     // Transform
     Ray transform(mat4 transf);

@@ -1,11 +1,11 @@
 #include "camera/Camera.h"
 
-Camera::DEFAULT_POSITION = vec3(0, 0, 1);
-Camera::DEFAULT_FOCAL_POINT = vec3(0, 0, 0);
-Camera::DEFAULT_UP = vec3(0, 1, 0);
-Camera::DEFAULT_WIDTH = 720;
-Camera::DEFAULT_HEIGHT = 540;
-Camera::DEFAULT_FOVY = 90;
+const vec3 Camera::DEFAULT_POSITION = vec3(0, 0, 1);
+const vec3 Camera::DEFAULT_FOCAL_POINT = vec3(0, 0, 0);
+const vec3 Camera::DEFAULT_UP = vec3(0, 1, 0);
+const int Camera::DEFAULT_WIDTH = 720;
+const int Camera::DEFAULT_HEIGHT = 540;
+const float Camera::DEFAULT_FOVY = 90;
 
 Camera::Camera() {
     lookAt(DEFAULT_POSITION, DEFAULT_FOCAL_POINT, DEFAULT_UP);
@@ -25,48 +25,48 @@ void Camera::lookAt(vec3 position, vec3 focalPoint, vec3 up) {
     setUp(up);
 }
 
-void setPosition(vec3 position) {
+void Camera::setPosition(vec3 position) {
     this->position = position;
 }
 
-void setFocalPoint(vec3 focalPoint) {
+void Camera::setFocalPoint(vec3 focalPoint) {
     this->focalPoint = focalPoint;
 }
 
-void setUp(vec3 up) {
+void Camera::setUp(vec3 up) {
     this->up = up;
 }
 
-vec3 getPosition() {
+vec3 Camera::getPosition() {
     return position;
 }
 
-vec3 getFocalPoint() {
+vec3 Camera::getFocalPoint() {
     return focalPoint;
 }
 
-vec3 getUp() {
+vec3 Camera::getUp() {
     return up;
 }
 
-void setSize(int width, int height) {
+void Camera::setSize(int width, int height) {
     setWidth(width);
     setHeight(height);
 }
 
-void setWidth(int width) {
+void Camera::setWidth(int width) {
     this->width = width;
 }
 
-void setHeight(int height) {
+void Camera::setHeight(int height) {
     this->height = height;
 }
 
-void setFovy(float fovy) {
+void Camera::setFovy(float fovy) {
     this->fovy = fovy;
 }
 
-Bitmap render(const Scene & scene) {
+Bitmap Camera::render(Scene & scene) {
     
     Bitmap bitmap(width, height);
     
@@ -75,7 +75,7 @@ Bitmap render(const Scene & scene) {
     ray.setOrigin(position);
     
     // Setup camera variables
-    vec3 w = normalize(pos - center);
+    vec3 w = normalize(position - focalPoint);
     vec3 u = normalize(cross(w, up));
     vec3 v = cross(w, u);
     
@@ -102,7 +102,7 @@ Bitmap render(const Scene & scene) {
             ray.setDirection(dir);
             
             // Set the related pixel color
-            bitmap.setPixel(i, j, scene.getRayColor(ray).toInt());
+            bitmap.setPixel(i, j, scene.getRayColor(ray));
         }
     }
     

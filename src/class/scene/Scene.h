@@ -9,16 +9,12 @@
 #include "light/Light.h"
 
 class Scene {
-private:
+protected:
     
     // Global Variables
     Color background;
     vector<Object *> objects;
     vector<Light *> lights;
-    
-    // Helper methods
-    bool getIntersection(Ray & ray, Intersection & intersection);
-    Color getIntersectionColor(Intersection & intersection);
     
 public:
     
@@ -39,6 +35,8 @@ public:
     void addObject(Object & object);
     
     // Intersection
+    bool getIntersection(Ray & ray, Intersection & intersection);
+    Color getIntersectionColor(Intersection & intersection);
     Color getRayColor(Ray & ray);
 };
 

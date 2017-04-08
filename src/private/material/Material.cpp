@@ -1,6 +1,6 @@
 #include "material/Material.h"
 
-Material::DEFAULT_OPACITY = 1;
+const float Material::DEFAULT_OPACITY = 1;
 
 Material::Material() {
     setOpacity(DEFAULT_OPACITY);

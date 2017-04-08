@@ -1,11 +1,14 @@
 #ifndef LIGHT_H
 #define LIGHT_H
 
-#include "scene/Scene.h"
 #include "util/Transform.h"
 #include "util/Color.h"
 #include "util/Ray.h"
 #include "util/Intersection.h"
+
+using namespace std;
+
+class Scene;
 
 class Light {
 protected:
@@ -16,6 +19,7 @@ protected:
     
     // Private color
     Color color;
+    float intensity;
     bool castShadow;
     
 public:
