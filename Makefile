@@ -13,7 +13,7 @@ BUILD_DIRECTORY := ./build/
 
 CPP_DIRECTORY := ./src/private/
 OBJ_DIRECTORY := ./build/bin/
-DIRECTORIES := $(sort $(dir $(OBJ_FILES)))
+BIN_DIRECTORIES := $(sort $(dir $(OBJ_FILES)))
 CPP_FILES := $(wildcard $(CPP_DIRECTORY)*/*.cpp)
 OBJ_FILES := $(patsubst $(CPP_DIRECTORY)%.cpp, $(OBJ_DIRECTORY)%.o, $(CPP_FILES))
 
@@ -29,7 +29,7 @@ all: $(TEST_OBJ_FILES) cleanCache
 
 $(TESTS): $(patsubst $(TEST_DIRECTORY)%.cpp, $(BUILD_TEST_DIRECTORY)%, $@)
 	
-$(TEST_OBJ_FILES): $(RAYTRACER) | $(BUILD_TEST_DIRECTORY)
+$(BUILD_TEST_DIRECTORY)%: $(TEST_DIRECTORY)%.cpp $(RAYTRACER) | $(BUILD_TEST_DIRECTORY)
 	$(ECHO) "Building Test File $@"
 	$(CC) $(CFLAGS) $(TEST_DIRECTORY)$(basename $(notdir $@)).cpp $(RAYTRACER) -o $@ $(INCFLAGS)
 	
@@ -45,12 +45,20 @@ $(DIRECTORIES):
 	$(ECHO) "Creating Directories"
 	$(MKDIR) $@
 	
-$(OBJ_DIRECTORY)%.o: $(CPP_DIRECTORY)%.cpp | $(DIRECTORIES)
+$(OBJ_DIRECTORY)%.o: $(CPP_DIRECTORY)%.cpp | $(BIN_DIRECTORIES)
 	$(ECHO) "Building $@"
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCFLAGS)
 	
 cleanCache:
 	$(RM) $(BUILD_TEST_DIRECTORY)*.dSYM $(BUILD_TEST_DIRECTORY)*.d *.d
 
-clean:
-	$(RM) $(RAYTRACER) $(addprefix $(BUILD_DIRECTORY), $(TESTS)) $(addprefix $(BUILD_DIRECTORY), $(addsuffix .dSYM, $(TESTS))) $(OBJ_FILES) $(OBJ_FILES:.o=.d)
+cleanRaytracer:
+	$(RM) $(RAYTRACER)
+	
+cleanTest:
+	$(RM) $(addprefix $(BUILD_TEST_DIRECTORY), $(TESTS)) $(addprefix $(BUILD_TEST_DIRECTORY), $(addsuffix .dSYM, $(TESTS)))
+
+cleanObj:
+	$(RM) $(OBJ_FILES) $(OBJ_FILES:.o=.d)
+
+clean: | cleanRaytracer cleanTest cleanObj
