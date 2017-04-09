@@ -17,6 +17,7 @@ int main() {
     Diffuse diffuse = Diffuse(Color(1, 1, 1));
     Specular specular = Specular(Color(1, 1, 1));
     Reflection reflection = Reflection();
+    Reflection reflection2 = Reflection(Color(0.6, 0.8, 1));
     
     Plane ground = Plane();
     ground.addMaterial(diffuse);
@@ -33,7 +34,7 @@ int main() {
     cy2.translateY(0.2);
     cy2.translateX(1);
     cy2.addMaterial(specular);
-    cy2.addMaterial(reflection);
+    cy2.addMaterial(reflection2);
     scene.addObject(cy2);
     
     Cylinder cy3 = Cylinder(Orientable::X_POSITIVE, 1, 0.15);
