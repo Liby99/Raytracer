@@ -1,6 +1,6 @@
-CC = g++ -MMD -O3
-LD = ld -r
-MKDIR = mkdir -p
+CC = @ g++ -MMD -O3
+LD = @ ld -r
+MKDIR = @ mkdir -p
 ECHO = @ echo
 ifeq ($(shell sw_vers 2>/dev/null | grep Mac | awk '{ print $$2}'), Mac)
 CFLAGS = -g -DGL_GLEXT_PROTOTYPES -DGL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED -DOSX -Wno-deprecated-register -Wno-deprecated-declarations -Wno-shift-op-parentheses
@@ -18,18 +18,19 @@ RM = /bin/rm -rf
 all: $(BUILD_FILES)
 
 $(BUILD_FILES): raytracer
-#	@ echo "Building Test File $@"
+	$(ECHO) "Building Test File $@"
 	$(CC) $(CFLAGS) ./test/$@.cpp $(RAYTRACER) -o ./build/$@ $(INCFLAGS)
 	
 raytracer: $(OBJ_FILES)
-#	@ echo "Linking Raytracer"
+	$(ECHO) "Linking Raytracer"
 	$(LD) $(OBJ_FILES) -o $(RAYTRACER)
 	
 ./build/bin/%.o: ./src/private/%.cpp | directory
-#	@ echo "Building $@"
+	$(ECHO) "Building $@"
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCFLAGS)
 	
 directory:
+	$(ECHO) "Creating Directories"
 	$(MKDIR) $(DIRECTORIES)
 
 print:
