@@ -54,7 +54,7 @@ int main(int argc, char ** argv) {
 
     // Render image
     Bitmap bmp = cam.render(scn);
-    bmp.saveImage("final/project1ec.bmp");
+    bmp.saveImage("project1ec.bmp");
     
     for (int i = 1; i < scn.objectAmount(); i++) {
         delete &(scn.getObject(i));

@@ -59,5 +59,5 @@ int main(int argc, char ** argv) {
 
     // Render image
     Bitmap bmp = cam.render(scn);
-    bmp.saveImage("final/project1.bmp");
+    bmp.saveImage("project1scene1.bmp");
 }
