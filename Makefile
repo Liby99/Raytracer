@@ -45,12 +45,12 @@ $(DIRECTORIES):
 	$(ECHO) "Creating Directories"
 	$(MKDIR) $@
 	
-./build/bin/%.o: ./src/private/%.cpp | $(DIRECTORIES)
+$(OBJ_DIRECTORY)%.o: $(CPP_DIRECTORY)%.cpp | $(DIRECTORIES)
 	$(ECHO) "Building $@"
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCFLAGS)
 	
 cleanCache:
-	$(RM) $(BUILD_TEST_DIRECTORY)*.dSYM $(BUILD_TEST_DIRECTORY)*.d
+	$(RM) $(BUILD_TEST_DIRECTORY)*.dSYM $(BUILD_TEST_DIRECTORY)*.d *.d
 
 clean:
 	$(RM) $(RAYTRACER) $(addprefix $(BUILD_DIRECTORY), $(TESTS)) $(addprefix $(BUILD_DIRECTORY), $(addsuffix .dSYM, $(TESTS))) $(OBJ_FILES) $(OBJ_FILES:.o=.d)
