@@ -35,9 +35,9 @@ public:
     void addObject(Object & object);
     
     // Intersection
-    bool getIntersection(Ray & ray, Intersection & intersection);
-    Color getIntersectionColor(Intersection & intersection);
-    Color getRayColor(Ray & ray);
+    virtual bool getIntersection(Ray & ray, Intersection & intersection);
+    virtual Color getIntersectionColor(Intersection & intersection);
+    virtual Color getRayColor(Ray & ray);
 };
 
 #endif
