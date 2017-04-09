@@ -38,6 +38,8 @@ public:
     
     void increment();
     
+    bool canRecurse();
+    
     // Transform
     Ray transform(mat4 transf);
     Ray inverseTransform(mat4 transf);

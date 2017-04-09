@@ -3,10 +3,11 @@
 
 const float Ray::INCREMENT = 0.0001;
 
-int Ray::maxDepth = 5;
+int Ray::maxDepth = 3;
 
 Ray::Ray() {
-    
+    setDepth(0);
+    setInside(false);
 }
 
 Ray::Ray(vec3 origin, vec3 direction) {
@@ -64,6 +65,10 @@ void Ray::setInside(bool inside) {
 
 void Ray::increment() {
     origin += INCREMENT * direction;
+}
+
+bool Ray::canRecurse() {
+    return depth < maxDepth;
 }
 
 Ray Ray::transform(mat4 transf) {
