@@ -43,7 +43,7 @@ vec3 Ray::getDirection() {
 }
 
 void Ray::setDirection(vec3 direction) {
-    this->direction = direction;
+    this->direction = normalize(direction);
 }
 
 int Ray::getDepth() {

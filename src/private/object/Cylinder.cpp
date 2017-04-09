@@ -34,15 +34,15 @@ bool Cylinder::updateIntersect(Ray & ray, Intersection & intersection) {
     float t1 = (-b + sqrt(b * b - 4 * a * c)) / (2 * a);
     float t2 = (-b - sqrt(b * b - 4 * a * c)) / (2 * a);
     
+    vec3 pos;
+    vec3 normal;
+    
     if (t1 > 0 && t2 > 0) {
         
         if (t1 > t2) swap(t1, t2);
         
         vec3 pos1 = ray.getOrigin() + t1 * ray.getDirection();
         vec3 pos2 = ray.getOrigin() + t2 * ray.getDirection();
-        
-        vec3 pos;
-        vec3 normal;
         
         // Check which surface is the ray intersecting
         if (inHeight(pos1[axis])) {
@@ -52,59 +52,49 @@ bool Cylinder::updateIntersect(Ray & ray, Intersection & intersection) {
             pos = pos1;
             normal = pos1;
             normal[axis] = 0;
+            
+            return intersection.update(t, pos, normal);
         }
         else if (higher(pos1[axis]) && !higher(pos2[axis])) {
             
             // Intersecting the top side
-            float dist = pos1[axis] - halfHeight;
+            float dist = ray.getOrigin()[axis] - halfHeight;
             t = dist / -ray.getDirection()[axis];
             pos = ray.getOrigin() + t * ray.getDirection();
             normal = NORMALS[axis * 2];
+            
+            return intersection.update(t, pos, normal);
         }
         else if (lower(pos1[axis]) && !lower(pos2[axis])) {
             
             // Intersecting the bottom side
-            float dist = pos1[axis] - halfHeight;
+            float dist = ray.getOrigin()[axis] - halfHeight;
             t = dist / -ray.getDirection()[axis];
             pos = ray.getOrigin() + t * ray.getDirection();
             normal = NORMALS[axis * 2 + 1];
+            
+            return intersection.update(t, pos, normal);
         }
         else {
             
             // No Intersection
             return false;
         }
-        
-        if (intersection.needUpdate(t)) {
-            
-            // Set the intersection
-            intersection.setHit(true);
-            intersection.setT(t);
-            intersection.setPosition(pos);
-            intersection.setNormal(normal);
-            return true;
-        }
-        
-        // Not updating intersection, return false
-        return false;
     }
     else if (t1 * t2 < 0) {
         
         //
         t = max(t1, t2);
-        vec3 pos = ray.getOrigin() + t * ray.getDirection();
+        pos = ray.getOrigin() + t * ray.getDirection();
         
-        //
-        if (inHeight(pos[axis]) && intersection.needUpdate(t)) {
+        // check if in height
+        if (inHeight(pos[axis])) {
             
-            // Set the intersection
-            intersection.setHit(true);
-            intersection.setT(t);
-            intersection.setPosition(pos);
-            pos[axis] = 0;
-            intersection.setNormal(pos);
+            // Set normal
+            normal = pos;
+            normal[axis] = 0;
             
-            return true;
+            return intersection.update(t, pos, normal);
         }
         else {
             return false;

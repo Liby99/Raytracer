@@ -63,6 +63,19 @@ bool Intersection::needUpdate(float t) {
     return !hit() || t < getT();
 }
 
+bool Intersection::update(float t, vec3 position, vec3 normal) {
+    if (needUpdate(t)) {
+        setHit(true);
+        setT(t);
+        setPosition(position);
+        setNormal(normal);
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 void Intersection::transform(mat4 transform) {
     vec4 nPos = transform * vec4(position, 1);
     vec4 nNorm = transpose(inverse(transform)) * vec4(normal, 0);

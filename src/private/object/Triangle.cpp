@@ -45,17 +45,9 @@ bool Triangle::updateIntersect(Ray & ray, Intersection & intersection) {
     if (t > 0 &&
         lambda.x >= 0 && lambda.x <= 1 &&
         lambda.y >= 0 && lambda.y <= 1 &&
-        lambda.z >= 0 && lambda.z <= 1 &&
-        intersection.needUpdate(t)) {
-            
-        // Then update the input intersection
-        intersection.setHit(true);
-        intersection.setT(t);
-        intersection.setPosition(position);
-        intersection.setNormal(normal);
+        lambda.z >= 0 && lambda.z <= 1) {
         
-        // Since intersect, return true
-        return true;
+        return intersection.update(t, position, normal);
     }
     
     // Not intersected

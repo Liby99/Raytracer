@@ -11,14 +11,8 @@ bool Plane::updateIntersect(Ray & ray, Intersection & intersection) {
     float dist = ray.getOrigin()[getAxis()];
     float t = dist / -ray.getDirection()[getAxis()];
     
-    if (t >= 0 && intersection.needUpdate(t)) {
-        
-        intersection.setHit(true);
-        intersection.setT(t);
-        intersection.setPosition(ray.getOrigin() + t * ray.getDirection());
-        intersection.setNormal(NORMALS[orientation]);
-        
-        return true;
+    if (t >= 0) {
+        return intersection.update(t, ray.getOrigin() + t * ray.getDirection(), NORMALS[orientation]);
     }
     else {
         return false;

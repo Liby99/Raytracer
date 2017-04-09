@@ -46,13 +46,7 @@ bool Cube::updateIntersect(Ray & ray, Intersection & intersection) {
         float sign = position[index] > 0 ? 1.0f : -1.0f;
         vec3 normal = normals[index] * sign;
         
-        intersection.setHit(true);
-        intersection.setT(t);
-        intersection.setPosition(position);
-        intersection.setNormal(normal);
-        
-        // The intersection is updated, so return true
-        return true;
+        return intersection.update(t, position, normal);
     }
     
     // The intersection is not updated, so return false

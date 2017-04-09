@@ -22,16 +22,13 @@ bool Sphere::updateIntersect(Ray & ray, Intersection & intersection) {
         t = max(t1, t2);
     }
 
-    if (hit && intersection.needUpdate(t)) {
+    if (hit) {
         
         // Update the intersection
         vec3 position = p0 + t * p1;
-        intersection.setHit(true);
-        intersection.setT(t);
-        intersection.setPosition(position);
-        intersection.setNormal(normalize(position));
         
-        return true;
+        // Return intersection update
+        return intersection.update(t, position, position);
     }
     
     return false;

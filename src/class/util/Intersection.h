@@ -40,6 +40,7 @@ public:
     
     float getDistanceToOrigin();
     bool needUpdate(float t);
+    bool update(float t, vec3 position, vec3 normal);
     
     void transform(mat4 transform);
 };
