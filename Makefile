@@ -3,6 +3,7 @@ LD = @ ld -r
 MKDIR = @ mkdir -p
 ECHO = @ echo
 RM = @ /bin/rm -rf
+MAKE = @ make
 
 ifeq ($(shell sw_vers 2>/dev/null | grep Mac | awk '{ print $$2}'), Mac)
 CFLAGS = -g -DGL_GLEXT_PROTOTYPES -DGL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED -DOSX -Wno-deprecated-register -Wno-deprecated-declarations -Wno-shift-op-parentheses
@@ -12,10 +13,10 @@ endif
 BUILD_DIRECTORY := ./build/
 
 CPP_DIRECTORY := ./src/private/
-OBJ_DIRECTORY := ./build/bin/
-BIN_DIRECTORIES := $(sort $(dir $(OBJ_FILES)))
+BIN_DIRECTORY := ./build/bin/
 CPP_FILES := $(wildcard $(CPP_DIRECTORY)*/*.cpp)
-OBJ_FILES := $(patsubst $(CPP_DIRECTORY)%.cpp, $(OBJ_DIRECTORY)%.o, $(CPP_FILES))
+OBJ_FILES := $(patsubst $(CPP_DIRECTORY)%.cpp, $(BIN_DIRECTORY)%.o, $(CPP_FILES))
+OBJ_DIRECTORIES := $(sort $(dir $(OBJ_FILES)))
 
 TEST_DIRECTORY := ./test/
 BUILD_TEST_DIRECTORY := ./build/test/
@@ -25,7 +26,8 @@ TEST_OBJ_FILES := $(addprefix $(BUILD_TEST_DIRECTORY), $(TESTS))
 
 RAYTRACER := ./build/raytracer.o
 
-all: $(TEST_OBJ_FILES) cleanCache
+all: $(TEST_OBJ_FILES)
+	$(MAKE) cleanCache
 
 $(TESTS): $(patsubst $(TEST_DIRECTORY)%.cpp, $(BUILD_TEST_DIRECTORY)%, $@)
 	
@@ -37,20 +39,29 @@ $(RAYTRACER): $(OBJ_FILES)
 	$(ECHO) "Linking Raytracer"
 	$(LD) $(OBJ_FILES) -o $(RAYTRACER)
 	
-$(BUILD_TEST_DIRECTORY):
-	$(ECHO) "Creating Testing Directories"
-	$(MKDIR) $@
-	
-$(DIRECTORIES):
-	$(ECHO) "Creating Directories"
-	$(MKDIR) $@
-	
-$(OBJ_DIRECTORY)%.o: $(CPP_DIRECTORY)%.cpp | $(BIN_DIRECTORIES)
+$(BIN_DIRECTORY)%.o: $(CPP_DIRECTORY)%.cpp | $(OBJ_DIRECTORIES)
 	$(ECHO) "Building $@"
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCFLAGS)
 	
+$(BUILD_TEST_DIRECTORY): | $(BUILD_DIRECTORY)
+	$(ECHO) "Creating $@ Directory"
+	$(MKDIR) $@
+	
+$(OBJ_DIRECTORIES): | $(BIN_DIRECTORY)
+	$(ECHO) "Creating $@ Directories"
+	$(MKDIR) $@
+
+$(BIN_DIRECTORY): | $(BUILD_DIRECTORY)
+	$(ECHO) "Creating $@ Directory"
+	$(MKDIR) $@
+
+$(BUILD_DIRECTORY):
+	$(ECHO) "Creating $@ Directory"
+	$(MKDIR) $@
+	
 cleanCache:
-	$(RM) $(BUILD_TEST_DIRECTORY)*.dSYM $(BUILD_TEST_DIRECTORY)*.d *.d
+	$(ECHO) "Cleaning Caches"
+	$(RM) $(BUILD_TEST_DIRECTORY)*.dSYM $(BUILD_TEST_DIRECTORY)*.d $(BIN_DIRECTORY)*/*.d
 
 cleanRaytracer:
 	$(RM) $(RAYTRACER)
@@ -61,4 +72,10 @@ cleanTest:
 cleanObj:
 	$(RM) $(OBJ_FILES) $(OBJ_FILES:.o=.d)
 
-clean: | cleanRaytracer cleanTest cleanObj
+clean:
+	$(MAKE) cleanRaytracer
+	$(MAKE) cleanTest
+	$(MAKE) cleanObj
+
+removeBuild:
+	$(RM) $(BUILD_DIRECTORY)
