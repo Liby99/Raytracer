@@ -71,7 +71,7 @@ int main(int argc, char ** argv) {
     
     Camera camera;
     camera.lookAt(vec3(2, 0.3, 2), vec3(0, 0, 0), vec3(0, 1, 0));
-    camera.setSize(240, 180);
+    camera.setResolution(240, 180);
     camera.setFovy(60);
     
     cout << "Starting to render" << endl;

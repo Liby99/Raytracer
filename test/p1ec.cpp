@@ -27,9 +27,10 @@ int main(int argc, char ** argv) {
     scn.addObject(ground);
     
     for (int i = 0; i < 20; i++) {
-        float rad = glm::linearRand(0.25f, 0.5f);
-        vec3 pos = vec3(glm::linearRand(-5.0f, 5.0f), rad, glm::linearRand(-5.0f, 5.0f));
-        Sphere * sphere = new Sphere(rad);
+        Sphere * sphere = new Sphere();
+        float rad = glm::linearRand(0.1f, 0.5f);
+        vec3 pos = vec3(glm::linearRand(-5.5f, 5.5f), rad, glm::linearRand(-5.5f, 5.5f));
+        sphere->setRadius(rad);
         sphere->translate(pos);
         sphere->addMaterial(diffuse);
         scn.addObject(*sphere);
@@ -46,8 +47,8 @@ int main(int argc, char ** argv) {
     // Create camera
     Camera cam;
     cam.lookAt(vec3(-0.75f, 0.25f, 5.0f), vec3(0.0f, 0.5f, 0.0f));
-    cam.setFovy(40.0f);
     cam.setResolution(800, 600);
+    cam.setFovy(40.0f);
     
     cout << "Object: " << scn.objectAmount() << endl;
 
