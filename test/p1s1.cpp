@@ -27,13 +27,13 @@ int main(int argc, char ** argv) {
     MeshCube box2 = MeshCube(1.0f,1.0f,1.0f);
 
     InstanceObject inst1(box2);
-    inst1.rotateX(29);
+    inst1.rotateX(glm::degrees(0.5f));
     inst1.translateY(1);
     inst1.addMaterial(diffuse);
     scn.addObject(inst1);
 
     InstanceObject inst2(box2);
-    inst2.rotateY(57);
+    inst2.rotateY(glm::degrees(1.0f));
     inst2.translate(vec3(-1, 0, 1));
     inst2.addMaterial(diffuse);
     scn.addObject(inst2);
