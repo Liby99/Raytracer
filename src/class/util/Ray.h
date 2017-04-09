@@ -37,6 +37,7 @@ public:
     void setInside(bool inside);
     
     void increment();
+    void increment(vec3 direction);
     
     bool canRecurse();
     

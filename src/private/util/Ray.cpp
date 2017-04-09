@@ -64,6 +64,10 @@ void Ray::setInside(bool inside) {
 }
 
 void Ray::increment() {
+    increment(direction);
+}
+
+void Ray::increment(vec3 direction) {
     origin += INCREMENT * direction;
 }
 

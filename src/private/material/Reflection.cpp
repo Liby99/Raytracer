@@ -42,7 +42,7 @@ Color Reflection::shade(Scene & scene, Intersection & intersection) {
         
         // Construct reflection ray
         Ray reflect = Ray(origin, direction, depth + 1);
-        reflect.increment();
+        reflect.increment(normal);
         
         // Then construct and return the color
         return tint * scene.getRayColor(reflect) * attenuation * opacity;

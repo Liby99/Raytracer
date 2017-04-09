@@ -50,7 +50,7 @@ float PointLight::getBrightness(Scene & scene, Intersection & intersection) {
     if (castShadow) {
         
         Ray ray = Ray(intersection.getPosition(), diff);
-        ray.increment(); // Must do to avoid floating point
+        ray.increment(intersection.getNormal()); // Must do to avoid floating point
         Intersection barrier = Intersection(ray);
         
         // Check shadow
