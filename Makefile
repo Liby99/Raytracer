@@ -1,27 +1,41 @@
 CC = g++ -MMD -O3
-ifeq ($(shell sw_vers 2>/dev/null | grep Mac | awk '{ print $$2}'),Mac)
+LD = ld -r
+MKDIR = mkdir -p
+ECHO = @ echo
+ifeq ($(shell sw_vers 2>/dev/null | grep Mac | awk '{ print $$2}'), Mac)
 CFLAGS = -g -DGL_GLEXT_PROTOTYPES -DGL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED -DOSX -Wno-deprecated-register -Wno-deprecated-declarations -Wno-shift-op-parentheses
 INCFLAGS = -I./lib/glm-0.9.7.1 -I/usr/X11/include -I./src/class
-LDFLAGS = -framework GLUT -framework OpenGL -L./lib/mac/ \
-		-L"/System/Library/Frameworks/OpenGL.framework/Libraries" \
-		-lGL -lGLU -lm -lstdc++ -lfreeimage
-else
-CFLAGS = -g -DGL_GLEXT_PROTOTYPES
-INCFLAGS = -I./glm-0.9.7.1 -I./include/ -I/usr/X11R6/include -I/sw/include \
-		-I/usr/sww/include -I/usr/sww/pkg/Mesa/include
-LDFLAGS = -L/usr/X11R6/lib -L/sw/lib -L/usr/sww/lib -L./lib/nix/ \
-		-L/usr/sww/bin -L/usr/sww/pkg/Mesa/lib -lGLEW -lglut -lGLU -lGL -lX11 -lfreeimage
 endif
 
 CPP_FILES := $(wildcard ./src/private/*/*.cpp)
-OBJ_FILES := $(addprefix ./build/,$(notdir $(CPP_FILES:.cpp=.o)))
+OBJ_FILES := $(patsubst ./src/private/%.cpp, ./build/bin/%.o, $(CPP_FILES))
+DIRECTORIES := $(sort $(dir $(OBJ_FILES)))
+TEST_CPP_FILES := $(wildcard ./test/*.cpp)
+BUILD_FILES := $(basename $(notdir $(TEST_CPP_FILES)))
+RAYTRACER := ./build/raytracer.o
+RM = /bin/rm -rf
 
-RM = /bin/rm -f
+all: $(BUILD_FILES)
 
-all: p1s1
-p1s1: $(CPP_FILES)
-	$(CC) $(CFLAGS) -o ./build/$@ ./test/p1s1.cpp $(CPP_FILES) $(INCFLAGS)
-p1t1: $(CPP_FILES)
-	$(CC) $(CFLAGS) -o ./build/$@ ./test/p1t1.cpp $(CPP_FILES) $(INCFLAGS)
+$(BUILD_FILES): raytracer
+#	@ echo "Building Test File $@"
+	$(CC) $(CFLAGS) ./test/$@.cpp $(RAYTRACER) -o ./build/$@ $(INCFLAGS)
+	
+raytracer: $(OBJ_FILES)
+#	@ echo "Linking Raytracer"
+	$(LD) $(OBJ_FILES) -o $(RAYTRACER)
+	
+./build/bin/%.o: ./src/private/%.cpp | directory
+#	@ echo "Building $@"
+	$(CC) $(CFLAGS) -c $< -o $@ $(INCFLAGS)
+	
+directory:
+	$(MKDIR) $(DIRECTORIES)
+
+print:
+	$(ECHO) "cpp files: $(CPP_FILES)"
+	$(ECHO) "obj files: $(OBJ_FILES)"
+	$(ECHO) "directories: $(DIRECTORIES)"
+
 clean:
-	$(RM) build/p1s1 *.o *.d *.DSYM
+	$(RM) $(BUILD_FILES) $(OBJ_FILES) *.d *.DSYM
