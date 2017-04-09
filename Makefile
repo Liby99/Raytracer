@@ -11,13 +11,13 @@ CPP_FILES := $(wildcard ./src/private/*/*.cpp)
 OBJ_FILES := $(patsubst ./src/private/%.cpp, ./build/bin/%.o, $(CPP_FILES))
 DIRECTORIES := $(sort $(dir $(OBJ_FILES)))
 TEST_CPP_FILES := $(wildcard ./test/*.cpp)
-BUILD_FILES := $(basename $(notdir $(TEST_CPP_FILES)))
+TESTS := $(basename $(notdir $(TEST_CPP_FILES)))
 RAYTRACER := ./build/raytracer.o
 RM = /bin/rm -rf
 
-all: $(BUILD_FILES)
+all: $(TESTS)
 
-$(BUILD_FILES): raytracer
+$(TESTS): raytracer
 	$(ECHO) "Building Test File $@"
 	$(CC) $(CFLAGS) ./test/$@.cpp $(RAYTRACER) -o ./build/$@ $(INCFLAGS)
 	
