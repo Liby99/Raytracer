@@ -7,6 +7,7 @@ class Plane : public Object {
 private:
     
     const static vec3 NORMALS[6];
+    const static int DEFAULT_ORIENTATION;
     
     // Private parameters
     int orientation;
@@ -27,6 +28,7 @@ public:
     const static int Z_NEGATIVE = 5;
     
     // Constructor
+    Plane();
     Plane(int orientation);
     
     // Basic getter and setter

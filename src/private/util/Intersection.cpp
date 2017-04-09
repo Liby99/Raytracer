@@ -51,7 +51,7 @@ vec3 Intersection::getNormal() {
 }
 
 void Intersection::setNormal(vec3 normal) {
-    this->normal = normal;
+    this->normal = normalize(normal);
 }
 
 float Intersection::getDistanceToOrigin() {

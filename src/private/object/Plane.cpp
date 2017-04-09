@@ -11,6 +11,8 @@ const vec3 Plane::NORMALS[] = {
     vec3(0, 0, -1)
 };
 
+const int Plane::DEFAULT_ORIENTATION = Plane::Y_POSITIVE;
+
 bool Plane::updateIntersect(Ray & ray, Intersection & intersection) {
     
     int axis = orientation / 2;
@@ -37,6 +39,10 @@ bool Plane::updateIntersect(Ray & ray, Intersection & intersection) {
     else {
         return false;
     }
+}
+
+Plane::Plane() : Object() {
+    setOrientation(DEFAULT_ORIENTATION);
 }
 
 Plane::Plane(int orientation) : Object() {

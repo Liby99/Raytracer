@@ -19,6 +19,12 @@ Camera::Camera(vec3 position, vec3 focalPoint, vec3 up) {
     setFovy(DEFAULT_FOVY);
 }
 
+void Camera::lookAt(vec3 position, vec3 focalPoint) {
+    setPosition(position);
+    setFocalPoint(focalPoint);
+    setUp(DEFAULT_UP);
+}
+
 void Camera::lookAt(vec3 position, vec3 focalPoint, vec3 up) {
     setPosition(position);
     setFocalPoint(focalPoint);

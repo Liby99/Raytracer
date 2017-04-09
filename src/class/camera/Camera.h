@@ -34,6 +34,7 @@ public:
     Camera();
     Camera(vec3 position, vec3 focalPoint, vec3 up);
     
+    void lookAt(vec3 position, vec3 focalPoint);
     void lookAt(vec3 position, vec3 focalPoint, vec3 up);
     void setPosition(vec3 position);
     void setFocalPoint(vec3 focalPoint);
