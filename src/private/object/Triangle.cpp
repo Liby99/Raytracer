@@ -1,7 +1,5 @@
 #include "object/Triangle.h"
 
-#include <iostream>
-
 vec3 Triangle::getBaryCentric(vec3 position) {
     vec3 result = vec3(0, 0, 0);
     vec3 p1 = v1->getPosition();
