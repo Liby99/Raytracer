@@ -61,7 +61,7 @@ $(BUILD_DIRECTORY):
 	
 cleanCache:
 	$(ECHO) "Cleaning Caches"
-	$(RM) $(BUILD_TEST_DIRECTORY)*.dSYM $(BUILD_TEST_DIRECTORY)*.d $(BIN_DIRECTORY)*/*.d
+	$(RM) $(BUILD_TEST_DIRECTORY)*.dSYM $(BUILD_TEST_DIRECTORY)*.d $(BIN_DIRECTORY)*/*.d .d
 
 cleanRaytracer:
 	$(RM) $(RAYTRACER)
@@ -70,7 +70,7 @@ cleanTest:
 	$(RM) $(addprefix $(BUILD_TEST_DIRECTORY), $(TESTS)) $(addprefix $(BUILD_TEST_DIRECTORY), $(addsuffix .dSYM, $(TESTS)))
 
 cleanObj:
-	$(RM) $(OBJ_FILES) $(OBJ_FILES:.o=.d)
+	$(RM) $(OBJ_FILES) $(OBJ_FILES:.o=.d) .d
 
 clean:
 	$(MAKE) cleanRaytracer
