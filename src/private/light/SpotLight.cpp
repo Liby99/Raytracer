@@ -36,7 +36,7 @@ float SpotLight::getBrightness(Scene & scene, Intersection & intersection) {
     vec3 lgtDir = normalize(target - position);
     float deg = glm::degrees(glm::acos(dot(itsDir, lgtDir)));
     
-    if (deg < angle / 2 && deg > 0) {
+    if (deg > 0 && deg < angle / 2) {
         return PointLight::getBrightness(scene, intersection);
     }
     else {
