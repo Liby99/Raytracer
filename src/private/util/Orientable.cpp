@@ -1,4 +1,4 @@
-#include "object/Orientable.h"
+#include "util/Orientable.h"
 
 const vec3 Orientable::NORMALS[] = {
     vec3(1, 0, 0),
