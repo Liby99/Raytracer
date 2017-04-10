@@ -1,14 +1,17 @@
 #include "object/Cube.h"
 
 bool Cube::updateIntersect(Ray & ray, Intersection & intersection) {
+    
     // Get the min and max corner
     vec3 minCorner = getMinCorner();
     vec3 maxCorner = getMaxCorner();
     
     // Calculate the intersection
-    float tmin = (minCorner.x - ray.getOrigin().x) / ray.getDirection().x;
-    float tmax = (maxCorner.x - ray.getOrigin().x) / ray.getDirection().x;
-    if (tmin > tmax) swap(tmin, tmax);
+    float txmin = (minCorner.x - ray.getOrigin().x) / ray.getDirection().x;
+    float txmax = (maxCorner.x - ray.getOrigin().x) / ray.getDirection().x;
+    if (txmin > txmax) swap(txmin, txmax);
+    float tmin = txmin;
+    float tmax = txmax;
     float tymin = (minCorner.y - ray.getOrigin().y) / ray.getDirection().y;
     float tymax = (maxCorner.y - ray.getOrigin().y) / ray.getDirection().y;
     if (tymin > tymax) swap(tymin, tymax);
@@ -35,16 +38,11 @@ bool Cube::updateIntersect(Ray & ray, Intersection & intersection) {
     
     if (intersection.needUpdate(t)) {
         
-        vec3 normals [] = { vec3(1, 0, 0), vec3(0, 1, 0), vec3(0, 0, 1) };
-        
-        /* TODO: fix normal bug */
         // Calculate the normal
-        vec3 position = ray.getOrigin() + t * ray.getDirection();
-        float xy = position.y / position.x;
-        float zy = position.y / position.z;
-        int index = (xy >= -1 && xy <= 1) ? 1 : (zy >= -1 && zy <= 1) ? 2 : 0;
-        float sign = position[index] > 0 ? 1.0f : -1.0f;
-        vec3 normal = normals[index] * sign;
+        vec3 normal;
+        if (t == txmin) normal = position[0] > 0 ? vec3(1, 0, 0) : vec3(-1, 0, 0);
+        else if (t == tymin) normal = position[1] > 0 ? vec3(0, 1, 0) : vec3(0, -1, 0);
+        else normal = position[2] > 0 ? vec3(0, 0, 1) : vec3(0, 0, -1);
         
         return intersection.update(t, position, normal);
     }
