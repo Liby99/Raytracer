@@ -2,7 +2,7 @@
 #define CYLINDER_H
 
 #include "object/Object.h"
-#include "object/Orientable.h"
+#include "util/Orientable.h"
 
 class Cylinder : public Object, public Orientable {
 private:

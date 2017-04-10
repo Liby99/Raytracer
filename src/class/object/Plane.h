@@ -2,7 +2,7 @@
 #define PLANE_H
 
 #include "object/Object.h"
-#include "object/Orientable.h"
+#include "util/Orientable.h"
 
 class Plane : public Object, public Orientable {
 protected:
