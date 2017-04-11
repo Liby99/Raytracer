@@ -13,6 +13,12 @@ Camera::Camera() {
     setFovy(DEFAULT_FOVY);
 }
 
+Camera::Camera(vec3 position, vec3 focalPoint) {
+    lookAt(position, focalPoint, DEFAULT_UP);
+    setResolution(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    setFovy(DEFAULT_FOVY);
+}
+
 Camera::Camera(vec3 position, vec3 focalPoint, vec3 up) {
     lookAt(position, focalPoint, up);
     setResolution(DEFAULT_WIDTH, DEFAULT_HEIGHT);

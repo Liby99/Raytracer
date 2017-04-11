@@ -10,7 +10,7 @@
 using namespace std;
 
 class Camera {
-private:
+protected:
     
     // Constants
     const static vec3 DEFAULT_POSITION;
@@ -32,6 +32,7 @@ public:
     
     // Constructors
     Camera();
+    Camera(vec3 position, vec3 focalPoint);
     Camera(vec3 position, vec3 focalPoint, vec3 up);
     
     void lookAt(vec3 position, vec3 focalPoint);
@@ -50,7 +51,7 @@ public:
     void setFovy(float fovy);
     
     // Render Functions
-    Bitmap render(Scene & scene);
+    virtual Bitmap render(Scene & scene);
 };
 
 #endif

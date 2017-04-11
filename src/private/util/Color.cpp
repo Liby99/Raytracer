@@ -36,15 +36,15 @@ float Color::getB() {
 }
 
 int Color::getIntR() {
-    return int(r * MAX) & 0xff;
+    return int(bound(r) * MAX) & 0xff;
 }
 
 int Color::getIntG() {
-    return int(g * MAX) & 0xff;
+    return int(bound(g) * MAX) & 0xff;
 }
 
 int Color::getIntB() {
-    return int(b * MAX) & 0xff;
+    return int(bound(b) * MAX) & 0xff;
 }
 
 void Color::setR(float r) {
@@ -64,46 +64,46 @@ int Color::toInt() {
 }
 
 Color Color::operator+(Color c) {
-    return Color(bound(r + c.r), bound(g + c.g), bound(b + c.b));
+    return Color(r + c.r, g + c.g, b + c.b);
 }
 
 Color & Color::operator+=(Color c) {
-    r = bound(r + c.r);
-    g = bound(g + c.g);
-    b = bound(b + c.b);
+    r += c.r;
+    g += c.g;
+    b += c.b;
     return *this;
 }
 
 Color Color::operator-(Color c) {
-    return Color(bound(r - c.r), bound(g - c.g), bound(b - c.b));
+    return Color(r - c.r, g - c.g, b - c.b);
 }
 
 Color & Color::operator-=(Color c) {
-    r = bound(r - c.r);
-    g = bound(g - c.g);
-    b = bound(b - c.b);
+    r = r - c.r;
+    g = g - c.g;
+    b = b - c.b;
     return *this;
 }
 
 Color Color::operator*(Color c) {
-    return Color(bound(r * c.r), bound(g * c.g), bound(b * c.b));
+    return Color(r * c.r, g * c.g, b * c.b);
 }
 
 Color & Color::operator*=(Color c) {
-    r = bound(r * c.r);
-    g = bound(g * c.g);
-    b = bound(b * c.b);
+    r *= c.r;
+    g *= c.g;
+    b *= c.b;
     return *this;
 }
 
 Color Color::operator*(float scale) {
-    return Color(bound(r * scale), bound(g * scale), bound(b * scale));
+    return Color(r * scale, g * scale, b * scale);
 }
 
 Color & Color::operator*=(float scale) {
-    r = bound(r * scale);
-    g = bound(g * scale);
-    b = bound(b * scale);
+    r *= scale;
+    g *= scale;
+    b *= scale;
     return *this;
 }
 
