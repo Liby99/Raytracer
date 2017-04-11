@@ -7,11 +7,9 @@ bool Cube::updateIntersect(Ray & ray, Intersection & intersection) {
     vec3 maxCorner = getMaxCorner();
     
     // Calculate the intersection
-    float txmin = (minCorner.x - ray.getOrigin().x) / ray.getDirection().x;
-    float txmax = (maxCorner.x - ray.getOrigin().x) / ray.getDirection().x;
-    if (txmin > txmax) swap(txmin, txmax);
-    float tmin = txmin;
-    float tmax = txmax;
+    float tmin = (minCorner.x - ray.getOrigin().x) / ray.getDirection().x;
+    float tmax = (maxCorner.x - ray.getOrigin().x) / ray.getDirection().x;
+    if (tmin > tmax) swap(tmin, tmax);
     float tymin = (minCorner.y - ray.getOrigin().y) / ray.getDirection().y;
     float tymax = (maxCorner.y - ray.getOrigin().y) / ray.getDirection().y;
     if (tymin > tymax) swap(tymin, tymax);
@@ -26,29 +24,20 @@ bool Cube::updateIntersect(Ray & ray, Intersection & intersection) {
     if (tzmax < tmax) tmax = tzmax;
     
     float t;
-    if (tmin > 0 && tmax > 0) {
-        t = tmin;
-    }
-    else if (tmin < 0 && tmax > 0) {
-        t = tmax;
-    }
-    else {
-        return false;
-    }
+    vec3 normal;
+    if (tmin > 0 && tmax > 0) t = tmin;
+    else if (tmin < 0 && tmax > 0) t = tmax;
+    else return false;
     
-    if (intersection.needUpdate(t)) {
+    vec3 position = ray.getPoint(t);
         
-        // Calculate the normal
-        vec3 normal;
-        if (t == txmin) normal = position[0] > 0 ? vec3(1, 0, 0) : vec3(-1, 0, 0);
-        else if (t == tymin) normal = position[1] > 0 ? vec3(0, 1, 0) : vec3(0, -1, 0);
-        else normal = position[2] > 0 ? vec3(0, 0, 1) : vec3(0, 0, -1);
-        
-        return intersection.update(t, position, normal);
-    }
+    // Calculate the normal
+    if (t == tymin || t == tymax) normal = position[1] > 0 ? vec3(0, 1, 0) : vec3(0, -1, 0);
+    else if (t == tzmin || t == tzmax) normal = position[2] > 0 ? vec3(0, 0, 1) : vec3(0, 0, -1);
+    else normal = position[0] > 0 ? vec3(1, 0, 0) : vec3(-1, 0, 0);
     
-    // The intersection is not updated, so return false
-    return false;
+    //
+    return intersection.update(t, position, normal);
 }
 
 Cube::Cube() : Object() {
