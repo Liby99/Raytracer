@@ -15,6 +15,7 @@ void Diffuse::setDiffuse(Color diffuse) {
 
 Color Diffuse::shade(Scene & scene, Intersection & intersection) {
     Color color;
+    #pragma omp parallel for
     for (int i = 0; i < scene.lightAmount(); i++) {
         Light & light = scene.getLight(i);
         Color lc = light.getColor() * light.getBrightness(scene, intersection);

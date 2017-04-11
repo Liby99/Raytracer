@@ -31,6 +31,7 @@ void Specular::setShininess(float shininess) {
 
 Color Specular::shade(Scene & scene, Intersection & intersection) {
     Color color;
+    #pragma omp parallel for
     for (int i = 0; i < scene.lightAmount(); i++) {
         
         // Store the temporary light

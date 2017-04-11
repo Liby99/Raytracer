@@ -1,4 +1,4 @@
-CC = @ g++ -MMD -O3
+CC = @ g++-6 -MMD -O3
 LD = @ ld -r
 MKDIR = @ mkdir -p
 ECHO = @ echo
@@ -6,7 +6,7 @@ RM = @ /bin/rm -rf
 MAKE = @ make
 
 ifeq ($(shell sw_vers 2>/dev/null | grep Mac | awk '{ print $$2}'), Mac)
-CFLAGS = -g -DGL_GLEXT_PROTOTYPES -DGL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED -DOSX -Wno-deprecated-register -Wno-deprecated-declarations -Wno-shift-op-parentheses
+CFLAGS = -g -fopenmp -DGL_GLEXT_PROTOTYPES -DGL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED -DOSX -Wno-deprecated-register -Wno-deprecated-declarations -Wno-shift-op-parentheses
 INCFLAGS = -I./lib/glm-0.9.7.1 -I/usr/X11/include -I./src/class
 endif
 

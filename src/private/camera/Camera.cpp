@@ -4,7 +4,7 @@ const vec3 Camera::DEFAULT_POSITION = vec3(0, 0, 1);
 const vec3 Camera::DEFAULT_FOCAL_POINT = vec3(0, 0, 0);
 const vec3 Camera::DEFAULT_UP = vec3(0, 1, 0);
 const int Camera::DEFAULT_WIDTH = 720;
-const int Camera::DEFAULT_HEIGHT = 540;
+const int Camera::DEFAULT_HEIGHT = 480;
 const float Camera::DEFAULT_FOVY = 90;
 
 Camera::Camera() {
@@ -76,10 +76,6 @@ Bitmap Camera::render(Scene & scene) {
     
     Bitmap bitmap(width, height);
     
-    // Setup ray origin
-    Ray ray;
-    ray.setOrigin(position);
-    
     // Setup camera variables
     vec3 w = normalize(focalPoint - position);
     vec3 u = normalize(cross(w, up));
@@ -92,7 +88,10 @@ Bitmap Camera::render(Scene & scene) {
     float halfHeight = height / 2.0f;
     
     // Iterate through all the rays
+    #pragma omp parallel for
     for (int i = 0; i < width; i++) {
+        
+        #pragma omp parallel for
         for (int j = 0; j < height; j++) {
             
             // Then calculate alpha and beta then direction of ray
@@ -100,7 +99,7 @@ Bitmap Camera::render(Scene & scene) {
             float beta = betaMult * (j - halfHeight + 0.5f) / halfHeight;
             vec3 dir = normalize(alpha * u + beta * v + w);
             
-            ray.setDirection(dir);
+            Ray ray = Ray(position, dir);
             
             // Set the related pixel color
             bitmap.setPixel(i, j, scene.getRayColor(ray));
