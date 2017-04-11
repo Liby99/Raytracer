@@ -67,6 +67,10 @@ void Ray::increment() {
     increment(direction);
 }
 
+vec3 Ray::getPoint(float t) {
+    return origin + t * direction;
+}
+
 void Ray::increment(vec3 direction) {
     origin += INCREMENT * direction;
 }

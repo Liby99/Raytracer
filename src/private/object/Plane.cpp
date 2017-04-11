@@ -12,7 +12,7 @@ bool Plane::updateIntersect(Ray & ray, Intersection & intersection) {
     float t = dist / -ray.getDirection()[getAxis()];
     
     if (t >= 0) {
-        return intersection.update(t, ray.getOrigin() + t * ray.getDirection(), NORMALS[orientation]);
+        return intersection.update(t, ray.getPoint(t), NORMALS[orientation]);
     }
     else {
         return false;

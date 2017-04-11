@@ -41,8 +41,8 @@ bool Cylinder::updateIntersect(Ray & ray, Intersection & intersection) {
         
         if (t1 > t2) swap(t1, t2);
         
-        vec3 pos1 = ray.getOrigin() + t1 * ray.getDirection();
-        vec3 pos2 = ray.getOrigin() + t2 * ray.getDirection();
+        vec3 pos1 = ray.getPoint(t1);
+        vec3 pos2 = ray.getPoint(t2);
         
         // Check which surface is the ray intersecting
         if (inHeight(pos1[axis])) {

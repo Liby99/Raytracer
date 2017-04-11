@@ -38,7 +38,7 @@ bool Triangle::updateIntersect(Ray & ray, Intersection & intersection) {
     float t = (dot(p1, normal) - dot(ray.getOrigin(), normal)) / dot(ray.getDirection(), normal);
     
     // Pre cache the position of the intersection
-    vec3 position = ray.getOrigin() + t * ray.getDirection();
+    vec3 position = ray.getPoint(t);
     vec3 lambda = getBaryCentric(position);
     
     // Check if t is greater then 0 and the position is inside the triangle and need update

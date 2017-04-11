@@ -25,7 +25,7 @@ bool Sphere::updateIntersect(Ray & ray, Intersection & intersection) {
     if (hit) {
         
         // Update the intersection
-        vec3 position = p0 + t * p1;
+        vec3 position = ray.getPoint(t);
         
         // Return intersection update
         return intersection.update(t, position, position);

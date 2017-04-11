@@ -36,6 +36,8 @@ public:
     bool isInside();
     void setInside(bool inside);
     
+    vec3 getPoint(float t);
+    
     void increment();
     void increment(vec3 direction);
     
