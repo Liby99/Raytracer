@@ -29,12 +29,16 @@ RAYTRACER := ./build/raytracer.o
 all: $(TEST_OBJ_FILES)
 	$(MAKE) cleanCache
 
+raytracer: $(RAYTRACER)
+
+tests: $(TESTS)
+
 $(TESTS): $(patsubst $(TEST_DIRECTORY)%.cpp, $(BUILD_TEST_DIRECTORY)%, $@)
 	
 $(BUILD_TEST_DIRECTORY)%: $(TEST_DIRECTORY)%.cpp $(RAYTRACER) | $(BUILD_TEST_DIRECTORY)
 	$(ECHO) "Building Test File $@"
 	$(CC) $(CFLAGS) $(TEST_DIRECTORY)$(basename $(notdir $@)).cpp $(RAYTRACER) -o $@ $(INCFLAGS)
-	
+
 $(RAYTRACER): $(OBJ_FILES)
 	$(ECHO) "Linking Raytracer"
 	$(LD) $(OBJ_FILES) -o $(RAYTRACER)
@@ -60,7 +64,6 @@ $(BUILD_DIRECTORY):
 	$(MKDIR) $@
 	
 cleanCache:
-	$(ECHO) "Cleaning Caches"
 	$(RM) $(BUILD_TEST_DIRECTORY)*.dSYM $(BUILD_TEST_DIRECTORY)*.d $(BIN_DIRECTORY)*/*.d .d
 
 cleanRaytracer:
