@@ -2,6 +2,10 @@
 
 const float Material::DEFAULT_OPACITY = 1;
 
+Color Material::getShadingColor(Scene & scene, Intersection & intersection) {
+    return Color();
+}
+
 Material::Material() {
     setOpacity(DEFAULT_OPACITY);
 }
@@ -15,5 +19,5 @@ float Material::getOpacity() {
 }
 
 Color Material::shade(Scene & scene, Intersection & intersection) {
-    return Color();
+    return getShadingColor(scene, intersection) * opacity;
 }

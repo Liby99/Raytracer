@@ -6,11 +6,17 @@
 class Reflection : public Material {
 private:
     
+    // Default attenuation
+    const static Color DEFAULT_TINT;
     const static float DEFAULT_ATTENUATION;
     
     // Tint of reflectance color
     Color tint;
     float attenuation;
+    
+    // Shading
+    virtual Color getShadingColor(Scene & scene, Intersection & intersection);
+    
 public:
     
     // Constructor
@@ -22,9 +28,6 @@ public:
     void setTint(Color color);
     float getAttenuation();
     void setAttenuation(float attenuation);
-    
-    // Shading
-    virtual Color shade(Scene & scene, Intersection & intersection);
 };
 
 #endif
