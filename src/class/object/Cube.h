@@ -4,7 +4,9 @@
 #include "object/Object.h"
 
 class Cube : public Object {
-private:
+protected:
+    
+    const static float DEFAULT_SIZE;
     
     // Private parameters
     float width;
@@ -14,8 +16,6 @@ private:
     // Corner getter
     vec3 getMaxCorner();
     vec3 getMinCorner();
-    
-protected:
     
     // Intersection
     bool updateIntersect(Ray & ray, Intersection & intersection);
@@ -28,11 +28,11 @@ public:
     
     // Basic getter and setter
     float getWidth();
-    void setWidth(float width);
     float getHeight();
-    void setHeight(float height);
     float getLength();
-    void setLength(float length);
+    virtual void setWidth(float width);
+    virtual void setHeight(float height);
+    virtual void setLength(float length);
 };
 
 #endif

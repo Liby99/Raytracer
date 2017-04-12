@@ -45,36 +45,25 @@ bool MeshCube::updateIntersect(Ray & ray, Intersection & intersection) {
     return mesh.intersect(ray, intersection);
 }
 
-MeshCube::MeshCube(float width, float height, float length) : Object() {
-    setWidth(width);
-    setHeight(height);
-    setLength(length);
+MeshCube::MeshCube() : Cube() {
     construct();
 }
 
-float MeshCube::getWidth() {
-    return width;
+MeshCube::MeshCube(float width, float height, float length) : Cube(width, height, length) {
+    construct();
 }
 
 void MeshCube::setWidth(float width) {
-    this->width = width;
+    Cube::setWidth(width);
     reconstruct();
-}
-
-float MeshCube::getHeight() {
-    return height;
 }
 
 void MeshCube::setHeight(float height) {
-    this->height = height;
+    Cube::setHeight(height);
     reconstruct();
 }
 
-float MeshCube::getLength() {
-    return length;
-}
-
 void MeshCube::setLength(float length) {
-    this->length = length;
+    Cube::setLength(length);
     reconstruct();
 }
