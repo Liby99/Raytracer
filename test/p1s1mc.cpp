@@ -2,7 +2,7 @@
 #include "material/Diffuse.h"
 #include "light/PointLight.h"
 #include "light/DirectionalLight.h"
-#include "object/Cube.h"
+#include "object/MeshCube.h"
 #include "object/InstanceObject.h"
 #include "camera/Camera.h"
 #include "util/Bitmap.h"
@@ -20,11 +20,11 @@ int main(int argc, char ** argv) {
     Diffuse diffuse = Diffuse(Color(1.0f, 1.0f, 1.0f));
 
     // Create boxes
-    Cube box1 = Cube(5.0f,0.1f,5.0f);
+    MeshCube box1 = MeshCube(5.0f,0.1f,5.0f);
     box1.addMaterial(diffuse);
     scn.addObject(box1);
 
-    Cube box2 = Cube(1.0f,1.0f,1.0f);
+    MeshCube box2 = MeshCube(1.0f,1.0f,1.0f);
 
     InstanceObject inst1(box2);
     inst1.rotateX(glm::degrees(0.5f));
@@ -59,5 +59,5 @@ int main(int argc, char ** argv) {
 
     // Render image
     Bitmap bmp = cam.render(scn);
-    bmp.saveImage("project1scene1.bmp");
+    bmp.saveImage("project1scene1mc.bmp");
 }

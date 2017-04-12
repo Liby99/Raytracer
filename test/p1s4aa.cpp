@@ -7,7 +7,7 @@
 #include "object/Plane.h"
 #include "object/Cube.h"
 #include "object/MeshCube.h"
-#include "camera/Camera.h"
+#include "camera/AntiAliasingCamera.h"
 #include "util/Bitmap.h"
 
 int main() {
@@ -21,13 +21,13 @@ int main() {
     ground.addMaterial(diffuse);
     scene.addObject(ground);
     
-    MeshCube cube = MeshCube(0.5, 0.5, 0.5);
+    Cube cube = Cube(0.5, 0.5, 0.5);
     cube.translateY(0.25);
     cube.addMaterial(diffuse);
     cube.addMaterial(specular);
     scene.addObject(cube);
     
-    MeshCube cube2 = MeshCube(0.2, 0.2, 1.5);
+    Cube cube2 = Cube(0.2, 0.2, 1.5);
     cube2.translateY(0.1);
     cube2.translateX(0.8);
     cube2.rotateY(40);
@@ -35,7 +35,7 @@ int main() {
     cube2.addMaterial(specular);
     scene.addObject(cube2);
     
-    MeshCube cube3 = MeshCube(0.4, 0.4, 0.4);
+    Cube cube3 = Cube(0.4, 0.4, 0.4);
     cube3.translateY(0.2);
     cube3.translateZ(1);
     cube3.rotateY(75);
@@ -53,7 +53,7 @@ int main() {
     sl.setCastShadow(true);
     scene.addLight(sl);
     
-    Camera cam = Camera();
+    AntiAliasingCamera cam = AntiAliasingCamera();
     cam.lookAt(vec3(2.5, 0.75, 2.5), vec3(0, 0, 0));
     cam.setFovy(45);
     
@@ -61,5 +61,5 @@ int main() {
     cout << "object: " << scene.objectAmount() << endl;
     
     Bitmap bmp = cam.render(scene);
-    bmp.saveImage("project1scene4.bmp");
+    bmp.saveImage("project1scene4aa.bmp");
 }
