@@ -1,5 +1,8 @@
 #include "object/LinearCloner.h"
 
+const vec3 LinearCloner::DEFAULT_GAP = vec3(0, 1, 0);
+const unsigned int LinearCloner::DEFAULT_COUNT = 3;
+
 bool LinearCloner::updateIntersect(Ray & ray, Intersection & intersection) {
     return Cloner::updateIntersect(ray, intersection);
 }
@@ -8,7 +11,7 @@ void LinearCloner::updateCache() {
     Cloner::updateCache();
     vec3 position = vec3();
     for (int i = 0; i < count; i++) {
-        InstanceObject ins = InstanceObject(object);
+        InstanceObject ins = InstanceObject(*object);
         ins.translate(position);
         cache.push_back(ins);
         position += gap;
@@ -38,20 +41,20 @@ LinearCloner::LinearCloner(Object & object, vec3 gap, unsigned int count) {
     setCount(count);
 }
 
-vec3 getGap() {
+vec3 LinearCloner::getGap() {
     return gap;
 }
 
-void setGap(vec3 gap) {
+void LinearCloner::setGap(vec3 gap) {
     this->gap = gap;
     updateGap();
 }
 
-unsigned int getCount() {
+unsigned int LinearCloner::getCount() {
     return count;
 }
 
-void setCount(unsigned int count) {
+void LinearCloner::setCount(unsigned int count) {
     this->count = count;
     updateCache();
 }

@@ -8,7 +8,7 @@ protected:
     
     // Constant
     const static float DEFAULT_SIZE;
-    const static unsigned int DEFAULT_COUNT
+    const static unsigned int DEFAULT_COUNT;
     
     float width;
     float height;

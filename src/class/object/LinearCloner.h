@@ -1,7 +1,7 @@
 #ifndef LINEAR_CLONER_H
 #define LINEAR_CLONER_H
 
-#include "object/Cloner"
+#include "object/Cloner.h"
 
 class LinearCloner : public Cloner {
 protected:

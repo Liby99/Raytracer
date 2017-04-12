@@ -15,7 +15,7 @@ void GridCloner::updateCache() {
     for (int i = 0; i < xCount; i++) {
         for (int j = 0; j < yCount; j++) {
             for (int k = 0; k < zCount; k++) {
-                InstanceObject ins = InstanceObject(object);
+                InstanceObject ins = InstanceObject(*object);
                 ins.translate(vec3(-halfWidth + width * i / xCount,
                                    -halfHeight + height * j / yCount,
                                    -halfLength + length * k / zCount));
