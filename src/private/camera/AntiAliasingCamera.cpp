@@ -44,11 +44,13 @@ Bitmap AntiAliasingCamera::render(Scene & scene) {
     betaMult /= halfHeight;
     
     // Iterate through all the rays
+    #pragma parallel omp for collapse(2)
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
             
             Color color;
             
+            #pragma parallel omp for collapse(2)
             for (int ax = 0; ax < level; ax++) {
                 for (int ay = 0; ay < level; ay++) {
                     

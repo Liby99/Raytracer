@@ -94,10 +94,8 @@ Bitmap Camera::render(Scene & scene) {
     float halfHeight = height / 2.0f;
     
     // Iterate through all the rays
-    #pragma omp parallel for
+    #pragma omp parallel for collapse(2)
     for (int i = 0; i < width; i++) {
-        
-        #pragma omp parallel for
         for (int j = 0; j < height; j++) {
             
             // Then calculate alpha and beta then direction of ray
