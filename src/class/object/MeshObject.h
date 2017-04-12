@@ -6,15 +6,15 @@
 #include "util/Vertex.h"
 
 class MeshObject : public Object {
-private:
+protected:
     
     // Vertex and Triangle Array
     vector<Vertex *> vertices;
     vector<Triangle *> triangles;
-protected:
     
     // Intersect
     virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    
 public:
     
     // Constructor and Destructor
