@@ -4,7 +4,7 @@
 const Color Reflection::DEFAULT_TINT = Color(1, 1, 1);
 const float Reflection::DEFAULT_ATTENUATION = 0.8;
 
-Color Reflection::getShadingColor(Scene & scene, Intersection & intersection) {
+Color Reflection::getShadingColor(const Scene & scene, const Intersection & intersection) const {
     
     if (intersection.getRay().canRecurse()) {
         
@@ -32,23 +32,23 @@ Reflection::Reflection() {
     setAttenuation(DEFAULT_ATTENUATION);
 }
 
-Reflection::Reflection(Color tint) {
+Reflection::Reflection(const Color tint) {
     setTint(tint);
     setAttenuation(DEFAULT_ATTENUATION);
 }
 
-Color Reflection::getTint() {
+Color Reflection::getTint() const {
     return tint;
 }
 
-void Reflection::setTint(Color tint) {
+void Reflection::setTint(const Color tint) {
     this->tint = tint;
 }
 
-float Reflection::getAttenuation() {
+float Reflection::getAttenuation() const {
     return attenuation;
 }
 
-void Reflection::setAttenuation(float attenuation) {
+void Reflection::setAttenuation(const float attenuation) {
     this->attenuation = attenuation;
 }

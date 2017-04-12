@@ -9,12 +9,12 @@ class Diffuse : public Material {
 private:
     const static Color DEFAULT_DIFFUSE;
     Color diffuse;
-    virtual Color getShadingColor(Scene & scene, Intersection & intersection);
+    virtual Color getShadingColor(const Scene & scene, const Intersection & intersection) const;
 public:
     Diffuse();
-    Diffuse(Color diffuse);
-    Color getDiffuse();
-    void setDiffuse(Color ambient);
+    Diffuse(const Color diffuse);
+    Color getDiffuse() const;
+    void setDiffuse(const Color ambient);
 };
 
 #endif

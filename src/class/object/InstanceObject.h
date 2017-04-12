@@ -10,17 +10,17 @@ protected:
     Object * object;
     
     // Intersection method
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
     
 public:
     
     // Constructor
     InstanceObject();
-    InstanceObject(Object & object);
+    InstanceObject(const Object & object);
     
     // Getter and setter
-    Object & getObject();
-    void setObject(Object & object);
+    Object & getObject() const;
+    void setObject(const Object & object);
 };
 
 #endif

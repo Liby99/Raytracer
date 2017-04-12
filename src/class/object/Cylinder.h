@@ -16,28 +16,28 @@ private:
     float radius;
     
     // Helper methods
-    bool higher(float h);
-    bool lower(float h);
-    bool inHeight(float h);
+    bool higher(const float h) const;
+    bool lower(const float h) const;
+    bool inHeight(const float h) const;
     
 protected:
     
     // Intersection
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
     
 public:
     
     // Constructors
     Cylinder();
-    Cylinder(float height, float radius);
-    Cylinder(int orientation);
-    Cylinder(int orientation, float height, float radius);
+    Cylinder(const float height, float radius);
+    Cylinder(const int orientation);
+    Cylinder(const int orientation, const float height, const float radius);
     
     // Basic getter and setter
-    float getHeight();
-    void setHeight(float height);
-    float getRadius();
-    void setRadius(float radius);
+    float getHeight() const;
+    void setHeight(const float height);
+    float getRadius() const;
+    void setRadius(const float radius);
 };
 
 #endif

@@ -8,6 +8,7 @@ using namespace std;
 class Specular : public Material {
 private:
     
+    const static Color DEFAULT_SPECULAR
     const static float DEFAULT_SHININESS;
     
     // Basic parameters
@@ -15,18 +16,19 @@ private:
     float shininess;
     
     // Shading
-    virtual Color getShadingColor(Scene & scene, Intersection & intersection);
+    virtual Color getShadingColor(const Scene & scene, const Intersection & intersection) const;
     
 public:
     
     // Constructor
-    Specular(Color specular);
-    Specular(Color specular, float shininess);
+    Specular();
+    Specular(const Color specular);
+    Specular(const Color specular, const float shininess);
     
-    Color getSpecular();
-    void setSpecular(Color color);
-    float getShininess();
-    void setShininess(float shininess);
+    Color getSpecular() const;
+    void setSpecular(const Color color);
+    float getShininess() const;
+    void setShininess(const float shininess);
 };
 
 #endif

@@ -9,28 +9,28 @@ SpotLight::SpotLight() : PointLight() {
     setAngle(DEFAULT_ANGLE);
 }
 
-SpotLight::SpotLight(Color color, vec3 position, vec3 target, float angle) : PointLight(color, position) {
+SpotLight::SpotLight(const Color color, const vec3 position, const vec3 target, const float angle) : PointLight(color, position) {
     setTarget(target);
     setAngle(angle);
 }
 
-vec3 SpotLight::getTarget() {
+vec3 SpotLight::getTarget() const {
     return target;
 }
 
-void SpotLight::setTarget(vec3 target) {
+void SpotLight::setTarget(const vec3 target) {
     this->target = target;
 }
 
-float SpotLight::getAngle() {
+float SpotLight::getAngle() const {
     return angle;
 }
 
-void SpotLight::setAngle(float angle) {
+void SpotLight::setAngle(const float angle) {
     this->angle = angle;
 }
 
-float SpotLight::getBrightness(Scene & scene, Intersection & intersection) {
+float SpotLight::getBrightness(const Scene & scene, const Intersection & intersection) const {
     
     vec3 itsDir = normalize(intersection.getPosition() - position);
     vec3 lgtDir = normalize(target - position);
@@ -44,6 +44,6 @@ float SpotLight::getBrightness(Scene & scene, Intersection & intersection) {
     }
 }
 
-vec3 SpotLight::getToLightDirection(Intersection & intersection) {
+vec3 SpotLight::getToLightDirection(const Intersection & intersection) const {
     return normalize(position - intersection.getPosition());
 }

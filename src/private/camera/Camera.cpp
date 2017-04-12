@@ -13,72 +13,72 @@ Camera::Camera() {
     setFovy(DEFAULT_FOVY);
 }
 
-Camera::Camera(vec3 position, vec3 focalPoint) {
+Camera::Camera(const vec3 position, const vec3 focalPoint) {
     lookAt(position, focalPoint, DEFAULT_UP);
     setResolution(DEFAULT_WIDTH, DEFAULT_HEIGHT);
     setFovy(DEFAULT_FOVY);
 }
 
-Camera::Camera(vec3 position, vec3 focalPoint, vec3 up) {
+Camera::Camera(const vec3 position, const vec3 focalPoint, const vec3 up) {
     lookAt(position, focalPoint, up);
     setResolution(DEFAULT_WIDTH, DEFAULT_HEIGHT);
     setFovy(DEFAULT_FOVY);
 }
 
-void Camera::lookAt(vec3 position, vec3 focalPoint) {
+void Camera::lookAt(const vec3 position, const vec3 focalPoint) {
     setPosition(position);
     setFocalPoint(focalPoint);
     setUp(DEFAULT_UP);
 }
 
-void Camera::lookAt(vec3 position, vec3 focalPoint, vec3 up) {
+void Camera::lookAt(const vec3 position, const vec3 focalPoint, const vec3 up) {
     setPosition(position);
     setFocalPoint(focalPoint);
     setUp(up);
 }
 
-void Camera::setPosition(vec3 position) {
+void Camera::setPosition(const vec3 position) {
     this->position = position;
 }
 
-void Camera::setFocalPoint(vec3 focalPoint) {
+void Camera::setFocalPoint(const vec3 focalPoint) {
     this->focalPoint = focalPoint;
 }
 
-void Camera::setUp(vec3 up) {
+void Camera::setUp(const vec3 up) {
     this->up = up;
 }
 
-vec3 Camera::getPosition() {
+vec3 Camera::getPosition() const {
     return position;
 }
 
-vec3 Camera::getFocalPoint() {
+vec3 Camera::getFocalPoint() const {
     return focalPoint;
 }
 
-vec3 Camera::getUp() {
+vec3 Camera::getUp() const {
     return up;
 }
 
-void Camera::setResolution(int width, int height) {
+void Camera::setResolution(const int width, const int height) {
     setWidth(width);
     setHeight(height);
 }
 
-void Camera::setWidth(int width) {
+void Camera::setWidth(const int width) {
     this->width = width;
 }
 
-void Camera::setHeight(int height) {
+void Camera::setHeight(const int height) {
     this->height = height;
 }
 
-void Camera::setFovy(float fovy) {
+void Camera::setFovy(const float fovy) {
     this->fovy = fovy;
 }
 
-Bitmap Camera::render(Scene & scene) {
+Bitmap Camera::render(const Scene & scene) const {
     
     Bitmap bitmap(width, height);
     

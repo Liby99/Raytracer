@@ -6,27 +6,27 @@ AntiAliasingCamera::AntiAliasingCamera() : Camera() {
     setLevel(DEFAULT_LEVEL);
 }
 
-AntiAliasingCamera::AntiAliasingCamera(int level) : Camera() {
+AntiAliasingCamera::AntiAliasingCamera(const int level) : Camera() {
     setLevel(level);
 }
 
-AntiAliasingCamera::AntiAliasingCamera(vec3 position, vec3 focalPoint, int level) : Camera(position, focalPoint) {
+AntiAliasingCamera::AntiAliasingCamera(const vec3 position, const vec3 focalPoint, const int level) : Camera(position, focalPoint) {
     setLevel(level);
 }
 
-AntiAliasingCamera::AntiAliasingCamera(vec3 position, vec3 focalPoint, vec3 up, int level) : Camera(position, focalPoint, up) {
+AntiAliasingCamera::AntiAliasingCamera(const vec3 position, const vec3 focalPoint, const vec3 up, const int level) : Camera(position, focalPoint, up) {
     setLevel(level);
 }
 
-int AntiAliasingCamera::getLevel() {
+int AntiAliasingCamera::getLevel() const {
     return level;
 }
 
-void AntiAliasingCamera::setLevel(int level) {
+void AntiAliasingCamera::setLevel(const int level) {
     this->level = level;
 }
 
-Bitmap AntiAliasingCamera::render(Scene & scene) {
+Bitmap AntiAliasingCamera::render(const Scene & scene) const {
     
     Bitmap bitmap(width, height);
     
