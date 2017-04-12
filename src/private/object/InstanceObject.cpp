@@ -4,6 +4,10 @@ bool InstanceObject::updateIntersect(Ray & ray, Intersection & intersection) {
     return object->intersect(ray, intersection);
 }
 
+InstanceObject::InstanceObject() : Object() {
+    
+}
+
 InstanceObject::InstanceObject(Object & object) : Object() {
     setObject(object);
 }

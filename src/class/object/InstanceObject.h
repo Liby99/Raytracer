@@ -4,12 +4,21 @@
 #include "object/Object.h"
 
 class InstanceObject : public Object {
-private:
-    Object * object;
 protected:
+    
+    // Object reference
+    Object * object;
+    
+    // Intersection method
     virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    
 public:
+    
+    // Constructor
+    InstanceObject();
     InstanceObject(Object & object);
+    
+    // Getter and setter
     Object & getObject();
     void setObject(Object & object);
 };
