@@ -14,23 +14,22 @@ protected:
     unsigned int count;
     
     // Update the intersection
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
     virtual void updateCache();
-    
     void updateGap();
     
 public:
     
     // Constructors
     LinearCloner();
-    LinearCloner(Object & object);
-    LinearCloner(Object & object, vec3 gap, unsigned int count);
+    LinearCloner(const Object & object);
+    LinearCloner(const Object & object, const vec3 gap, const unsigned int count);
     
     // Getter and setters
-    vec3 getGap();
-    void setGap(vec3 gap);
-    unsigned int getCount();
-    void setCount(unsigned int count);
+    vec3 getGap() const;
+    void setGap(const vec3 gap);
+    unsigned int getCount() const;
+    void setCount(const unsigned int count);
 };
 
 #endif

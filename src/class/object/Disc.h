@@ -14,18 +14,18 @@ protected:
     float radius;
     
     // Intersect
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
     
 public:
     
     // Constructors
     Disc();
-    Disc(float radius);
-    Disc(float radius, int orientation);
+    Disc(const float radius);
+    Disc(const float radius, const int orientation);
     
     // Getter and setter
-    float getRadius();
-    void setRadius(float radius);
+    float getRadius() const;
+    void setRadius(const float radius);
 };
 
 #endif

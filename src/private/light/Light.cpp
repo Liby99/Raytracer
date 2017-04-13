@@ -20,30 +20,30 @@ Color Light::getColor() {
     return color;
 }
 
-void Light::setColor(Color color) {
+void Light::setColor(const Color color) {
     this->color = color;
 }
 
-float Light::getIntensity() {
+float Light::getIntensity() const {
     return intensity;
 }
 
-void Light::setIntensity(float intensity) {
+void Light::setIntensity(const float intensity) {
     this->intensity = intensity;
 }
 
-bool Light::getCastShadow() {
+bool Light::getCastShadow() const {
     return castShadow;
 }
 
-void Light::setCastShadow(bool castShadow) {
+void Light::setCastShadow(const bool castShadow) {
     this->castShadow = castShadow;
 }
 
-float Light::getBrightness(Scene & scene, Intersection & intersection) {
+float Light::getBrightness(const Scene & scene, const Intersection & intersection) const {
     return 0;
 }
 
-vec3 Light::getToLightDirection(Intersection & intersection) {
+vec3 Light::getToLightDirection(const Intersection & intersection) const {
     return vec3(0, 0, 0);
 }

@@ -3,7 +3,7 @@
 
 const Color Diffuse::DEFAULT_DIFFUSE = Color(1, 1, 1);
 
-Color Diffuse::getShadingColor(Scene & scene, Intersection & intersection) {
+Color Diffuse::getShadingColor(const Scene & scene, const Intersection & intersection) const {
     Color color;
     #pragma omp parallel for
     for (int i = 0; i < scene.lightAmount(); i++) {
@@ -27,14 +27,14 @@ Diffuse::Diffuse() {
     setDiffuse(DEFAULT_DIFFUSE);
 }
 
-Diffuse::Diffuse(Color diffuse) : Material() {
+Diffuse::Diffuse(const Color diffuse) : Material() {
     setDiffuse(diffuse);
 }
 
-Color Diffuse::getDiffuse() {
+Color Diffuse::getDiffuse() const {
     return diffuse;
 }
 
-void Diffuse::setDiffuse(Color diffuse) {
+void Diffuse::setDiffuse(const Color diffuse) {
     this->diffuse = diffuse;
 }

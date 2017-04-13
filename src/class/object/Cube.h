@@ -14,25 +14,25 @@ protected:
     float height;
     
     // Corner getter
-    vec3 getMaxCorner();
-    vec3 getMinCorner();
+    vec3 getMaxCorner() const;
+    vec3 getMinCorner() const;
     
     // Intersection
-    bool updateIntersect(Ray & ray, Intersection & intersection);
+    bool updateIntersect(const Ray & ray, Intersection & intersection) const;
     
 public:
     
     // Constructor with the size of the cube
     Cube();
-    Cube(float width, float height, float length);
+    Cube(const float width, const float height, const float length);
     
     // Basic getter and setter
-    float getWidth();
-    float getHeight();
-    float getLength();
-    virtual void setWidth(float width);
-    virtual void setHeight(float height);
-    virtual void setLength(float length);
+    float getWidth() const;
+    float getHeight() const;
+    float getLength() const;
+    virtual void setWidth(const float width);
+    virtual void setHeight(const float height);
+    virtual void setLength(const float length);
 };
 
 #endif

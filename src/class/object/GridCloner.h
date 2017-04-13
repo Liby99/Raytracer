@@ -18,7 +18,7 @@ protected:
     unsigned int zCount;
     
     //
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
     virtual void updateCache();
     void updateSize();
     
@@ -26,21 +26,21 @@ public:
     
     //
     GridCloner();
-    GridCloner(Object & object);
+    GridCloner(const Object & object);
     
-    float getWidth();
-    float getHeight();
-    float getLength();
-    void setWidth(float width);
-    void setHeight(float height);
-    void setLength(float length);
+    float getWidth() const;
+    float getHeight() const;
+    float getLength() const;
+    void setWidth(const float width);
+    void setHeight(const float height);
+    void setLength(const float length);
     
-    unsigned int getXCount();
-    unsigned int getYCount();
-    unsigned int getZCount();
-    void setXCount(unsigned int xCount);
-    void setYCount(unsigned int yCount);
-    void setZCount(unsigned int zCount);
+    unsigned int getXCount() const;
+    unsigned int getYCount() const;
+    unsigned int getZCount() const;
+    void setXCount(const unsigned int xCount);
+    void setYCount(const unsigned int yCount);
+    void setZCount(const unsigned int zCount);
 };
 
 #endif

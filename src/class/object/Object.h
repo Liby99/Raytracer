@@ -36,31 +36,31 @@ public:
     void addMaterial(Material & material);
     
     // Rotate Transformation
-    void setRotate(vec3 rotation);
-    void rotate(vec3 rotation);
-    void rotateX(float degX);
-    void rotateY(float degY);
-    void rotateZ(float degZ);
+    void setRotate(const vec3 rotation);
+    void rotate(const vec3 rotation);
+    void rotateX(const float degX);
+    void rotateY(const float degY);
+    void rotateZ(const float degZ);
     
     // Translate Transformation
-    void setTranslate(vec3 rotation);
-    void translate(vec3 position);
-    void translateX(float x);
-    void translateY(float y);
-    void translateZ(float z);
+    void setTranslate(const vec3 rotation);
+    void translate(const vec3 position);
+    void translateX(const float x);
+    void translateY(const float y);
+    void translateZ(const float z);
     
     // Scale Transformation
-    void setScale(vec3 scaler);
-    void scale(vec3 scaler);
-    void scaleX(float scaleX);
-    void scaleY(float scaleY);
-    void scaleZ(float scaleZ);
+    void setScale(const vec3 scaler);
+    void scale(const vec3 scaler);
+    void scaleX(const float scaleX);
+    void scaleY(const float scaleY);
+    void scaleZ(const float scaleZ);
     
     // Get transformation helper method
-    mat4 getTransformMatrix();
+    mat4 getTransformMatrix() const;
     
     // Virtaul intersect method
-    bool intersect(Ray & ray, Intersection & intersection);
+    bool intersect(const Ray & ray, Intersection & intersection) const;
 };
 
 #endif

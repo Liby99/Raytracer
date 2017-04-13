@@ -10,14 +10,14 @@ protected:
     vector<InstanceObject> cache;
     
     // Update Intersection
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
     virtual void updateCache();
     
 public:
     
     // Constructor
     Cloner();
-    Cloner(Object & object);
+    Cloner(const Object & object);
 };
 
 #endif

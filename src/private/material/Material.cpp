@@ -2,7 +2,7 @@
 
 const float Material::DEFAULT_OPACITY = 1;
 
-Color Material::getShadingColor(Scene & scene, Intersection & intersection) {
+Color Material::getShadingColor(const Scene & scene, const Intersection & intersection) const {
     return Color();
 }
 
@@ -10,14 +10,14 @@ Material::Material() {
     setOpacity(DEFAULT_OPACITY);
 }
 
-void Material::setOpacity(float opacity) {
+void Material::setOpacity(const float opacity) {
     this->opacity = opacity;
 }
 
-float Material::getOpacity() {
+float Material::getOpacity() const {
     return opacity;
 }
 
-Color Material::shade(Scene & scene, Intersection & intersection) {
+Color Material::shade(const Scene & scene, const Intersection & intersection) const {
     return getShadingColor(scene, intersection) * opacity;
 }

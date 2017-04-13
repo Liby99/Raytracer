@@ -2,7 +2,7 @@
 
 const Color Ambient::DEFAULT_AMBIENT = Color(0.1, 0.1, 0.1);
 
-Color Ambient::getShadingColor(Scene & scene, Intersection & intersection) {
+Color Ambient::getShadingColor(const Scene & scene, const Intersection & intersection) const {
     return ambient;
 }
 
@@ -10,14 +10,14 @@ Ambient::Ambient() : Material() {
     setAmbient(DEFAULT_AMBIENT);
 }
 
-Ambient::Ambient(Color ambient) : Material() {
+Ambient::Ambient(const Color ambient) : Material() {
     setAmbient(ambient);
 }
 
-Color Ambient::getAmbient() {
+Color Ambient::getAmbient() const {
     return ambient;
 }
 
-void Ambient::setAmbient(Color ambient) {
+void Ambient::setAmbient(const Color ambient) {
     this->ambient = ambient;
 }

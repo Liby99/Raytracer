@@ -13,17 +13,17 @@ protected:
     Color ambient;
     
     // Get shading method
-    virtual Color getShadingColor(Scene & scene, Intersection & intersection);
+    virtual Color getShadingColor(const Scene & scene, const Intersection & intersection) const;
     
 public:
     
     // Constructors
     Ambient();
-    Ambient(Color ambient);
+    Ambient(const Color ambient);
     
     // Getter and setter
-    Color getAmbient();
-    void setAmbient(Color ambient);
+    Color getAmbient() const;
+    void setAmbient(const Color ambient);
 };
 
 #endif

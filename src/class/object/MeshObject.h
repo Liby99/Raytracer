@@ -13,7 +13,7 @@ protected:
     vector<Triangle *> triangles;
     
     // Intersect
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
     
 public:
     
@@ -22,8 +22,8 @@ public:
     ~MeshObject();
     
     // Vertex and Triangle Manipulation
-    void addVertex(vec3 position);
-    void addVertex(vec3 position, vec3 normal);
+    void addVertex(const vec3 position);
+    void addVertex(const vec3 position, const vec3 normal);
     void addTriangle(int i1, int i2, int i3);
     
     // Destructor helper methods
