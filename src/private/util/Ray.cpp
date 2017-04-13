@@ -1,7 +1,7 @@
 #include "util/Ray.h"
 #include "scene/Scene.h"
 
-const float Ray::INCREMENT = 0.0001;
+const float Ray::INCREMENT = 0.001;
 
 int Ray::maxDepth = 3;
 
@@ -31,7 +31,7 @@ Ray::Ray(vec3 origin, vec3 direction, int depth, bool inside) {
     setInside(inside);
 }
 
-vec3 Ray::getOrigin() {
+vec3 Ray::getOrigin() const {
     return origin;
 }
 
@@ -39,7 +39,7 @@ void Ray::setOrigin(vec3 origin) {
     this->origin = origin;
 }
 
-vec3 Ray::getDirection() {
+vec3 Ray::getDirection() const {
     return direction;
 }
 
@@ -47,7 +47,7 @@ void Ray::setDirection(vec3 direction) {
     this->direction = normalize(direction);
 }
 
-int Ray::getDepth() {
+int Ray::getDepth() const {
     return depth;
 }
 
@@ -55,7 +55,7 @@ void Ray::setDepth(int depth) {
     this->depth = depth;
 }
 
-bool Ray::isInside() {
+bool Ray::isInside() const {
     return inside;
 }
 
@@ -67,26 +67,26 @@ void Ray::increment() {
     increment(direction);
 }
 
-vec3 Ray::getPoint(float t) {
-    return origin + t * direction;
-}
-
 void Ray::increment(vec3 direction) {
     origin += INCREMENT * direction;
 }
 
-bool Ray::canRecurse() {
+vec3 Ray::getPoint(float t) const {
+    return origin + t * direction;
+}
+
+bool Ray::canRecurse() const {
     return depth < maxDepth;
 }
 
-Ray Ray::transform(mat4 transf) {
+Ray Ray::transform(mat4 transf) const {
     vec4 o = transf * vec4(origin, 1);
     vec3 no = vec3(o) / o.w;
     vec3 nd = vec3(transf * vec4(direction, 0));
     return Ray(no, nd);
 }
 
-Ray Ray::inverseTransform(mat4 transf) {
+Ray Ray::inverseTransform(mat4 transf) const {
     return transform(inverse(transf));
 }
 

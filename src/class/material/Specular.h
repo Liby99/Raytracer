@@ -8,7 +8,7 @@ using namespace std;
 class Specular : public Material {
 private:
     
-    const static Color DEFAULT_SPECULAR
+    const static Color DEFAULT_SPECULAR;
     const static float DEFAULT_SHININESS;
     
     // Basic parameters

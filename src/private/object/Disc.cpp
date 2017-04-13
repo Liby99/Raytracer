@@ -2,7 +2,7 @@
 
 const float Disc::DEFAULT_RADIUS = 0.5f;
 
-bool Disc::updateIntersect(Ray & ray, Intersection & intersection) {
+bool Disc::updateIntersect(const Ray & ray, Intersection & intersection) const {
     
     // If the direction is parallel to the plane, then return false
     if (ray.getDirection()[getAxis()] == 0) {
@@ -33,18 +33,18 @@ Disc::Disc() : Object(), Orientable() {
     setRadius(DEFAULT_RADIUS);
 }
 
-Disc::Disc(float radius) : Object(), Orientable() {
+Disc::Disc(const float radius) : Object(), Orientable() {
     setRadius(radius);
 }
 
-Disc::Disc(float radius, int orientation) : Object(), Orientable(orientation) {
+Disc::Disc(const float radius, const int orientation) : Object(), Orientable(orientation) {
     setRadius(radius);
 }
 
-float Disc::getRadius() {
+float Disc::getRadius() const {
     return radius;
 }
 
-void Disc::setRadius(float radius) {
+void Disc::setRadius(const float radius) {
     this->radius = radius;
 }

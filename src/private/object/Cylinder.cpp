@@ -3,19 +3,19 @@
 const float Cylinder::DEFAULT_HEIGHT = 1.0f;
 const float Cylinder::DEFAULT_RADIUS = 0.5f;
 
-bool Cylinder::higher(float h) {
+bool Cylinder::higher(const float h) const {
     return h > height / 2;
 }
 
-bool Cylinder::lower(float h) {
+bool Cylinder::lower(const float h) const {
     return h < -height / 2;
 }
 
-bool Cylinder::inHeight(float h) {
+bool Cylinder::inHeight(const float h) const {
     return !higher(h) && !lower(h);
 }
 
-bool Cylinder::updateIntersect(Ray & ray, Intersection & intersection) {
+bool Cylinder::updateIntersect(const Ray & ray, Intersection & intersection) const {
     
     // Prepare the basic parameters
     int axis = getAxis();
@@ -109,33 +109,33 @@ Cylinder::Cylinder() : Object(), Orientable() {
     setRadius(DEFAULT_RADIUS);
 }
 
-Cylinder::Cylinder(float height, float radius) : Object(), Orientable() {
+Cylinder::Cylinder(const float height, const float radius) : Object(), Orientable() {
     setHeight(height);
     setRadius(radius);
 }
 
-Cylinder::Cylinder(int orientation) : Object(), Orientable(orientation) {
+Cylinder::Cylinder(const int orientation) : Object(), Orientable(orientation) {
     setHeight(DEFAULT_HEIGHT);
     setRadius(DEFAULT_RADIUS);
 }
 
-Cylinder::Cylinder(int orientation, float height, float radius) : Object(), Orientable(orientation) {
+Cylinder::Cylinder(const int orientation, const float height, const float radius) : Object(), Orientable(orientation) {
     setHeight(height);
     setRadius(radius);
 }
 
-float Cylinder::getHeight() {
+float Cylinder::getHeight() const {
     return height;
 }
 
-void Cylinder::setHeight(float height) {
+void Cylinder::setHeight(const float height) {
     this->height = height;
 }
 
-float Cylinder::getRadius() {
+float Cylinder::getRadius() const {
     return radius;
 }
 
-void Cylinder::setRadius(float radius) {
+void Cylinder::setRadius(const float radius) {
     this->radius = radius;
 }

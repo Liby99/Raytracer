@@ -15,12 +15,12 @@ protected:
 public:
     
     AntiAliasingCamera();
-    AntiAliasingCamera(const int level);
-    AntiAliasingCamera(const vec3 position, const vec3 focalPoint, const int level);
-    AntiAliasingCamera(const vec3 position, const vec3 focalPoint, const vec3 up, const int level);
+    AntiAliasingCamera(int level);
+    AntiAliasingCamera(vec3 position, vec3 focalPoint, int level);
+    AntiAliasingCamera(vec3 position, vec3 focalPoint, vec3 up, int level);
     
     int getLevel() const;
-    void setLevel(const int level);
+    void setLevel(int level);
     
     virtual Bitmap render(const Scene & scene) const;
 };

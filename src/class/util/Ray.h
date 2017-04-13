@@ -9,7 +9,7 @@ private:
     // Constants
     const static float INCREMENT;
     
-    //
+    // Basic Ray Parameter
     vec3 origin;
     vec3 direction;
     int depth;
@@ -27,25 +27,25 @@ public:
     Ray(vec3 origin, vec3 direction, int depth, bool inside);
     
     // Setter
-    vec3 getOrigin();
+    vec3 getOrigin() const;
     void setOrigin(vec3 origin);
-    vec3 getDirection();
+    vec3 getDirection() const;
     void setDirection(vec3 direction);
-    int getDepth();
+    int getDepth() const;
     void setDepth(int depth);
-    bool isInside();
+    bool isInside() const;
     void setInside(bool inside);
     
-    vec3 getPoint(float t);
+    vec3 getPoint(float t) const;
     
     void increment();
     void increment(vec3 direction);
     
-    bool canRecurse();
+    bool canRecurse() const;
     
     // Transform
-    Ray transform(mat4 transf);
-    Ray inverseTransform(mat4 transf);
+    Ray transform(mat4 transf) const;
+    Ray inverseTransform(mat4 transf) const;
     
     // Static getter and setter
     static int getMaxDepth();

@@ -7,7 +7,7 @@ class InstanceObject : public Object {
 protected:
     
     // Object reference
-    Object * object;
+    const Object * object;
     
     // Intersection method
     virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
@@ -19,7 +19,7 @@ public:
     InstanceObject(const Object & object);
     
     // Getter and setter
-    Object & getObject() const;
+    const Object & getObject() const;
     void setObject(const Object & object);
 };
 

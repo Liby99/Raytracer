@@ -24,7 +24,7 @@ public:
     // Vertex and Triangle Manipulation
     void addVertex(const vec3 position);
     void addVertex(const vec3 position, const vec3 normal);
-    void addTriangle(int i1, int i2, int i3);
+    void addTriangle(const int i1, const int i2, const int i3);
     
     // Destructor helper methods
     void clear();

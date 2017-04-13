@@ -26,9 +26,9 @@ public:
     Material();
     
     // Getter and setter
-    void setOpacity(const float opacity);
+    void setOpacity(float opacity);
     float getOpacity() const;
-    Color shade(const Scene & scene, const Intersection & intersection);
+    Color shade(const Scene & scene, const Intersection & intersection) const;
 };
 
 #endif

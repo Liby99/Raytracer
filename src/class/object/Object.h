@@ -23,7 +23,7 @@ protected:
     vec3 scaler;
     vec3 rotation;
     
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
     
 public:
     
@@ -31,9 +31,14 @@ public:
     Object();
     
     // Material Related
-    int materialAmount();
-    Material & getMaterial(int i);
+    int materialAmount() const;
+    Material & getMaterial(int i) const;
     void addMaterial(Material & material);
+    
+    // Basic Getter
+    vec3 getRotation() const;
+    vec3 getScale() const;
+    vec3 getPosition() const;
     
     // Rotate Transformation
     void setRotate(const vec3 rotation);

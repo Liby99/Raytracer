@@ -16,9 +16,9 @@ public:
     Vertex(vec3 position, vec3 normal);
     
     // Basic getter and setter
-    vec3 getPosition();
+    vec3 getPosition() const;
     void setPosition(vec3 position);
-    vec3 getNormal();
+    vec3 getNormal() const;
     void setNormal(vec3 normal);
 };
 

@@ -21,23 +21,24 @@ public:
     // Constructor and Destructors
     Scene();
     
-    Color getBackgroundColor();
-    void setBackgroundColor(Color color);
+    // Background
+    Color getBackgroundColor() const;
+    void setBackgroundColor(const Color color);
     
-    //
-    unsigned int lightAmount();
-    Light & getLight(int i);
+    // Light related getter and setter
+    unsigned int lightAmount() const;
+    Light & getLight(int i) const;
     void addLight(Light & light);
     
-    //
-    unsigned int objectAmount();
-    Object & getObject(int i);
+    // Object related getter and setter
+    unsigned int objectAmount() const;
+    Object & getObject(int i) const;
     void addObject(Object & object);
     
     // Intersection
-    bool getIntersection(Ray & ray, Intersection & intersection);
-    Color getIntersectionColor(Intersection & intersection);
-    Color getRayColor(Ray & ray);
+    bool getIntersection(const Ray & ray, Intersection & intersection) const;
+    Color getIntersectionColor(const Intersection & intersection) const;
+    Color getRayColor(const Ray & ray) const;
 };
 
 #endif

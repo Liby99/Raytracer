@@ -41,7 +41,7 @@ void MeshCube::reconstruct() {
     construct();
 }
 
-bool MeshCube::updateIntersect(Ray & ray, Intersection & intersection) {
+bool MeshCube::updateIntersect(const Ray & ray, Intersection & intersection) const {
     return mesh.intersect(ray, intersection);
 }
 
@@ -49,21 +49,21 @@ MeshCube::MeshCube() : Cube() {
     construct();
 }
 
-MeshCube::MeshCube(float width, float height, float length) : Cube(width, height, length) {
+MeshCube::MeshCube(const float width, const float height, const float length) : Cube(width, height, length) {
     construct();
 }
 
-void MeshCube::setWidth(float width) {
+void MeshCube::setWidth(const float width) {
     Cube::setWidth(width);
     reconstruct();
 }
 
-void MeshCube::setHeight(float height) {
+void MeshCube::setHeight(const float height) {
     Cube::setHeight(height);
     reconstruct();
 }
 
-void MeshCube::setLength(float length) {
+void MeshCube::setLength(const float length) {
     Cube::setLength(length);
     reconstruct();
 }

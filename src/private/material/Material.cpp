@@ -10,7 +10,7 @@ Material::Material() {
     setOpacity(DEFAULT_OPACITY);
 }
 
-void Material::setOpacity(const float opacity) {
+void Material::setOpacity(float opacity) {
     this->opacity = opacity;
 }
 

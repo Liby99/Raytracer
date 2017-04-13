@@ -10,8 +10,8 @@ class Intersection {
 private:
     
     // Reference to ray and object
-    Ray * ray;
-    Object * object;
+    const Ray * ray;
+    const Object * object;
     
     // Intersection parameters
     bool hitFlag;
@@ -20,27 +20,29 @@ private:
     vec3 normal;
     
 public:
-    Intersection(Ray & ray);
+    
+    // Constructor
+    Intersection(const Ray & ray);
     
     // Reference Getter and setter
-    Object & getObject();
-    void setObject(Object & object);
-    Ray & getRay();
-    void setRay(Ray & ray);
+    const Object & getObject() const;
+    void setObject(const Object & object);
+    const Ray & getRay() const;
+    void setRay(const Ray & ray);
     
     // Parameter Getter and setter
-    bool hit();
+    bool hit() const;
     void setHit(bool hit);
-    float getT();
+    float getT() const;
     void setT(float t);
-    vec3 getPosition();
+    vec3 getPosition() const;
     void setPosition(vec3 position);
-    vec3 getNormal();
+    vec3 getNormal() const;
     void setNormal(vec3 normal);
     
-    float getDistanceToOrigin();
-    bool needUpdate(float t);
-    bool update(float t, vec3 position, vec3 normal);
+    float getDistanceToOrigin() const;
+    bool needUpdate(float t) const;
+    bool update(float t, const vec3 position, const vec3 normal);
     
     void transform(mat4 transform);
 };

@@ -36,7 +36,7 @@ public:
     
     // Inherited brightness and tolight
     virtual float getBrightness(const Scene & scene, const Intersection & intersection) const;
-    virtual vec3 getToLightDirection(const Intersection & intersection);
+    virtual vec3 getToLightDirection(const Intersection & intersection) const;
 };
 
 #endif

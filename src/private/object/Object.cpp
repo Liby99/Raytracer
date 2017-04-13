@@ -4,7 +4,7 @@ const vec3 Object::DEFAULT_POSITION = vec3(0, 0, 0);
 const vec3 Object::DEFAULT_SCALER = vec3(1, 1, 1);
 const vec3 Object::DEFAULT_ROTATION = vec3(0, 0, 0);
 
-bool Object::updateIntersect(Ray & ray, Intersection & intersection) {
+bool Object::updateIntersect(const Ray & ray, Intersection & intersection) const {
     return false;
 }
 
@@ -14,11 +14,11 @@ Object::Object() {
     setScale(DEFAULT_SCALER);
 }
 
-int Object::materialAmount() {
+int Object::materialAmount() const {
     return materials.size();
 }
 
-Material & Object::getMaterial(int i) {
+Material & Object::getMaterial(int i) const {
     return *(materials[i]);
 }
 
@@ -26,67 +26,79 @@ void Object::addMaterial(Material & material) {
     materials.push_back(&material);
 }
 
-void Object::setRotate(vec3 rotation) {
+vec3 Object::getRotation() const {
+    return rotation;
+}
+
+vec3 Object::getScale() const {
+    return scaler;
+}
+
+vec3 Object::getPosition() const {
+    return position;
+}
+
+void Object::setRotate(const vec3 rotation) {
     this->rotation = rotation;
 }
 
-void Object::rotate(vec3 rotation) {
+void Object::rotate(const vec3 rotation) {
     this->rotation += rotation;
 }
 
-void Object::rotateX(float degX) {
+void Object::rotateX(const float degX) {
     rotation.x += degX;
 }
 
-void Object::rotateY(float degY) {
+void Object::rotateY(const float degY) {
     rotation.y += degY;
 }
 
-void Object::rotateZ(float degZ) {
+void Object::rotateZ(const float degZ) {
     rotation.z += degZ;
 }
 
-void Object::setTranslate(vec3 translate) {
+void Object::setTranslate(const vec3 translate) {
     this->position = translate;
 }
 
-void Object::translate(vec3 translate) {
+void Object::translate(const vec3 translate) {
     this->position += translate;
 }
 
-void Object::translateX(float x) {
+void Object::translateX(const float x) {
     position.x += x;
 }
 
-void Object::translateY(float y) {
+void Object::translateY(const float y) {
     position.y += y;
 }
 
-void Object::translateZ(float z) {
+void Object::translateZ(const float z) {
     position.z += z;
 }
 
-void Object::setScale(vec3 scaler) {
+void Object::setScale(const vec3 scaler) {
     this->scaler = scaler;
 }
 
-void Object::scale(vec3 scaler) {
+void Object::scale(const vec3 scaler) {
     this->scaler *= scaler;
 }
 
-void Object::scaleX(float scaleX) {
+void Object::scaleX(const float scaleX) {
     scaler.x *= scaleX;
 }
 
-void Object::scaleY(float scaleY) {
+void Object::scaleY(const float scaleY) {
     scaler.y *= scaleY;
 }
 
-void Object::scaleZ(float scaleZ) {
+void Object::scaleZ(const float scaleZ) {
     scaler.z *= scaleZ;
 }
 
-mat4 Object::getTransformMatrix() {
+mat4 Object::getTransformMatrix() const {
     mat4 scale = Transform::scale(scaler.x, scaler.y, scaler.z);
     mat4 translate = Transform::translate(position.x, position.y, position.z);
     mat4 rotationX = Transform::rotate(rotation.x, vec3(1, 0, 0));
@@ -95,7 +107,7 @@ mat4 Object::getTransformMatrix() {
     return translate * rotationZ * rotationY * rotationX * scale;
 }
 
-bool Object::intersect(Ray & ray, Intersection & intersection) {
+bool Object::intersect(const Ray & ray, Intersection & intersection) const {
     Ray transfRay = ray.inverseTransform(getTransformMatrix());
     if (updateIntersect(transfRay, intersection)) {
         intersection.transform(getTransformMatrix());

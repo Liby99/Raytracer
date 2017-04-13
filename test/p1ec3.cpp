@@ -1,24 +1,15 @@
 #include "scene/Scene.h"
 #include "material/Diffuse.h"
-#include "light/PointLight.h"
 #include "light/DirectionalLight.h"
 #include "object/Sphere.h"
 #include "object/Plane.h"
-#include "object/InstanceObject.h"
+#include "object/GridCloner.h"
 #include "camera/Camera.h"
 #include "util/Bitmap.h"
 #include "util/Color.h"
 #include "util/Transform.h"
 
-#include <time.h>
-#include <iostream>
-#include <glm/gtc/random.hpp>
-
-using namespace std;
-
-int main(int argc, char ** argv) {
-    
-    srand(time(nullptr));
+int main() {
     
     Scene scn;
     scn.setBackgroundColor(Color(0.8f, 0.8f, 1.0f));
@@ -29,15 +20,13 @@ int main(int argc, char ** argv) {
     ground.addMaterial(diffuse);
     scn.addObject(ground);
     
-    for (int i = 0; i < 20; i++) {
-        Sphere * sphere = new Sphere();
-        float rad = glm::linearRand(0.2f, 0.5f);
-        vec3 pos = vec3(glm::linearRand(-5, 5), rad, glm::linearRand(-5, 5));
-        sphere->setRadius(rad);
-        sphere->translate(pos);
-        sphere->addMaterial(diffuse);
-        scn.addObject(*sphere);
-    }
+    Sphere sphere = Sphere(0.5);
+    sphere.translateY(0.25);
+    
+    GridCloner cloner = GridCloner(sphere);
+    cloner.translateY(2);
+    cloner.addMaterial(diffuse);
+    scn.addObject(cloner);
 
     // Create lights
     DirectionalLight sunlgt;
@@ -49,7 +38,7 @@ int main(int argc, char ** argv) {
 
     // Create camera
     Camera cam;
-    cam.lookAt(vec3(-0.75f, 0.25f, 5.0f), vec3(0.0f, 0.5f, 0.0f));
+    cam.lookAt(vec3(5.0f, 5.0f, 5.0f), vec3(0.0f, 0.5f, 0.0f));
     cam.setResolution(800, 600);
     cam.setFovy(40.0f);
     
@@ -57,9 +46,5 @@ int main(int argc, char ** argv) {
 
     // Render image
     Bitmap bmp = cam.render(scn);
-    bmp.saveImage("project1ec.bmp");
-    
-    for (int i = 1; i < scn.objectAmount(); i++) {
-        delete &(scn.getObject(i));
-    }
+    bmp.saveImage("project1ec3.bmp");
 }

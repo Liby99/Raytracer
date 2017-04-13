@@ -3,7 +3,7 @@
 const vec3 LinearCloner::DEFAULT_GAP = vec3(0, 1, 0);
 const unsigned int LinearCloner::DEFAULT_COUNT = 3;
 
-bool LinearCloner::updateIntersect(Ray & ray, Intersection & intersection) {
+bool LinearCloner::updateIntersect(const Ray & ray, Intersection & intersection) const {
     return Cloner::updateIntersect(ray, intersection);
 }
 
@@ -31,30 +31,30 @@ LinearCloner::LinearCloner() : Cloner() {
     setCount(DEFAULT_COUNT);
 }
 
-LinearCloner::LinearCloner(Object & object) : Cloner(object) {
+LinearCloner::LinearCloner(const Object & object) : Cloner(object) {
     setGap(DEFAULT_GAP);
     setCount(DEFAULT_COUNT);
 }
 
-LinearCloner::LinearCloner(Object & object, vec3 gap, unsigned int count) {
+LinearCloner::LinearCloner(const Object & object, const vec3 gap, const unsigned int count) {
     setGap(gap);
     setCount(count);
 }
 
-vec3 LinearCloner::getGap() {
+vec3 LinearCloner::getGap() const {
     return gap;
 }
 
-void LinearCloner::setGap(vec3 gap) {
+void LinearCloner::setGap(const vec3 gap) {
     this->gap = gap;
     updateGap();
 }
 
-unsigned int LinearCloner::getCount() {
+unsigned int LinearCloner::getCount() const {
     return count;
 }
 
-void LinearCloner::setCount(unsigned int count) {
+void LinearCloner::setCount(const unsigned int count) {
     this->count = count;
     updateCache();
 }

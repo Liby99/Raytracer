@@ -10,15 +10,12 @@
 #include "util/Color.h"
 #include "util/Transform.h"
 
-#include <time.h>
 #include <iostream>
 #include <glm/gtc/random.hpp>
 
 using namespace std;
 
 int main(int argc, char ** argv) {
-    
-    srand(time(nullptr));
     
     Scene scn;
     scn.setBackgroundColor(Color(0.8f, 0.8f, 1.0f));
@@ -49,7 +46,7 @@ int main(int argc, char ** argv) {
 
     // Create camera
     Camera cam;
-    cam.lookAt(vec3(-0.75f, 0.25f, 5.0f), vec3(0.0f, 0.5f, 0.0f));
+    cam.lookAt(vec3(-0.75f, 3, 5.0f), vec3(0.0f, 0.5f, 0.0f));
     cam.setResolution(800, 600);
     cam.setFovy(40.0f);
     
@@ -57,7 +54,7 @@ int main(int argc, char ** argv) {
 
     // Render image
     Bitmap bmp = cam.render(scn);
-    bmp.saveImage("project1ec.bmp");
+    bmp.saveImage("project1ec2.bmp");
     
     for (int i = 1; i < scn.objectAmount(); i++) {
         delete &(scn.getObject(i));

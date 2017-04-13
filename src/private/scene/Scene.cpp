@@ -4,19 +4,19 @@ Scene::Scene() {
     
 }
 
-Color Scene::getBackgroundColor() {
+Color Scene::getBackgroundColor() const {
     return background;
 }
 
-void Scene::setBackgroundColor(Color color) {
+void Scene::setBackgroundColor(const Color color) {
     this->background = color;
 }
 
-unsigned int Scene::lightAmount() {
+unsigned int Scene::lightAmount() const {
     return lights.size();
 }
 
-Light & Scene::getLight(int i) {
+Light & Scene::getLight(int i) const {
     return *(lights[i]);
 }
 
@@ -24,11 +24,11 @@ void Scene::addLight(Light & light) {
     lights.push_back(&light);
 }
 
-unsigned int Scene::objectAmount() {
+unsigned int Scene::objectAmount() const {
     return objects.size();
 }
 
-Object & Scene::getObject(int i) {
+Object & Scene::getObject(int i) const {
     return *(objects[i]);
 }
 
@@ -36,7 +36,7 @@ void Scene::addObject(Object & object) {
     objects.push_back(&object);
 }
 
-bool Scene::getIntersection(Ray & ray, Intersection & intersection) {
+bool Scene::getIntersection(const Ray & ray, Intersection & intersection) const {
     bool hit = false;
     #pragma omp parallel for
     for (int i = 0; i < objects.size(); i++) {
@@ -47,9 +47,9 @@ bool Scene::getIntersection(Ray & ray, Intersection & intersection) {
     return hit;
 }
 
-Color Scene::getIntersectionColor(Intersection & intersection) {
+Color Scene::getIntersectionColor(const Intersection & intersection) const {
     Color color;
-    Object & obj = intersection.getObject();
+    const Object & obj = intersection.getObject();
     #pragma omp parallel for
     for (int i = 0; i < obj.materialAmount(); i++) {
         color += obj.getMaterial(i).shade(*this, intersection);
@@ -57,7 +57,7 @@ Color Scene::getIntersectionColor(Intersection & intersection) {
     return color;
 }
 
-Color Scene::getRayColor(Ray & ray) {
+Color Scene::getRayColor(const Ray & ray) const {
     Intersection intersection = Intersection(ray);
     if (getIntersection(ray, intersection)) {
         return getIntersectionColor(intersection);

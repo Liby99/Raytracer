@@ -4,11 +4,11 @@
 #include "object/MeshObject.h"
 #include "object/Triangle.h"
 
-class BvhTriangle : public Triangle {
+class BoxTriangle : public Triangle {
     
 }
 
-class BvhBox {
+class Box {
 private:
     vec3 minCorner;
     vec3 maxCorner;
@@ -17,13 +17,19 @@ private:
     void extend(const BvhTriangle & tri);
 public:
     
+    bool intersect(const Ray & ray);
+    bool intersect(const Box & box);
 }
 
-class BvhNode {
+class BoxTreeNode {
     
 }
 
-class BvhTree : public MeshObject {
+class BoxTreeObject : public MeshObject {
+protected:
+    
+    construct();
+public:
     
 };
 

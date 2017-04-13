@@ -2,7 +2,7 @@
 
 const float Cube::DEFAULT_SIZE = 1;
 
-bool Cube::updateIntersect(Ray & ray, Intersection & intersection) {
+bool Cube::updateIntersect(const Ray & ray, Intersection & intersection) const {
     
     // Get the min and max corner
     vec3 minCorner = getMinCorner();
@@ -48,40 +48,40 @@ Cube::Cube() : Object() {
     setLength(DEFAULT_SIZE);
 }
 
-Cube::Cube(float width, float height, float length) {
+Cube::Cube(const float width, const float height, const float length) {
     setWidth(width);
     setHeight(height);
     setLength(length);
 }
 
-float Cube::getWidth() {
+float Cube::getWidth() const {
     return width;
 }
 
-void Cube::setWidth(float width) {
+void Cube::setWidth(const float width) {
     this->width = width;
 }
 
-float Cube::getHeight() {
+float Cube::getHeight() const {
     return height;
 }
 
-void Cube::setHeight(float height) {
+void Cube::setHeight(const float height) {
     this->height = height;
 }
 
-float Cube::getLength() {
+float Cube::getLength() const {
     return length;
 }
 
-void Cube::setLength(float length) {
+void Cube::setLength(const float length) {
     this->length = length;
 }
 
-vec3 Cube::getMaxCorner() {
+vec3 Cube::getMaxCorner() const {
     return vec3(width / 2, height / 2, length / 2);
 }
 
-vec3 Cube::getMinCorner() {
+vec3 Cube::getMinCorner() const {
     return -getMaxCorner();
 }

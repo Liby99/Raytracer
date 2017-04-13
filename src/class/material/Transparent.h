@@ -5,7 +5,7 @@ using namespace std;
 
 class Transparent : public Material {
 public:
-    float refractionIndex;
+    float ior;
 };
 
 #endif

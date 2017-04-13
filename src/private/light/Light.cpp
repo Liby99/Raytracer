@@ -16,7 +16,7 @@ Light::Light(Color c) {
     setCastShadow(DEFAULT_CAST_SHADOW);
 }
 
-Color Light::getColor() {
+Color Light::getColor() const {
     return color;
 }
 

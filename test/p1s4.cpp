@@ -45,7 +45,6 @@ int main() {
     
     DirectionalLight dl = DirectionalLight(Color(1, 1, 1), vec3(1, -1, -1));
     dl.setCastShadow(true);
-    dl.setIntensity(0.3);
     scene.addLight(dl);
     
     SpotLight sl = SpotLight(Color(1, 1, 1), vec3(2, 2, 0), vec3(0, 0, 0), 45);
@@ -54,7 +53,7 @@ int main() {
     scene.addLight(sl);
     
     Camera cam = Camera();
-    cam.lookAt(vec3(2.5, 0.75, 2.5), vec3(0, 0, 0));
+    cam.lookAt(vec3(2, 0.75, 2), vec3(0, 0, 0));
     cam.setFovy(45);
     
     cout << "light: " << scene.lightAmount() << endl;

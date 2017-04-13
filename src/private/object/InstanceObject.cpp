@@ -1,6 +1,6 @@
 #include "object/InstanceObject.h"
 
-bool InstanceObject::updateIntersect(Ray & ray, Intersection & intersection) {
+bool InstanceObject::updateIntersect(const Ray & ray, Intersection & intersection) const {
     return object->intersect(ray, intersection);
 }
 
@@ -8,14 +8,14 @@ InstanceObject::InstanceObject() : Object() {
     
 }
 
-InstanceObject::InstanceObject(Object & object) : Object() {
+InstanceObject::InstanceObject(const Object & object) : Object() {
     setObject(object);
 }
 
-Object & InstanceObject::getObject() {
+const Object & InstanceObject::getObject() const {
     return *object;
 }
 
-void InstanceObject::setObject(Object & object) {
+void InstanceObject::setObject(const Object & object) {
     this->object = &object;
 }

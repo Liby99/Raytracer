@@ -2,6 +2,8 @@
 #define COLOR_H
 
 #include "util/Transform.h"
+
+#include <iostream>
 #include <string>
 
 using namespace std;
@@ -25,14 +27,14 @@ public:
     Color(float r, float g, float b);
     
     // Getters
-    float getR();
-    float getG();
-    float getB();
+    float getR() const;
+    float getG() const;
+    float getB() const;
     
     // To int version
-    int getIntR();
-    int getIntG();
-    int getIntB();
+    int getIntR() const;
+    int getIntG() const;
+    int getIntB() const;
     
     // Setters
     void setR(float r);
@@ -40,20 +42,22 @@ public:
     void setB(float b);
     
     // To Int representation for bitmap
-    int toInt();
+    int toInt() const;
     
     // Operators
-    Color operator+(Color c);
+    Color operator+(Color c) const;
     Color & operator+=(Color c);
-    Color operator-(Color c);
+    Color operator-(Color c) const;
     Color & operator-=(Color c);
-    Color operator*(Color c);
+    Color operator*(Color c) const;
     Color & operator*=(Color c);
-    Color operator*(float scale);
+    Color operator*(float scale) const;
     Color & operator*=(float scale);
-    operator string();
+    operator string() const;
     
     static Color parse(int c);
+    
+    friend std::ostream& operator<< (std::ostream & stream, const Color & color);
 };
 
 #endif

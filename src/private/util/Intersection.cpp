@@ -1,28 +1,28 @@
 #include "util/Intersection.h"
 #include "object/Object.h"
 
-Intersection::Intersection(Ray & ray) {
+Intersection::Intersection(const Ray & ray) {
     setRay(ray);
     setHit(false);
 }
 
-Object & Intersection::getObject() {
+const Object & Intersection::getObject() const {
     return *object;
 }
 
-void Intersection::setObject(Object & object) {
+void Intersection::setObject(const Object & object) {
     this->object = &object;
 }
 
-Ray & Intersection::getRay() {
+const Ray & Intersection::getRay() const {
     return *ray;
 }
 
-void Intersection::setRay(Ray & ray) {
+void Intersection::setRay(const Ray & ray) {
     this->ray = &ray;
 }
 
-bool Intersection::hit() {
+bool Intersection::hit() const {
     return hitFlag;
 }
 
@@ -30,7 +30,7 @@ void Intersection::setHit(bool hit) {
     this->hitFlag = hit;
 }
 
-float Intersection::getT() {
+float Intersection::getT() const {
     return t;
 }
 
@@ -38,7 +38,7 @@ void Intersection::setT(float t) {
     this->t = t;
 }
 
-vec3 Intersection::getPosition() {
+vec3 Intersection::getPosition() const {
     return position;
 }
 
@@ -46,7 +46,7 @@ void Intersection::setPosition(vec3 position) {
     this->position = position;
 }
 
-vec3 Intersection::getNormal() {
+vec3 Intersection::getNormal() const {
     return normal;
 }
 
@@ -54,12 +54,12 @@ void Intersection::setNormal(vec3 normal) {
     this->normal = normalize(normal);
 }
 
-float Intersection::getDistanceToOrigin() {
+float Intersection::getDistanceToOrigin() const {
     vec3 diff = position - ray->getOrigin();
     return sqrt(dot(diff, diff));
 }
 
-bool Intersection::needUpdate(float t) {
+bool Intersection::needUpdate(float t) const {
     return !hit() || t < getT();
 }
 

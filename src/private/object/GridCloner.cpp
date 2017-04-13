@@ -3,7 +3,7 @@
 const float GridCloner::DEFAULT_SIZE = 2;
 const unsigned int GridCloner::DEFAULT_COUNT = 3;
 
-bool GridCloner::updateIntersect(Ray & ray, Intersection & intersection) {
+bool GridCloner::updateIntersect(const Ray & ray, Intersection & intersection) const {
     return Cloner::updateIntersect(ray, intersection);
 }
 
@@ -48,67 +48,69 @@ GridCloner::GridCloner() : Cloner() {
     setXCount(DEFAULT_COUNT);
     setYCount(DEFAULT_COUNT);
     setZCount(DEFAULT_COUNT);
+    updateCache();
 }
 
-GridCloner::GridCloner(Object & object) : Cloner(object) {
+GridCloner::GridCloner(const Object & object) : Cloner(object) {
     setWidth(DEFAULT_SIZE);
     setHeight(DEFAULT_SIZE);
     setLength(DEFAULT_SIZE);
     setXCount(DEFAULT_COUNT);
     setYCount(DEFAULT_COUNT);
     setZCount(DEFAULT_COUNT);
+    updateCache();
 }
 
-float GridCloner::getWidth() {
+float GridCloner::getWidth() const {
     return width;
 }
 
-float GridCloner::getHeight() {
+float GridCloner::getHeight() const {
     return height;
 }
 
-float GridCloner::getLength() {
+float GridCloner::getLength() const {
     return length;
 }
 
-void GridCloner::setWidth(float width) {
+void GridCloner::setWidth(const float width) {
     this->width = width;
     updateSize();
 }
 
-void GridCloner::setHeight(float height) {
+void GridCloner::setHeight(const float height) {
     this->height = height;
     updateSize();
 }
 
-void GridCloner::setLength(float length) {
+void GridCloner::setLength(const float length) {
     this->length = length;
     updateSize();
 }
 
-unsigned int GridCloner::getXCount() {
+unsigned int GridCloner::getXCount() const {
     return xCount;
 }
 
-unsigned int GridCloner::getYCount() {
+unsigned int GridCloner::getYCount() const {
     return yCount;
 }
 
-unsigned int GridCloner::getZCount() {
+unsigned int GridCloner::getZCount() const {
     return zCount;
 }
 
-void GridCloner::setXCount(unsigned int xCount) {
+void GridCloner::setXCount(const unsigned int xCount) {
     this->xCount = xCount;
     updateCache();
 }
 
-void GridCloner::setYCount(unsigned int yCount) {
+void GridCloner::setYCount(const unsigned int yCount) {
     this->yCount = yCount;
     updateCache();
 }
 
-void GridCloner::setZCount(unsigned int zCount) {
+void GridCloner::setZCount(const unsigned int zCount) {
     this->zCount = zCount;
     updateCache();
 }

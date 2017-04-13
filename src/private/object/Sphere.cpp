@@ -14,24 +14,20 @@ bool Sphere::updateIntersect(Ray & ray, Intersection & intersection) {
     float t2 = (-b - sqrt(b * b - 4 * a * c)) / (2 * a);
 
     if (t1 > 0 && t2 > 0) {
-        hit = true;
         t = min(t1, t2);
     }
     else if (t1 * t2 < 0) {
-        hit = true;
         t = max(t1, t2);
     }
-
-    if (hit) {
-        
-        // Update the intersection
-        vec3 position = ray.getPoint(t);
-        
-        // Return intersection update
-        return intersection.update(t, position, position);
+    else {
+        return false;
     }
+        
+    // Update the intersection
+    vec3 position = ray.getPoint(t);
     
-    return false;
+    // Return intersection update
+    return intersection.update(t, position, position);
 }
 
 Sphere::Sphere() {

@@ -23,27 +23,27 @@ Color::Color(float r, float g, float b) {
     setB(b);
 }
 
-float Color::getR() {
+float Color::getR() const {
     return r;
 }
 
-float Color::getG() {
+float Color::getG() const {
     return g;
 }
 
-float Color::getB() {
+float Color::getB() const {
     return b;
 }
 
-int Color::getIntR() {
+int Color::getIntR() const {
     return int(bound(r) * MAX) & 0xff;
 }
 
-int Color::getIntG() {
+int Color::getIntG() const {
     return int(bound(g) * MAX) & 0xff;
 }
 
-int Color::getIntB() {
+int Color::getIntB() const {
     return int(bound(b) * MAX) & 0xff;
 }
 
@@ -59,11 +59,11 @@ void Color::setB(float b) {
     this->b = b;
 }
 
-int Color::toInt() {
+int Color::toInt() const {
     return (getIntR() << 16) | (getIntG() << 8) | getIntB();
 }
 
-Color Color::operator+(Color c) {
+Color Color::operator+(Color c) const {
     return Color(r + c.r, g + c.g, b + c.b);
 }
 
@@ -74,7 +74,7 @@ Color & Color::operator+=(Color c) {
     return *this;
 }
 
-Color Color::operator-(Color c) {
+Color Color::operator-(Color c) const {
     return Color(r - c.r, g - c.g, b - c.b);
 }
 
@@ -85,7 +85,7 @@ Color & Color::operator-=(Color c) {
     return *this;
 }
 
-Color Color::operator*(Color c) {
+Color Color::operator*(Color c) const {
     return Color(r * c.r, g * c.g, b * c.b);
 }
 
@@ -96,7 +96,7 @@ Color & Color::operator*=(Color c) {
     return *this;
 }
 
-Color Color::operator*(float scale) {
+Color Color::operator*(float scale) const {
     return Color(r * scale, g * scale, b * scale);
 }
 
@@ -107,7 +107,7 @@ Color & Color::operator*=(float scale) {
     return *this;
 }
 
-Color::operator string() {
+Color::operator string() const {
     return "rgb(" + to_string(getIntR()) + ", " +
                     to_string(getIntG()) + ", " +
                     to_string(getIntB()) + ")";
@@ -118,4 +118,9 @@ Color Color::parse(int c) {
     int g = (float) ((c >> 8) & 0xff) / MAX;
     int b = (float) (c & 0xff) / MAX;
     return Color(r, g, b);
+}
+
+std::ostream & operator<< (std::ostream & stream, const Color & color) {
+    stream << (string)color;
+    return stream;
 }

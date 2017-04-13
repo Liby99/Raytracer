@@ -26,11 +26,11 @@ Orientable::Orientable(int orientation) {
     setOrientation(orientation);
 }
 
-int Orientable::getAxis() {
+int Orientable::getAxis() const {
     return orientation / 2;
 }
 
-int Orientable::getOrientation() {
+int Orientable::getOrientation() const {
     return orientation;
 }
 
