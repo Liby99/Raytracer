@@ -1,11 +1,11 @@
 #include "object/Triangle.h"
 
-vec3 Triangle::getBaryCentric(vec3 position) {
+vec3 Triangle::getBaryCentric(vec3 position) const {
     vec3 result = vec3(0, 0, 0);
+    vec3 p0 = v0->getPosition();
     vec3 p1 = v1->getPosition();
     vec3 p2 = v2->getPosition();
-    vec3 p3 = v3->getPosition();
-    vec3 t0 = p2 - p1, t1 = p3 - p1, t2 = position - p1;
+    vec3 t0 = p1 - p0, t1 = p2 - p0, t2 = position - p0;
     float d00 = dot(t0, t0);
     float d01 = dot(t0, t1);
     float d11 = dot(t1, t1);
@@ -21,12 +21,12 @@ vec3 Triangle::getBaryCentric(vec3 position) {
 bool Triangle::updateIntersect(Ray & ray, Intersection & intersection) {
     
     // Pre cache the positions
+    vec3 p0 = v0->getPosition();
     vec3 p1 = v1->getPosition();
     vec3 p2 = v2->getPosition();
-    vec3 p3 = v3->getPosition();
     
     // Same the variables
-    vec3 normal = cross(p2 - p1, p3 - p1);
+    vec3 normal = cross(p1 - p0, p2 - p0);
     
     // If three points are in a straight line, then intersection not exist
     if (normal.x == 0 && normal.y == 0 && normal.z == 0) {
@@ -35,7 +35,7 @@ bool Triangle::updateIntersect(Ray & ray, Intersection & intersection) {
     normal = normalize(normal);
     
     // Calculate t
-    float t = (dot(p1, normal) - dot(ray.getOrigin(), normal)) / dot(ray.getDirection(), normal);
+    float t = (dot(p0, normal) - dot(ray.getOrigin(), normal)) / dot(ray.getDirection(), normal);
     
     // Pre cache the position of the intersection
     vec3 position = ray.getPoint(t);
@@ -54,8 +54,29 @@ bool Triangle::updateIntersect(Ray & ray, Intersection & intersection) {
     return false;
 }
 
-Triangle::Triangle(Vertex * v1, Vertex * v2, Vertex * v3) : Object() {
+Triangle::Triangle(Vertex * v0, Vertex * v1, Vertex * v2) : Object() {
+    this->v0 = v0;
     this->v1 = v1;
     this->v2 = v2;
-    this->v3 = v3;
+}
+
+Vertex & Triangle::getVertex(int i) {
+    switch (i) {
+        case 0: return *v0;
+        case 1: return *v1;
+        case 2: return *v2;
+        default: throw std::invalid_argument("received negative value");
+    }
+}
+
+vertex & Triangle::getV0() {
+    return *v0;
+}
+
+vertex & Triangle::getV1() {
+    return *v1;
+}
+
+vertex & Triangle::getV2() {
+    return *v2;
 }
