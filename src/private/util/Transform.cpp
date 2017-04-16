@@ -1,5 +1,13 @@
 #include "util/Transform.h"
 
+vec3 maxVec(vec3 a, vec3 b) {
+    return vec3(max(a.x, b.x), max(a.y, b.y), max(a.z, b.z));
+}
+
+vec3 minVec(vec3 a, vec3 b) {
+    return vec3(min(a.x, b.x), min(a.y, b.y), min(a.z, b.z));
+}
+
 mat4 Transform::rotate(const float degrees, const vec3& axis) {
     float x = axis.x,
         y = axis.y,

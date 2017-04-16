@@ -12,6 +12,9 @@ typedef glm::vec3 vec3;
 typedef glm::vec4 vec4;
 const float pi = 3.14159265f;
 
+vec3 maxVec(vec3 a, vec3 b);
+vec3 minVec(vec3 a, vec3 b);
+
 class Transform {
 public:
     static mat4 rotate(const float degrees, const vec3& axis);
