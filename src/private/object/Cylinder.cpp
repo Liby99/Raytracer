@@ -104,6 +104,24 @@ bool Cylinder::updateIntersect(const Ray & ray, Intersection & intersection) con
     return false;
 }
 
+vector<vec3> Cylinder::getBoundingVertices() {
+    float hh = height / 2;
+    int a = getAxis();
+    vector<vec3> result;
+    result.push_back(vec3(radius, radius, radius));
+    result.push_back(vec3(radius, radius, -radius));
+    result.push_back(vec3(radius, -radius, radius));
+    result.push_back(vec3(radius, -radius, -radius));
+    result.push_back(vec3(-radius, radius, radius));
+    result.push_back(vec3(-radius, radius, -radius));
+    result.push_back(vec3(-radius, -radius, radius));
+    result.push_back(vec3(-radius, -radius, -radius));
+    for (int i = 0; i < result.size(); i++) {
+        result[i][a] = (result[i][a] > 0) ? hh : -hh;
+    }
+    return result;
+}
+
 Cylinder::Cylinder() : Object(), Orientable() {
     setHeight(DEFAULT_HEIGHT);
     setRadius(DEFAULT_RADIUS);

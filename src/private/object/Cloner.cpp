@@ -18,6 +18,12 @@ bool Cloner::updateIntersect(const Ray & ray, Intersection & intersection) const
     }
 }
 
+vector<vec3> Cloner::getBoundingVertices() {
+    
+    /* TODO */
+    return vector<vec3>();
+}
+
 void Cloner::updateCache() {
     cache = vector<InstanceObject>();
 }

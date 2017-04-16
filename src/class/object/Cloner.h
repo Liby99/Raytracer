@@ -3,7 +3,7 @@
 
 #include "object/InstanceObject.h"
 
-class Cloner : public InstanceObject {
+class Cloner : public InstanceObject, public Boundable {
 protected:
     
     // Object
@@ -11,6 +11,7 @@ protected:
     
     // Update Intersection
     virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
+    virtual vector<vec3> getBoundingVertices() const;
     virtual void updateCache();
     
 public:

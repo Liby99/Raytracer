@@ -19,6 +19,7 @@ protected:
     
     // Inherited intersect method
     virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
+    virtual vector<vec3> getBoundingVertices() const;
     
 public:
     

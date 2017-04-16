@@ -15,6 +15,7 @@ protected:
     
     // Update the intersection
     virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
+    virtual vector<vec3> getBoundingVertices() const;
     virtual void updateCache();
     void updateGap();
     

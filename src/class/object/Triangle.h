@@ -22,6 +22,7 @@ protected:
     
     // Intersection with ray
     virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
+    virtual vector<vec3> getBoundingVertices() const;
     
 public:
     

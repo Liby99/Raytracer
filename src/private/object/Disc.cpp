@@ -29,6 +29,23 @@ bool Disc::updateIntersect(const Ray & ray, Intersection & intersection) const {
     }
 }
 
+vector<vec3> Disc::getBoundingVertices() {
+    int a = getAxis();
+    vector<vec3> result;
+    result.push_back(vec3(radius, radius, radius));
+    result.push_back(vec3(radius, radius, -radius));
+    result.push_back(vec3(radius, -radius, radius));
+    result.push_back(vec3(radius, -radius, -radius));
+    result.push_back(vec3(-radius, radius, radius));
+    result.push_back(vec3(-radius, radius, -radius));
+    result.push_back(vec3(-radius, -radius, radius));
+    result.push_back(vec3(-radius, -radius, -radius));
+    for (int i = 0; i < result.size(); i++) {
+        result[i][a] = 0;
+    }
+    return result;
+}
+
 Disc::Disc() : Object(), Orientable() {
     setRadius(DEFAULT_RADIUS);
 }

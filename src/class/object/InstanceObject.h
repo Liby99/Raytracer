@@ -3,7 +3,7 @@
 
 #include "object/Object.h"
 
-class InstanceObject : public Object {
+class InstanceObject : public Object, public Boundable {
 protected:
     
     // Object reference
@@ -11,6 +11,7 @@ protected:
     
     // Intersection method
     virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
+    virtual vector<vec3> getBoundingVertices() const;
     
 public:
     

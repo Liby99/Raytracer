@@ -42,6 +42,22 @@ bool Cube::updateIntersect(const Ray & ray, Intersection & intersection) const {
     return intersection.update(t, position, normal);
 }
 
+vector<vec3> Cube::getBoundingVertices() {
+    float hw = width / 2;
+    float hh = height / 2;
+    float hl = length / 2;
+    vector<vec3> result;
+    result.push_back(vec3(hw, hh, hl));
+    result.push_back(vec3(hw, hh, -hl));
+    result.push_back(vec3(hw, -hh, hl));
+    result.push_back(vec3(hw, -hh, -hl));
+    result.push_back(vec3(-hw, hh, hl));
+    result.push_back(vec3(-hw, hh, -hl));
+    result.push_back(vec3(-hw, -hh, hl));
+    result.push_back(vec3(-hw, -hh, -hl));
+    return result;
+}
+
 Cube::Cube() : Object() {
     setWidth(DEFAULT_SIZE);
     setHeight(DEFAULT_SIZE);

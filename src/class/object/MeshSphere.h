@@ -1,3 +1,3 @@
-class MeshSphere : public MeshObject {
+class MeshSphere : public MeshObject, public Sphere {
     
 }

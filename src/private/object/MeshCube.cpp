@@ -45,6 +45,10 @@ bool MeshCube::updateIntersect(const Ray & ray, Intersection & intersection) con
     return mesh.intersect(ray, intersection);
 }
 
+vector<vec3> MeshCube::getBoundingVertices() {
+    return Cube::getBoundingVertices();
+}
+
 MeshCube::MeshCube() : Cube() {
     construct();
 }

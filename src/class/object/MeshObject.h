@@ -6,6 +6,11 @@
 #include "util/Vertex.h"
 
 class MeshObject : public Object {
+private:
+    
+    vec3 getMinCorner();
+    vec3 getMaxCorner();
+    
 protected:
     
     // Vertex and Triangle Array
@@ -14,6 +19,7 @@ protected:
     
     // Intersect
     virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
+    virtual vector<vec3> getBoundingVertices() const;
     
 public:
     
@@ -30,6 +36,10 @@ public:
     void clear();
     void clearVertices();
     void clearTriangles();
+    
+    // Load object from file
+    bool loadPly(const char * filename);
+    void smooth();
 };
 
 #endif

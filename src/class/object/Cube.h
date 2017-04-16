@@ -3,7 +3,7 @@
 
 #include "object/Object.h"
 
-class Cube : public Object {
+class Cube : public Object, public Boundable {
 protected:
     
     const static float DEFAULT_SIZE;
@@ -18,7 +18,8 @@ protected:
     vec3 getMinCorner() const;
     
     // Intersection
-    bool updateIntersect(const Ray & ray, Intersection & intersection) const;
+    virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
+    virtual vector<vec3> getBoundingVertices() const;
     
 public:
     

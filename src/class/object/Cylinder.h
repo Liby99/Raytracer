@@ -4,7 +4,7 @@
 #include "object/Object.h"
 #include "util/Orientable.h"
 
-class Cylinder : public Object, public Orientable {
+class Cylinder : public Object, public Boundable, public Orientable {
 private:
     
     // Default values
@@ -24,6 +24,7 @@ protected:
     
     // Intersection
     virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
+    virtual vector<vec3> getBoundingVertices() const;
     
 public:
     

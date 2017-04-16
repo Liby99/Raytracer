@@ -4,6 +4,10 @@ bool InstanceObject::updateIntersect(const Ray & ray, Intersection & intersectio
     return object->intersect(ray, intersection);
 }
 
+vector<vec3> InstanceObject::getBoundingVertices() {
+    return object->getBoundingVertices();
+}
+
 InstanceObject::InstanceObject() : Object() {
     
 }

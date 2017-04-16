@@ -4,33 +4,44 @@
 #include "object/MeshObject.h"
 #include "object/Triangle.h"
 
-class BoxTriangle : public Triangle {
-    
-}
-
-class Box {
+class BoxTreeNode {
 private:
-    vec3 minCorner;
-    vec3 maxCorner;
-    bool hasObj;
     
-    void extend(const BvhTriangle & tri);
+    // Left and right nodes if not leaf
+    BoxTreeNode * left;
+    BoxTreeNode * right;
+    
+    // Triangles that stores inside the node
+    vector<Triangle *> triangles;
+    
+    // Box object
+    Box box;
+    
+    // Flag of leaf
+    bool leafFlag;
+    
 public:
     
-    bool intersect(const Ray & ray);
-    bool intersect(const Box & box);
-}
-
-class BoxTreeNode {
+    // Constructor
+    BoxTreeNode(vector<Triangle *> objs);
     
-}
+    BoxTreeNode & getLeft() const;
+    BoxTreeNode & getRight() const;
+    bool leftRightIntersect() const;
+    bool isLeaf();
+};
 
 class BoxTreeObject : public MeshObject {
 protected:
     
-    construct();
+    BoxTreeNode * root;
+    
+    // Helper construct method
+    void construct();
+    
 public:
     
+    BoxTreeObject();
 };
 
 #endif

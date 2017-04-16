@@ -4,6 +4,7 @@
 #include "util/Transform.h"
 #include "util/Ray.h"
 #include "util/Intersection.h"
+#include "util/BoundingBox.h"
 #include "material/Material.h"
 
 #include <vector>
@@ -11,6 +12,7 @@
 class Object {
 protected:
     
+    // Default Values
     const static vec3 DEFAULT_POSITION;
     const static vec3 DEFAULT_SCALER;
     const static vec3 DEFAULT_ROTATION;
@@ -23,6 +25,7 @@ protected:
     vec3 scaler;
     vec3 rotation;
     
+    // Virtual Functions
     virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
     
 public:
@@ -34,6 +37,10 @@ public:
     int materialAmount() const;
     Material & getMaterial(int i) const;
     void addMaterial(Material & material);
+    
+    // Boundable setting
+    bool isBoundable();
+    void setBoundable(bool boundable);
     
     // Basic Getter
     vec3 getRotation() const;

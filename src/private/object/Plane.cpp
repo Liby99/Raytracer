@@ -20,9 +20,9 @@ bool Plane::updateIntersect(const Ray & ray, Intersection & intersection) const 
 }
 
 Plane::Plane() : Object(), Orientable() {
-    // Do nothing
+    setBoundable(false);
 }
 
 Plane::Plane(int orientation) : Object(), Orientable(orientation) {
-    // Do nothing
+    Plane();
 }
