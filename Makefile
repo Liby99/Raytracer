@@ -12,9 +12,11 @@ endif
 
 BUILD_DIRECTORY := ./build/
 
+HEADER_DIRECTORY := ./src/class/
 CPP_DIRECTORY := ./src/private/
 BIN_DIRECTORY := ./build/bin/
 CPP_FILES := $(wildcard $(CPP_DIRECTORY)*/*.cpp)
+HEADER_FILES := $(patsubst $(CPP_DIRECTORY)%.cpp, $(HEADER_DIRECTORY)%.h, $(CPP_FILES))
 OBJ_FILES := $(patsubst $(CPP_DIRECTORY)%.cpp, $(BIN_DIRECTORY)%.o, $(CPP_FILES))
 OBJ_DIRECTORIES := $(sort $(dir $(OBJ_FILES)))
 
@@ -43,7 +45,7 @@ $(RAYTRACER): $(OBJ_FILES)
 	$(ECHO) "Linking Raytracer"
 	$(LD) $(OBJ_FILES) -o $(RAYTRACER)
 	
-$(BIN_DIRECTORY)%.o: $(CPP_DIRECTORY)%.cpp | $(OBJ_DIRECTORIES)
+$(BIN_DIRECTORY)%.o: $(CPP_DIRECTORY)%.cpp $(HEADER_DIRECTORY)%.h | $(OBJ_DIRECTORIES)
 	$(ECHO) "Building $@"
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCFLAGS)
 	
