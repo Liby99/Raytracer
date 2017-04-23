@@ -18,19 +18,18 @@ private:
 protected:
     
     // Inherited intersect method
-    virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
-    virtual vector<vec3> getBoundingVertices() const;
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection) const;
     
 public:
     
     // Constructor
     MeshCube();
-    MeshCube(const float width, const float height, const float length);
+    MeshCube(float width, float height, float length);
     
     // Basic getter and setter
-    virtual void setWidth(const float width);
-    virtual void setHeight(const float height);
-    virtual void setLength(const float length);
+    virtual void setWidth(float width);
+    virtual void setHeight(float height);
+    virtual void setLength(float length);
 };
 
 #endif

@@ -7,14 +7,14 @@ using namespace std;
 
 class Diffuse : public Material {
 private:
-    const static Color DEFAULT_DIFFUSE;
+    static Color DEFAULT_DIFFUSE;
     Color diffuse;
-    virtual Color getShadingColor(const Scene & scene, const Intersection & intersection) const;
+    virtual Color getShadingColor(Scene & scene, Intersection & intersection) const;
 public:
     Diffuse();
-    Diffuse(const Color diffuse);
+    Diffuse(Color diffuse);
     Color getDiffuse() const;
-    void setDiffuse(const Color ambient);
+    void setDiffuse(Color ambient);
 };
 
 #endif

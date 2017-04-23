@@ -31,7 +31,7 @@ public:
     void setPixel(int x, int y, Color color);
     
     // Save image api
-    bool saveImage(const char * filename) const;
+    bool saveImage(char * filename) const;
 };
 
 #endif

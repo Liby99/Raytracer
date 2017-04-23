@@ -1,29 +1,29 @@
 #include "light/DirectionalLight.h"
 #include "scene/Scene.h"
 
-const vec3 DirectionalLight::DEFAULT_DIRECTION = vec3(-1, -1, -1);
+vec3 DirectionalLight::DEFAULT_DIRECTION = vec3(-1, -1, -1);
 
 DirectionalLight::DirectionalLight() : Light() {
     setDirection(DEFAULT_DIRECTION);
 }
 
-DirectionalLight::DirectionalLight(const Color color) : Light(color) {
+DirectionalLight::DirectionalLight(Color color) : Light(color) {
     setDirection(DEFAULT_DIRECTION);
 }
 
-DirectionalLight::DirectionalLight(const Color color, const vec3 direction) : Light(color) {
+DirectionalLight::DirectionalLight(Color color, vec3 direction) : Light(color) {
     setDirection(direction);
 }
 
-vec3 DirectionalLight::getDirection() const {
+vec3 DirectionalLight::getDirection() {
     return direction;
 }
 
-void DirectionalLight::setDirection(const vec3 direction) {
+void DirectionalLight::setDirection(vec3 direction) {
     this->direction = normalize(direction);
 }
 
-float DirectionalLight::getBrightness(const Scene & scene, const Intersection & intersection) const {
+float DirectionalLight::getBrightness(Scene & scene, Intersection & intersection) {
     
     // Chcek cast shadow
     if (castShadow) {
@@ -42,6 +42,6 @@ float DirectionalLight::getBrightness(const Scene & scene, const Intersection & 
     return intensity;
 }
 
-vec3 DirectionalLight::getToLightDirection(const Intersection & intersection) const {
+vec3 DirectionalLight::getToLightDirection(Intersection & intersection) {
     return -direction;
 }

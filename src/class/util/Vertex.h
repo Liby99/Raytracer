@@ -9,6 +9,7 @@ private:
     // Basic parameter for vertex
     vec3 position;
     vec3 normal;
+    
 public:
     
     // Constructor
@@ -20,6 +21,9 @@ public:
     void setPosition(vec3 position);
     vec3 getNormal() const;
     void setNormal(vec3 normal);
+    void addUnnormalized(vec3 normal);
+    void divideNormal(float num);
+    void normalize();
 };
 
 #endif

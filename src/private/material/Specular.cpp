@@ -1,10 +1,10 @@
 #include "material/Specular.h"
 #include "scene/Scene.h"
 
-const Color Specular::DEFAULT_SPECULAR = Color(1, 1, 1);
-const float Specular::DEFAULT_SHININESS = 20;
+Color Specular::DEFAULT_SPECULAR = Color(1, 1, 1);
+float Specular::DEFAULT_SHININESS = 20;
 
-Color Specular::getShadingColor(const Scene & scene, const Intersection & intersection) const {
+Color Specular::getShadingColor(Scene & scene, Intersection & intersection) {
     Color color;
     #pragma omp parallel for
     for (int i = 0; i < scene.lightAmount(); i++) {
@@ -32,28 +32,28 @@ Specular::Specular() : Material() {
     setShininess(DEFAULT_SHININESS);
 }
 
-Specular::Specular(const Color specular) : Material() {
+Specular::Specular(Color specular) : Material() {
     setSpecular(specular);
     setShininess(DEFAULT_SHININESS);
 }
 
-Specular::Specular(const Color specular, const float shininess) : Material() {
+Specular::Specular(Color specular, float shininess) : Material() {
     setSpecular(specular);
     setShininess(shininess);
 }
 
-Color Specular::getSpecular() const {
+Color Specular::getSpecular() {
     return specular;
 }
 
-void Specular::setSpecular(const Color specular) {
+void Specular::setSpecular(Color specular) {
     this->specular = specular;
 }
 
-float Specular::getShininess() const {
+float Specular::getShininess() {
     return shininess;
 }
 
-void Specular::setShininess(const float shininess) {
+void Specular::setShininess(float shininess) {
     this->shininess = shininess;
 }

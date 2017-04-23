@@ -1,6 +1,6 @@
 #include "object/MeshObject.h"
 
-bool MeshObject::updateIntersect(const Ray & ray, Intersection & intersection) const {
+bool MeshObject::updateIntersect(Ray & ray, Intersection & intersection) {
     bool hit = false;
     for (int i = 0; i < triangles.size(); i++) {
         if (triangles[i]->intersect(ray, intersection)) {
@@ -37,15 +37,15 @@ MeshObject::~MeshObject() {
     clear();
 }
 
-void MeshObject::addVertex(const vec3 position) {
+void MeshObject::addVertex(vec3 position) {
     vertices.push_back(new Vertex(position));
 }
 
-void MeshObject::addVertex(const vec3 position, const vec3 normal) {
+void MeshObject::addVertex(vec3 position, vec3 normal) {
     vertices.push_back(new Vertex(position, normal));
 }
 
-void MeshObject::addTriangle(const int i1, const int i2, const int i3) {
+void MeshObject::addTriangle(int i1, int i2, int i3) {
     triangles.push_back(new Triangle(vertices[i1], vertices[i2], vertices[i3]));
 }
 
@@ -68,7 +68,7 @@ void MeshObject::clearTriangles() {
     triangles = vector<Triangle *>();
 }
 
-bool loadPly(const char * filename) {
+bool loadPly(char * filename) {
     
 }
 

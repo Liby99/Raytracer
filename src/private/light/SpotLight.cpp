@@ -1,36 +1,36 @@
 #include "light/SpotLight.h"
 #include "scene/Scene.h"
 
-const vec3 SpotLight::DEFAULT_TARGET = vec3(0, 0, 0);
-const float SpotLight::DEFAULT_ANGLE = 90;
+vec3 SpotLight::DEFAULT_TARGET = vec3(0, 0, 0);
+float SpotLight::DEFAULT_ANGLE = 90;
 
 SpotLight::SpotLight() : PointLight() {
     setTarget(DEFAULT_TARGET);
     setAngle(DEFAULT_ANGLE);
 }
 
-SpotLight::SpotLight(const Color color, const vec3 position, const vec3 target, const float angle) : PointLight(color, position) {
+SpotLight::SpotLight(Color color, vec3 position, vec3 target, float angle) : PointLight(color, position) {
     setTarget(target);
     setAngle(angle);
 }
 
-vec3 SpotLight::getTarget() const {
+vec3 SpotLight::getTarget() {
     return target;
 }
 
-void SpotLight::setTarget(const vec3 target) {
+void SpotLight::setTarget(vec3 target) {
     this->target = target;
 }
 
-float SpotLight::getAngle() const {
+float SpotLight::getAngle() {
     return angle;
 }
 
-void SpotLight::setAngle(const float angle) {
+void SpotLight::setAngle(float angle) {
     this->angle = angle;
 }
 
-float SpotLight::getBrightness(const Scene & scene, const Intersection & intersection) const {
+float SpotLight::getBrightness(Scene & scene, Intersection & intersection) {
     
     vec3 itsDir = normalize(intersection.getPosition() - position);
     vec3 lgtDir = normalize(target - position);
@@ -44,6 +44,6 @@ float SpotLight::getBrightness(const Scene & scene, const Intersection & interse
     }
 }
 
-vec3 SpotLight::getToLightDirection(const Intersection & intersection) const {
+vec3 SpotLight::getToLightDirection(Intersection & intersection) {
     return normalize(position - intersection.getPosition());
 }

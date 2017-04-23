@@ -13,9 +13,9 @@ class Scene;
 class Light {
 protected:
     
-    const static Color DEFAULT_COLOR;
-    const static float DEFAULT_INTENSITY;
-    const static bool DEFAULT_CAST_SHADOW;
+    static Color DEFAULT_COLOR;
+    static float DEFAULT_INTENSITY;
+    static bool DEFAULT_CAST_SHADOW;
     
     // Private color
     Color color;
@@ -26,19 +26,19 @@ public:
     
     // Constructor
     Light();
-    Light(const Color c);
+    Light(Color c);
     
     // Color related setter getter
     Color getColor() const;
-    void setColor(const Color color);
+    void setColor(Color color);
     float getIntensity() const;
-    void setIntensity(const float intensity);
+    void setIntensity(float intensity);
     bool getCastShadow() const;
-    void setCastShadow(const bool castShadow);
+    void setCastShadow(bool castShadow);
     
     // Illuminate
-    virtual float getBrightness(const Scene & scene, const Intersection & intersection) const;
-    virtual vec3 getToLightDirection(const Intersection & intersection) const;
+    virtual float getBrightness(Scene & scene, Intersection & intersection) const;
+    virtual vec3 getToLightDirection(Intersection & intersection) const;
 };
 
 #endif

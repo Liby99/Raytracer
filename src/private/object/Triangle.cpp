@@ -1,6 +1,6 @@
 #include "object/Triangle.h"
 
-vec3 Triangle::getBaryCentric(vec3 position) const {
+vec3 Triangle::getBaryCentric(vec3 position) {
     vec3 result = vec3(0, 0, 0);
     vec3 p0 = v0->getPosition();
     vec3 p1 = v1->getPosition();

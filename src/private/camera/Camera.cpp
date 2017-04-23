@@ -1,11 +1,11 @@
 #include "camera/Camera.h"
 
-const vec3 Camera::DEFAULT_POSITION = vec3(0, 0, 1);
-const vec3 Camera::DEFAULT_FOCAL_POINT = vec3(0, 0, 0);
-const vec3 Camera::DEFAULT_UP = vec3(0, 1, 0);
-const int Camera::DEFAULT_WIDTH = 720;
-const int Camera::DEFAULT_HEIGHT = 480;
-const float Camera::DEFAULT_FOVY = 90;
+vec3 Camera::DEFAULT_POSITION = vec3(0, 0, 1);
+vec3 Camera::DEFAULT_FOCAL_POINT = vec3(0, 0, 0);
+vec3 Camera::DEFAULT_UP = vec3(0, 1, 0);
+int Camera::DEFAULT_WIDTH = 720;
+int Camera::DEFAULT_HEIGHT = 480;
+float Camera::DEFAULT_FOVY = 90;
 
 Camera::Camera() {
     lookAt(DEFAULT_POSITION, DEFAULT_FOCAL_POINT, DEFAULT_UP);
@@ -49,15 +49,15 @@ void Camera::setUp(vec3 up) {
     this->up = up;
 }
 
-vec3 Camera::getPosition() const {
+vec3 Camera::getPosition() {
     return position;
 }
 
-vec3 Camera::getFocalPoint() const {
+vec3 Camera::getFocalPoint() {
     return focalPoint;
 }
 
-vec3 Camera::getUp() const {
+vec3 Camera::getUp() {
     return up;
 }
 
@@ -78,7 +78,7 @@ void Camera::setFovy(float fovy) {
     this->fovy = fovy;
 }
 
-Bitmap Camera::render(const Scene & scene) const {
+Bitmap Camera::render(Scene & scene) {
     
     Bitmap bitmap(width, height);
     

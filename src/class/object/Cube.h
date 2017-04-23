@@ -3,10 +3,10 @@
 
 #include "object/Object.h"
 
-class Cube : public Object, public Boundable {
+class Cube : public Object {
 protected:
     
-    const static float DEFAULT_SIZE;
+    static float DEFAULT_SIZE;
     
     // Private parameters
     float width;
@@ -18,22 +18,21 @@ protected:
     vec3 getMinCorner() const;
     
     // Intersection
-    virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
-    virtual vector<vec3> getBoundingVertices() const;
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection) const;
     
 public:
     
     // Constructor with the size of the cube
     Cube();
-    Cube(const float width, const float height, const float length);
+    Cube(float width, float height, float length);
     
     // Basic getter and setter
     float getWidth() const;
     float getHeight() const;
     float getLength() const;
-    virtual void setWidth(const float width);
-    virtual void setHeight(const float height);
-    virtual void setLength(const float length);
+    virtual void setWidth(float width);
+    virtual void setHeight(float height);
+    virtual void setLength(float length);
 };
 
 #endif

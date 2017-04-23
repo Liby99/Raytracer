@@ -12,13 +12,13 @@ class Material {
 protected:
     
     // Default
-    const static float DEFAULT_OPACITY;
+    static float DEFAULT_OPACITY;
     
     // Opacity parameter
     float opacity;
     
     // Get shading color to be inherited by subclasses
-    virtual Color getShadingColor(const Scene & scene, const Intersection & intersection) const;
+    virtual Color getShadingColor(Scene & scene, Intersection & intersection) const;
     
 public:
     
@@ -28,7 +28,7 @@ public:
     // Getter and setter
     void setOpacity(float opacity);
     float getOpacity() const;
-    Color shade(const Scene & scene, const Intersection & intersection) const;
+    Color shade(Scene & scene, Intersection & intersection) const;
 };
 
 #endif

@@ -18,8 +18,7 @@ protected:
     vector<Triangle *> triangles;
     
     // Intersect
-    virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
-    virtual vector<vec3> getBoundingVertices() const;
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection) const;
     
 public:
     
@@ -28,9 +27,9 @@ public:
     ~MeshObject();
     
     // Vertex and Triangle Manipulation
-    void addVertex(const vec3 position);
-    void addVertex(const vec3 position, const vec3 normal);
-    void addTriangle(const int i1, const int i2, const int i3);
+    void addVertex(vec3 position);
+    void addVertex(vec3 position, vec3 normal);
+    void addTriangle(int i1, int i2, int i3);
     
     // Destructor helper methods
     void clear();
@@ -38,7 +37,7 @@ public:
     void clearTriangles();
     
     // Load object from file
-    bool loadPly(const char * filename);
+    bool loadPly(char * filename);
     void smooth();
 };
 

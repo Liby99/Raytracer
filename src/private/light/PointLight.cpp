@@ -1,10 +1,10 @@
 #include "light/PointLight.h"
 #include "scene/Scene.h"
 
-const vec3 PointLight::DEFAULT_FALL_OFF = vec3(0, 0, 1);
-const vec3 PointLight::DEFAULT_POSITION = vec3(0, 0, 0);
+vec3 PointLight::DEFAULT_FALL_OFF = vec3(0, 0, 1);
+vec3 PointLight::DEFAULT_POSITION = vec3(0, 0, 0);
 
-float PointLight::calcBrightness(const float dist) const {
+float PointLight::calcBrightness(float dist) {
     return intensity / (fallOff.x + fallOff.y * dist + fallOff.z * dist * dist);
 }
 
@@ -13,34 +13,34 @@ PointLight::PointLight() : Light() {
     setFallOff(DEFAULT_FALL_OFF);
 }
 
-PointLight::PointLight(const Color color) : Light(color) {
+PointLight::PointLight(Color color) : Light(color) {
     setPosition(DEFAULT_POSITION);
     setFallOff(DEFAULT_FALL_OFF);
 }
 
-PointLight::PointLight(const Color color, const vec3 position) : Light(color) {
+PointLight::PointLight(Color color, vec3 position) : Light(color) {
     setColor(color);
     setPosition(position);
     setFallOff(DEFAULT_FALL_OFF);
 }
 
-vec3 PointLight::getPosition() const {
+vec3 PointLight::getPosition() {
     return position;
 }
 
-void PointLight::setPosition(const vec3 position) {
+void PointLight::setPosition(vec3 position) {
     this->position = position;
 }
 
-vec3 PointLight::getFallOff() const {
+vec3 PointLight::getFallOff() {
     return fallOff;
 }
 
-void PointLight::setFallOff(const vec3 fallOff) {
+void PointLight::setFallOff(vec3 fallOff) {
     this->fallOff = fallOff;
 }
 
-float PointLight::getBrightness(const Scene & scene, const Intersection & intersection) const {
+float PointLight::getBrightness(Scene & scene, Intersection & intersection) {
     
     // Setup basic parameters
     vec3 diff = position - intersection.getPosition();
@@ -63,6 +63,6 @@ float PointLight::getBrightness(const Scene & scene, const Intersection & inters
     return calcBrightness(dist);
 }
 
-vec3 PointLight::getToLightDirection(const Intersection & intersection) const {
+vec3 PointLight::getToLightDirection(Intersection & intersection) {
     return normalize(position - intersection.getPosition());
 }

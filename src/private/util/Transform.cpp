@@ -8,7 +8,7 @@ vec3 minVec(vec3 a, vec3 b) {
     return vec3(min(a.x, b.x), min(a.y, b.y), min(a.z, b.z));
 }
 
-mat4 Transform::rotate(const float degrees, const vec3& axis) {
+mat4 Transform::rotate(float degrees, vec3& axis) {
     float x = axis.x,
         y = axis.y,
         z = axis.z,
@@ -26,14 +26,14 @@ mat4 Transform::rotate(const float degrees, const vec3& axis) {
     return mat4(a, d, g, 0, b, e, h, 0, c, f, i, 0, 0, 0, 0, 1);
 }
 
-mat4 Transform::scale(const float &sx, const float &sy, const float &sz) {
+mat4 Transform::scale(float &sx, float &sy, float &sz) {
     return mat4(sx, 0, 0, 0,
                 0, sy, 0, 0,
                 0, 0, sz, 0,
                 0, 0, 0, 1);
 }
 
-mat4 Transform::translate(const float &tx, const float &ty, const float &tz) {
+mat4 Transform::translate(float &tx, float &ty, float &tz) {
     return mat4(1, 0, 0, 0,
                 0, 1, 0, 0,
                 0, 0, 1, 0,

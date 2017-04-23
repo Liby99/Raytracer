@@ -1,6 +1,6 @@
 #include "camera/AntiAliasingCamera.h"
 
-const int AntiAliasingCamera::DEFAULT_LEVEL = 2;
+int AntiAliasingCamera::DEFAULT_LEVEL = 2;
 
 AntiAliasingCamera::AntiAliasingCamera() : Camera() {
     setLevel(DEFAULT_LEVEL);
@@ -18,7 +18,7 @@ AntiAliasingCamera::AntiAliasingCamera(vec3 position, vec3 focalPoint, vec3 up, 
     setLevel(level);
 }
 
-int AntiAliasingCamera::getLevel() const {
+int AntiAliasingCamera::getLevel() {
     return level;
 }
 
@@ -26,7 +26,7 @@ void AntiAliasingCamera::setLevel(int level) {
     this->level = level;
 }
 
-Bitmap AntiAliasingCamera::render(const Scene & scene) const {
+Bitmap AntiAliasingCamera::render(Scene & scene) {
     
     Bitmap bitmap(width, height);
     

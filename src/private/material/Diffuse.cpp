@@ -1,9 +1,9 @@
 #include "material/Diffuse.h"
 #include "scene/Scene.h"
 
-const Color Diffuse::DEFAULT_DIFFUSE = Color(1, 1, 1);
+Color Diffuse::DEFAULT_DIFFUSE = Color(1, 1, 1);
 
-Color Diffuse::getShadingColor(const Scene & scene, const Intersection & intersection) const {
+Color Diffuse::getShadingColor(Scene & scene, Intersection & intersection) {
     Color color;
     #pragma omp parallel for
     for (int i = 0; i < scene.lightAmount(); i++) {
@@ -27,14 +27,14 @@ Diffuse::Diffuse() {
     setDiffuse(DEFAULT_DIFFUSE);
 }
 
-Diffuse::Diffuse(const Color diffuse) : Material() {
+Diffuse::Diffuse(Color diffuse) : Material() {
     setDiffuse(diffuse);
 }
 
-Color Diffuse::getDiffuse() const {
+Color Diffuse::getDiffuse() {
     return diffuse;
 }
 
-void Diffuse::setDiffuse(const Color diffuse) {
+void Diffuse::setDiffuse(Color diffuse) {
     this->diffuse = diffuse;
 }

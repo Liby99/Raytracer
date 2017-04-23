@@ -1,8 +1,8 @@
 #include "light/Light.h"
 
-const Color Light::DEFAULT_COLOR = Color(1, 1, 1);
-const float Light::DEFAULT_INTENSITY = 1;
-const bool Light::DEFAULT_CAST_SHADOW = false;
+Color Light::DEFAULT_COLOR = Color(1, 1, 1);
+float Light::DEFAULT_INTENSITY = 1;
+bool Light::DEFAULT_CAST_SHADOW = false;
 
 Light::Light() {
     setColor(DEFAULT_COLOR);
@@ -16,34 +16,34 @@ Light::Light(Color c) {
     setCastShadow(DEFAULT_CAST_SHADOW);
 }
 
-Color Light::getColor() const {
+Color Light::getColor() {
     return color;
 }
 
-void Light::setColor(const Color color) {
+void Light::setColor(Color color) {
     this->color = color;
 }
 
-float Light::getIntensity() const {
+float Light::getIntensity() {
     return intensity;
 }
 
-void Light::setIntensity(const float intensity) {
+void Light::setIntensity(float intensity) {
     this->intensity = intensity;
 }
 
-bool Light::getCastShadow() const {
+bool Light::getCastShadow() {
     return castShadow;
 }
 
-void Light::setCastShadow(const bool castShadow) {
+void Light::setCastShadow(bool castShadow) {
     this->castShadow = castShadow;
 }
 
-float Light::getBrightness(const Scene & scene, const Intersection & intersection) const {
+float Light::getBrightness(Scene & scene, Intersection & intersection) {
     return 0;
 }
 
-vec3 Light::getToLightDirection(const Intersection & intersection) const {
+vec3 Light::getToLightDirection(Intersection & intersection) {
     return vec3(0, 0, 0);
 }

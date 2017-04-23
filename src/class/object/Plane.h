@@ -8,14 +8,13 @@ class Plane : public Object, public Orientable {
 protected:
     
     // Inherited update intersection
-    virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
-    virtual vector<vec3> getBoundingVertices() const;
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection) const;
     
 public:
     
     // Constructor
     Plane();
-    Plane(const int orientation);
+    Plane(int orientation);
 };
 
 #endif

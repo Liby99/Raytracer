@@ -28,13 +28,13 @@ public:
     void setMaxCorner(vec3 maxCorner);
     
     // Extend the box to a new bound
-    void extend(const Object & object);
-    void extend(const BoundingBox & box);
+    void extend(Object & object);
+    void extend(BoundingBox & box);
     
     // Check intersect
-    bool intersect(const Ray & ray) const;
-    bool intersect(const Object & object) const;
-    bool intersect(const BoundingBox & box) const;
+    bool intersect(Ray & ray) const;
+    bool intersect(Object & object) const;
+    bool intersect(BoundingBox & box) const;
 };
 
 #endif

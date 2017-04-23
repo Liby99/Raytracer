@@ -9,9 +9,9 @@ class SpotLight : public PointLight {
 protected:
     
     // Constant default value
-    const static vec3 DEFAULT_FALL_OFF;
-    const static vec3 DEFAULT_TARGET;
-    const static float DEFAULT_ANGLE;
+    static vec3 DEFAULT_FALL_OFF;
+    static vec3 DEFAULT_TARGET;
+    static float DEFAULT_ANGLE;
     
     //
     vec3 target;
@@ -21,19 +21,19 @@ public:
     
     // Constructors
     SpotLight();
-    SpotLight(const Color color, const vec3 position, const vec3 target, const float angle);
+    SpotLight(Color color, vec3 position, vec3 target, float angle);
     
     // Basic getter and setter
     vec3 getPosition() const;
-    void setPosition(const vec3 position);
+    void setPosition(vec3 position);
     vec3 getTarget() const;
-    void setTarget(const vec3 target);
+    void setTarget(vec3 target);
     float getAngle() const;
-    void setAngle(const float angle);
+    void setAngle(float angle);
     
     // Illuminate
-    virtual float getBrightness(const Scene & scene, const Intersection & intersection) const;
-    virtual vec3 getToLightDirection(const Intersection & intersection) const;
+    virtual float getBrightness(Scene & scene, Intersection & intersection) const;
+    virtual vec3 getToLightDirection(Intersection & intersection) const;
 };
 
 #endif

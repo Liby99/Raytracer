@@ -11,10 +11,10 @@ using namespace std;
 class Color {
 private:
     
-    const static float MAX;
-    const static float DEFAULT_R;
-    const static float DEFAULT_G;
-    const static float DEFAULT_B;
+    static float MAX;
+    static float DEFAULT_R;
+    static float DEFAULT_G;
+    static float DEFAULT_B;
     
     // Local variables
     float r;
@@ -57,7 +57,7 @@ public:
     
     static Color parse(int c);
     
-    friend std::ostream& operator<< (std::ostream & stream, const Color & color);
+    friend std::ostream& operator<< (std::ostream & stream, Color & color);
 };
 
 #endif

@@ -7,22 +7,22 @@ class Luminance : public Material {
 protected:
     
     // Default color
-    const static Color DEFAULT_COLOR;
+    static Color DEFAULT_COLOR;
     
     // Basic Color
     Color color;
     
-    virtual Color getShadingColor(const Scene & scene, const Intersection & intersection) const;
+    virtual Color getShadingColor(Scene & scene, Intersection & intersection) const;
     
 public:
     
     // Constructors
     Luminance();
-    Luminance(const Color color);
+    Luminance(Color color);
     
     //
     Color getColor() const;
-    void setColor(const Color color);
+    void setColor(Color color);
 };
 
 #endif

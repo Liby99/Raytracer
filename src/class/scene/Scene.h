@@ -23,7 +23,7 @@ public:
     
     // Background
     Color getBackgroundColor() const;
-    void setBackgroundColor(const Color color);
+    void setBackgroundColor(Color color);
     
     // Light related getter and setter
     unsigned int lightAmount() const;
@@ -36,9 +36,9 @@ public:
     void addObject(Object & object);
     
     // Intersection
-    bool getIntersection(const Ray & ray, Intersection & intersection) const;
-    Color getIntersectionColor(const Intersection & intersection) const;
-    Color getRayColor(const Ray & ray) const;
+    bool getIntersection(Ray & ray, Intersection & intersection) const;
+    Color getIntersectionColor(Intersection & intersection) const;
+    Color getRayColor(Ray & ray) const;
 };
 
 #endif

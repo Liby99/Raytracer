@@ -10,7 +10,7 @@ Vertex::Vertex(vec3 position, vec3 normal) {
     setNormal(normal);
 }
 
-vec3 Vertex::getPosition() const {
+vec3 Vertex::getPosition() {
     return position;
 }
 
@@ -18,10 +18,22 @@ void Vertex::setPosition(vec3 position) {
     this->position = position;
 }
 
-vec3 Vertex::getNormal() const {
+vec3 Vertex::getNormal() {
     return normal;
 }
 
 void Vertex::setNormal(vec3 normal) {
     this->normal = normal;
+}
+
+void addUnnormalized(vec3 normal) {
+    this->normal += normal;
+}
+
+void divideNormal(float num) {
+    this->normal /= num;
+}
+
+void normalize() {
+    this->normal = normalize(this->normal);
 }

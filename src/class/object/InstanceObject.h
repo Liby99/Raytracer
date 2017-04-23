@@ -3,25 +3,24 @@
 
 #include "object/Object.h"
 
-class InstanceObject : public Object, public Boundable {
+class InstanceObject : public Object {
 protected:
     
     // Object reference
-    const Object * object;
+    Object * object;
     
     // Intersection method
-    virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
-    virtual vector<vec3> getBoundingVertices() const;
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection) const;
     
 public:
     
     // Constructor
     InstanceObject();
-    InstanceObject(const Object & object);
+    InstanceObject(Object & object);
     
     // Getter and setter
-    const Object & getObject() const;
-    void setObject(const Object & object);
+    Object & getObject() const;
+    void setObject(Object & object);
 };
 
 #endif

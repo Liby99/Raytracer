@@ -13,9 +13,9 @@ class Object {
 protected:
     
     // Default Values
-    const static vec3 DEFAULT_POSITION;
-    const static vec3 DEFAULT_SCALER;
-    const static vec3 DEFAULT_ROTATION;
+    static vec3 DEFAULT_POSITION;
+    static vec3 DEFAULT_SCALER;
+    static vec3 DEFAULT_ROTATION;
     
     // Materials
     vector<Material *> materials;
@@ -26,7 +26,7 @@ protected:
     vec3 rotation;
     
     // Virtual Functions
-    virtual bool updateIntersect(const Ray & ray, Intersection & intersection) const;
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection) const;
     
 public:
     
@@ -48,31 +48,35 @@ public:
     vec3 getPosition() const;
     
     // Rotate Transformation
-    void setRotate(const vec3 rotation);
-    void rotate(const vec3 rotation);
-    void rotateX(const float degX);
-    void rotateY(const float degY);
-    void rotateZ(const float degZ);
+    void setRotate(vec3 rotation);
+    void rotate(vec3 rotation);
+    void rotateX(float degX);
+    void rotateY(float degY);
+    void rotateZ(float degZ);
     
     // Translate Transformation
-    void setTranslate(const vec3 rotation);
-    void translate(const vec3 position);
-    void translateX(const float x);
-    void translateY(const float y);
-    void translateZ(const float z);
+    void setTranslate(vec3 rotation);
+    void translate(vec3 position);
+    void translateX(float x);
+    void translateY(float y);
+    void translateZ(float z);
     
     // Scale Transformation
-    void setScale(const vec3 scaler);
-    void scale(const vec3 scaler);
-    void scaleX(const float scaleX);
-    void scaleY(const float scaleY);
-    void scaleZ(const float scaleZ);
+    void setScale(vec3 scaler);
+    void scale(vec3 scaler);
+    void scaleX(float scaleX);
+    void scaleY(float scaleY);
+    void scaleZ(float scaleZ);
     
     // Get transformation helper method
     mat4 getTransformMatrix() const;
     
+    BoundingBox getBoundingBox() {
+        
+    }
+    
     // Virtaul intersect method
-    bool intersect(const Ray & ray, Intersection & intersection) const;
+    bool intersect(Ray & ray, Intersection & intersection) const;
 };
 
 #endif

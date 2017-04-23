@@ -11,11 +11,11 @@ BoundingBox::BoundingBox(vec3 minCorner, vec3 maxCorner) {
     initiated = true;
 }
 
-vec3 BoundingBox::getMinCorner() const {
+vec3 BoundingBox::getMinCorner() {
     return minCorner;
 }
 
-vec3 BoundingBox::getMaxCorner() const {
+vec3 BoundingBox::getMaxCorner() {
     return maxCorner;
 }
 
@@ -27,17 +27,17 @@ void BoundingBox::setMaxCorner(vec3 maxCorner) {
     this->maxCorner = maxCorner;
 }
 
-void BoundingBox::extend(const Object & object) {
+void BoundingBox::extend(Object & object) {
     extend(object.getBoundingBox());
 }
 
-void BoundingBox::extend(const BoundingBox & box) {
+void BoundingBox::extend(BoundingBox & box) {
     setMinCorner(initiated ? minVec(minCorner, box.minCorner) : box.minCorner);
     setMaxCorner(initiated ? maxVec(minCorner, box.maxCorner) : box.maxCorner);
     initiated = true;
 }
 
-bool BoundingBox::intersect(const Ray & ray) const {
+bool BoundingBox::intersect(Ray & ray) {
     float tmin = (minCorner.x - ray.getOrigin().x) / ray.getDirection().x;
     float tmax = (maxCorner.x - ray.getOrigin().x) / ray.getDirection().x;
     if (tmin > tmax) swap(tmin, tmax);
@@ -54,11 +54,11 @@ bool BoundingBox::intersect(const Ray & ray) const {
     return true;
 }
 
-bool BoundingBox::intersect(const Object & object) const {
+bool BoundingBox::intersect(Object & object) {
     return intersect(object.getBoundingBox());
 }
 
-bool BoundingBox::intersect(const BoundingBox & box) const {
+bool BoundingBox::intersect(BoundingBox & box) {
     vec3 nmin = maxVec(minCorner, box.minCorner);
     vec3 nmax = minVec(maxCorner, box.maxCorner);
     vec3 diagnal = nmax - nmin;

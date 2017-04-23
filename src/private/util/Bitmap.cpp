@@ -21,15 +21,15 @@ Bitmap::~Bitmap() {
     delete [] pixel;
 }
 
-int Bitmap::getWidth() const {
+int Bitmap::getWidth() {
     return width;
 }
 
-int Bitmap::getHeight() const {
+int Bitmap::getHeight() {
     return height;
 }
 
-Color Bitmap::getPixel(int x, int y) const {
+Color Bitmap::getPixel(int x, int y) {
     return Color::parse(pixel[y * width + x]);
 }
 
@@ -37,7 +37,7 @@ void Bitmap::setPixel(int x, int y, Color color) {
     pixel[y * width + x] = color.toInt();
 }
 
-bool Bitmap::saveImage(const char * filename) const {
+bool Bitmap::saveImage(char * filename) {
     BitmapHeader head;
     head.fileSize = sizeof(BitmapHeader) + 2 + width * height * sizeof(int);
     head.reserved = 0;

@@ -2,10 +2,10 @@
 
 using namespace std;
 
-const float Color::MAX = 255.0f;
-const float Color::DEFAULT_R = 0;
-const float Color::DEFAULT_G = 0;
-const float Color::DEFAULT_B = 0;
+float Color::MAX = 255.0f;
+float Color::DEFAULT_R = 0;
+float Color::DEFAULT_G = 0;
+float Color::DEFAULT_B = 0;
 
 float bound(float f) {
     return (f <= 0) ? 0 : (f >= 1) ? 1 : f;
@@ -23,27 +23,27 @@ Color::Color(float r, float g, float b) {
     setB(b);
 }
 
-float Color::getR() const {
+float Color::getR() {
     return r;
 }
 
-float Color::getG() const {
+float Color::getG() {
     return g;
 }
 
-float Color::getB() const {
+float Color::getB() {
     return b;
 }
 
-int Color::getIntR() const {
+int Color::getIntR() {
     return int(bound(r) * MAX) & 0xff;
 }
 
-int Color::getIntG() const {
+int Color::getIntG() {
     return int(bound(g) * MAX) & 0xff;
 }
 
-int Color::getIntB() const {
+int Color::getIntB() {
     return int(bound(b) * MAX) & 0xff;
 }
 
@@ -59,11 +59,11 @@ void Color::setB(float b) {
     this->b = b;
 }
 
-int Color::toInt() const {
+int Color::toInt() {
     return (getIntR() << 16) | (getIntG() << 8) | getIntB();
 }
 
-Color Color::operator+(Color c) const {
+Color Color::operator+(Color c) {
     return Color(r + c.r, g + c.g, b + c.b);
 }
 
@@ -74,7 +74,7 @@ Color & Color::operator+=(Color c) {
     return *this;
 }
 
-Color Color::operator-(Color c) const {
+Color Color::operator-(Color c) {
     return Color(r - c.r, g - c.g, b - c.b);
 }
 
@@ -85,7 +85,7 @@ Color & Color::operator-=(Color c) {
     return *this;
 }
 
-Color Color::operator*(Color c) const {
+Color Color::operator*(Color c) {
     return Color(r * c.r, g * c.g, b * c.b);
 }
 
@@ -96,7 +96,7 @@ Color & Color::operator*=(Color c) {
     return *this;
 }
 
-Color Color::operator*(float scale) const {
+Color Color::operator*(float scale) {
     return Color(r * scale, g * scale, b * scale);
 }
 
@@ -107,7 +107,7 @@ Color & Color::operator*=(float scale) {
     return *this;
 }
 
-Color::operator string() const {
+Color::operator string() {
     return "rgb(" + to_string(getIntR()) + ", " +
                     to_string(getIntG()) + ", " +
                     to_string(getIntB()) + ")";
@@ -120,7 +120,7 @@ Color Color::parse(int c) {
     return Color(r, g, b);
 }
 
-std::ostream & operator<< (std::ostream & stream, const Color & color) {
+std::ostream & operator<< (std::ostream & stream, Color & color) {
     stream << (string)color;
     return stream;
 }
