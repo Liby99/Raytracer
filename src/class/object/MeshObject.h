@@ -8,8 +8,7 @@
 class MeshObject : public Object {
 private:
     
-    vec3 getMinCorner();
-    vec3 getMaxCorner();
+    vec3 getCorner(vec3 minCorner, vec3 maxCorner);
     
 protected:
     

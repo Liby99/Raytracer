@@ -34,6 +34,9 @@ public:
     Vertex & getV0();
     Vertex & getV1();
     Vertex & getV2();
+    
+    // Get the gravity center of the triangle
+    vec3 getCenter();
 };
 
 #endif

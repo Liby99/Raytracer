@@ -18,6 +18,8 @@ public:
     // Constructor
     BoundingBox();
     BoundingBox(vec3 minCorner, vec3 maxCorner);
+    BoundingBox(Object * obj);
+    BoundingBox(vector<Object *> objs);
     
     // Basic getter
     vec3 getMinCorner();
@@ -32,6 +34,7 @@ public:
     void extend(BoundingBox & box);
     
     // Check intersect
+    bool intersect(vec3 vec);
     bool intersect(Ray & ray);
     bool intersect(Ray & ray, float & t);
     bool intersect(Object & object);

@@ -11,6 +11,32 @@ BoundingBox::BoundingBox(vec3 minCorner, vec3 maxCorner) {
     initiated = true;
 }
 
+BoundingBox::BoundingBox(Object * obj) {
+    extend(*obj);
+}
+
+BoundingBox::BoundingBox(vector<Object *> objs) {
+    for (int i = 0; i < objs.size(); i++) {
+        extend(*objs[i]);
+    }
+}
+
+float BoundingBox::getWidth() {
+    return maxCorner.x - minCorner.x;
+}
+
+float BoundingBox::getHeight() {
+    return maxCorner.y - minCorner.y;
+}
+
+float BoundingBox::getLength() {
+    return maxCorner.z - minCorner.z;
+}
+
+vec3 BoundingBox::getSize() {
+    return vec3(getWidth(), getHeight(), getLength());
+}
+
 vec3 BoundingBox::getMinCorner() {
     return minCorner;
 }
@@ -35,6 +61,11 @@ void BoundingBox::extend(BoundingBox & box) {
     setMinCorner(initiated ? minVec(minCorner, box.minCorner) : box.minCorner);
     setMaxCorner(initiated ? maxVec(minCorner, box.maxCorner) : box.maxCorner);
     initiated = true;
+}
+
+bool BoundingBox::intersect(vec3 vec) {
+    return vec.x > minCorner.x && vec.y > minCorner.y && vec.z > minCorner.z &&
+           vec.x < maxCorner.x && vec.y < maxCorner.y && vec.z < maxCorner.z;
 }
 
 bool BoundingBox::intersect(Ray & ray) {

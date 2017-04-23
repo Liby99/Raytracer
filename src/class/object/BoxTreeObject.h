@@ -15,7 +15,7 @@ private:
     vector<Triangle *> triangles;
     
     // Box object
-    Box box;
+    BoundingBox box;
     
     // Flag of leaf
     bool leafFlag;
@@ -23,12 +23,16 @@ private:
 public:
     
     // Constructor
-    BoxTreeNode(vector<Triangle *> objs);
+    BoxTreeNode(vector<Triangle *> tris);
+    BoxTreeNode(Triangle * tris);
+    ~BoxTreeNode();
     
-    BoxTreeNode & getLeft() ;
-    BoxTreeNode & getRight() ;
-    bool leftRightIntersect() ;
+    BoxTreeNode & getLeft();
+    BoxTreeNode & getRight();
+    BoundingBox & getBoundingBox();
+    bool leftRightIntersect();
     bool isLeaf();
+    bool intersect(Ray & ray, Intersection & intersection);
 };
 
 class BoxTreeObject : public MeshObject {
@@ -37,12 +41,17 @@ protected:
     BoxTreeNode * root;
     
     // Helper construct method
-    void construct();
+    void clearTree();
+    void forceConstruct();
+    void constructTree();
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
     
 public:
     
+    //
     BoxTreeObject();
     BoxTreeObject(char * filename);
+    ~BoxTreeObject();
 };
 
 #endif

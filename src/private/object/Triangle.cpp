@@ -88,3 +88,7 @@ vertex & Triangle::getV1() {
 vertex & Triangle::getV2() {
     return *v2;
 }
+
+vec3 Triangle::getCenter() {
+    return (*v0 + *v1 + *v2) / 3;
+}

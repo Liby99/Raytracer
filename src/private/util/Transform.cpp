@@ -1,5 +1,9 @@
 #include "util/Transform.h"
 
+int maxAxis(vec3 v) {
+    return v.x > v.y ? (v.x > v.z ? 0 : 2) : (v.y > v.z ? 1 : 2);
+}
+
 vec3 maxVec(vec3 a, vec3 b) {
     return vec3(max(a.x, b.x), max(a.y, b.y), max(a.z, b.z));
 }

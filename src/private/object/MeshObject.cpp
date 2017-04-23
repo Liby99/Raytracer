@@ -1,5 +1,12 @@
 #include "object/MeshObject.h"
 
+void getCorner(vec3 minCorner, vec3 maxCorner) {
+    for (int i = 0; i < vertices.size(); i++) {
+        minCorner = minVec(minCorner, vertices[i].getPosition());
+        maxCorner = maxVec(maxCorner, vertices[i].getPosition());
+    }
+}
+
 bool MeshObject::updateIntersect(Ray & ray, Intersection & intersection) {
     bool hit = false;
     for (int i = 0; i < triangles.size(); i++) {
@@ -73,7 +80,7 @@ void MeshObject::clearTriangles() {
     triangles = vector<Triangle *>();
 }
 
-bool loadPly(char * filename) {
+bool MeshObject::loadPly(char * filename) {
     
     // Open file
     FILE * f = fopen(filename,"r");
@@ -164,7 +171,7 @@ bool loadPly(char * filename) {
            vertices.size(), triangles.size(), filename);
 }
 
-void smooth() {
+void MeshObject::smooth() {
     int i, j;
     for (i = 0; i < vertices.size(); i++) {
         vertices[i].setNormal(vec3(0));
