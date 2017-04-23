@@ -18,7 +18,7 @@ protected:
     vector<Triangle *> triangles;
     
     // Intersect
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection) const;
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection) ;
     
 public:
     

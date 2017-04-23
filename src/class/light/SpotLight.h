@@ -24,16 +24,16 @@ public:
     SpotLight(Color color, vec3 position, vec3 target, float angle);
     
     // Basic getter and setter
-    vec3 getPosition() const;
+    vec3 getPosition() ;
     void setPosition(vec3 position);
-    vec3 getTarget() const;
+    vec3 getTarget() ;
     void setTarget(vec3 target);
-    float getAngle() const;
+    float getAngle() ;
     void setAngle(float angle);
     
     // Illuminate
-    virtual float getBrightness(Scene & scene, Intersection & intersection) const;
-    virtual vec3 getToLightDirection(Intersection & intersection) const;
+    virtual float getBrightness(Scene & scene, Intersection & intersection) ;
+    virtual vec3 getToLightDirection(Intersection & intersection) ;
 };
 
 #endif

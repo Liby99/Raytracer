@@ -16,12 +16,13 @@ private:
     Vertex * v2;
     
     // Helper methods
-    vec3 getBaryCentric(vec3 position) const;
+    vec3 getBaryCentric(vec3 position);
     
 protected:
     
     // Intersection with ray
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection) const;
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    virtual vector<vec3> getBoundingVertices();
     
 public:
     
@@ -30,9 +31,9 @@ public:
     
     // Getters
     Vertex & getVertex(int i);
-    Vertex & getV0() const;
-    Vertex & getV1() const;
-    Vertex & getV2() const;
+    Vertex & getV0();
+    Vertex & getV1();
+    Vertex & getV2();
 };
 
 #endif

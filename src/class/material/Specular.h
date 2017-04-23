@@ -16,7 +16,7 @@ private:
     float shininess;
     
     // Shading
-    virtual Color getShadingColor(Scene & scene, Intersection & intersection) const;
+    virtual Color getShadingColor(Scene & scene, Intersection & intersection) ;
     
 public:
     
@@ -25,9 +25,9 @@ public:
     Specular(Color specular);
     Specular(Color specular, float shininess);
     
-    Color getSpecular() const;
+    Color getSpecular() ;
     void setSpecular(Color color);
-    float getShininess() const;
+    float getShininess() ;
     void setShininess(float shininess);
 };
 

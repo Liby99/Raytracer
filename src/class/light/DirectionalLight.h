@@ -21,12 +21,12 @@ public:
     DirectionalLight(Color color, vec3 direction);
     
     // Direction getter and setter
-    vec3 getDirection() const;
+    vec3 getDirection() ;
     void setDirection(vec3 direction);
     
     // Inherited brightness and tolight
-    virtual float getBrightness(Scene & scene, Intersection & intersection) const;
-    virtual vec3 getToLightDirection(Intersection & intersection) const;
+    virtual float getBrightness(Scene & scene, Intersection & intersection) ;
+    virtual vec3 getToLightDirection(Intersection & intersection) ;
 };
 
 #endif

@@ -27,14 +27,14 @@ public:
     Color(float r, float g, float b);
     
     // Getters
-    float getR() const;
-    float getG() const;
-    float getB() const;
+    float getR() ;
+    float getG() ;
+    float getB() ;
     
     // To int version
-    int getIntR() const;
-    int getIntG() const;
-    int getIntB() const;
+    int getIntR() ;
+    int getIntG() ;
+    int getIntB() ;
     
     // Setters
     void setR(float r);
@@ -42,18 +42,18 @@ public:
     void setB(float b);
     
     // To Int representation for bitmap
-    int toInt() const;
+    int toInt() ;
     
     // Operators
-    Color operator+(Color c) const;
+    Color operator+(Color c) ;
     Color & operator+=(Color c);
-    Color operator-(Color c) const;
+    Color operator-(Color c) ;
     Color & operator-=(Color c);
-    Color operator*(Color c) const;
+    Color operator*(Color c) ;
     Color & operator*=(Color c);
-    Color operator*(float scale) const;
+    Color operator*(float scale) ;
     Color & operator*=(float scale);
-    operator string() const;
+    operator string() ;
     
     static Color parse(int c);
     

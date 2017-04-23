@@ -17,7 +17,7 @@ protected:
     vec3 fallOff;
     
     // Helper method for getting brightness
-    float calcBrightness(float distance) const;
+    float calcBrightness(float distance) ;
     
 public:
     
@@ -27,16 +27,16 @@ public:
     PointLight(Color color, vec3 position);
     
     // Position setter getter
-    vec3 getPosition() const;
+    vec3 getPosition() ;
     void setPosition(vec3 position);
     
     // Fall Off related setter getter
-    vec3 getFallOff() const;
+    vec3 getFallOff() ;
     void setFallOff(vec3 fallOff);
     
     // Inherited brightness and tolight
-    virtual float getBrightness(Scene & scene, Intersection & intersection) const;
-    virtual vec3 getToLightDirection(Intersection & intersection) const;
+    virtual float getBrightness(Scene & scene, Intersection & intersection) ;
+    virtual vec3 getToLightDirection(Intersection & intersection) ;
 };
 
 #endif

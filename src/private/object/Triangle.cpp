@@ -54,6 +54,14 @@ bool Triangle::updateIntersect(Ray & ray, Intersection & intersection) {
     return false;
 }
 
+vector<vec3> getBoundingVertices() {
+    vector<vec3> vertices;
+    vertices.push_back(v0->getPosition());
+    vertices.push_back(v1->getPosition());
+    vertices.push_back(v2->getPosition());
+    return vertices;
+}
+
 Triangle::Triangle(Vertex * v0, Vertex * v1, Vertex * v2) : Object() {
     this->v0 = v0;
     this->v1 = v1;

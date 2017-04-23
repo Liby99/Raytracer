@@ -15,7 +15,7 @@ private:
     float attenuation;
     
     // Shading
-    virtual Color getShadingColor(Scene & scene, Intersection & intersection) const;
+    virtual Color getShadingColor(Scene & scene, Intersection & intersection) ;
     
 public:
     
@@ -24,9 +24,9 @@ public:
     Reflection(Color tint);
     
     // Basic getter and setter
-    Color getTint() const;
+    Color getTint() ;
     void setTint(Color color);
-    float getAttenuation() const;
+    float getAttenuation() ;
     void setAttenuation(float attenuation);
 };
 

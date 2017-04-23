@@ -22,23 +22,23 @@ public:
     Scene();
     
     // Background
-    Color getBackgroundColor() const;
+    Color getBackgroundColor() ;
     void setBackgroundColor(Color color);
     
     // Light related getter and setter
-    unsigned int lightAmount() const;
-    Light & getLight(int i) const;
+    unsigned int lightAmount() ;
+    Light & getLight(int i) ;
     void addLight(Light & light);
     
     // Object related getter and setter
-    unsigned int objectAmount() const;
-    Object & getObject(int i) const;
+    unsigned int objectAmount() ;
+    Object & getObject(int i) ;
     void addObject(Object & object);
     
     // Intersection
-    bool getIntersection(Ray & ray, Intersection & intersection) const;
-    Color getIntersectionColor(Intersection & intersection) const;
-    Color getRayColor(Ray & ray) const;
+    bool getIntersection(Ray & ray, Intersection & intersection) ;
+    Color getIntersectionColor(Intersection & intersection) ;
+    Color getRayColor(Ray & ray) ;
 };
 
 #endif

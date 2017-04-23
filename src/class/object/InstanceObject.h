@@ -10,7 +10,7 @@ protected:
     Object * object;
     
     // Intersection method
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection) const;
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection) ;
     
 public:
     
@@ -19,7 +19,7 @@ public:
     InstanceObject(Object & object);
     
     // Getter and setter
-    Object & getObject() const;
+    Object & getObject() ;
     void setObject(Object & object);
 };
 

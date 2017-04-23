@@ -18,7 +18,7 @@ private:
 protected:
     
     // Inherited intersect method
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection) const;
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection) ;
     
 public:
     

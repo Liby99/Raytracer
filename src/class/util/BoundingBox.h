@@ -20,8 +20,8 @@ public:
     BoundingBox(vec3 minCorner, vec3 maxCorner);
     
     // Basic getter
-    vec3 getMinCorner() const;
-    vec3 getMaxCorner() const;
+    vec3 getMinCorner() ;
+    vec3 getMaxCorner() ;
     
     // Basic setter
     void setMinCorner(vec3 minCorner);
@@ -32,9 +32,9 @@ public:
     void extend(BoundingBox & box);
     
     // Check intersect
-    bool intersect(Ray & ray) const;
-    bool intersect(Object & object) const;
-    bool intersect(BoundingBox & box) const;
+    bool intersect(Ray & ray) ;
+    bool intersect(Object & object) ;
+    bool intersect(BoundingBox & box) ;
 };
 
 #endif

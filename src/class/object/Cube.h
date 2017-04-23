@@ -14,11 +14,11 @@ protected:
     float height;
     
     // Corner getter
-    vec3 getMaxCorner() const;
-    vec3 getMinCorner() const;
+    vec3 getMaxCorner() ;
+    vec3 getMinCorner() ;
     
     // Intersection
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection) const;
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection) ;
     
 public:
     
@@ -27,9 +27,9 @@ public:
     Cube(float width, float height, float length);
     
     // Basic getter and setter
-    float getWidth() const;
-    float getHeight() const;
-    float getLength() const;
+    float getWidth() ;
+    float getHeight() ;
+    float getLength() ;
     virtual void setWidth(float width);
     virtual void setHeight(float height);
     virtual void setLength(float length);

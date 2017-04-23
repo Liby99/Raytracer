@@ -26,7 +26,7 @@ protected:
     vec3 rotation;
     
     // Virtual Functions
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection) const;
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection) ;
     
 public:
     
@@ -34,8 +34,8 @@ public:
     Object();
     
     // Material Related
-    int materialAmount() const;
-    Material & getMaterial(int i) const;
+    int materialAmount() ;
+    Material & getMaterial(int i) ;
     void addMaterial(Material & material);
     
     // Boundable setting
@@ -43,9 +43,9 @@ public:
     void setBoundable(bool boundable);
     
     // Basic Getter
-    vec3 getRotation() const;
-    vec3 getScale() const;
-    vec3 getPosition() const;
+    vec3 getRotation() ;
+    vec3 getScale() ;
+    vec3 getPosition() ;
     
     // Rotate Transformation
     void setRotate(vec3 rotation);
@@ -69,14 +69,14 @@ public:
     void scaleZ(float scaleZ);
     
     // Get transformation helper method
-    mat4 getTransformMatrix() const;
+    mat4 getTransformMatrix() ;
     
     BoundingBox getBoundingBox() {
         
     }
     
     // Virtaul intersect method
-    bool intersect(Ray & ray, Intersection & intersection) const;
+    bool intersect(Ray & ray, Intersection & intersection) ;
 };
 
 #endif

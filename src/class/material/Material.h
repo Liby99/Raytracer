@@ -18,7 +18,7 @@ protected:
     float opacity;
     
     // Get shading color to be inherited by subclasses
-    virtual Color getShadingColor(Scene & scene, Intersection & intersection) const;
+    virtual Color getShadingColor(Scene & scene, Intersection & intersection) ;
     
 public:
     
@@ -27,8 +27,8 @@ public:
     
     // Getter and setter
     void setOpacity(float opacity);
-    float getOpacity() const;
-    Color shade(Scene & scene, Intersection & intersection) const;
+    float getOpacity() ;
+    Color shade(Scene & scene, Intersection & intersection) ;
 };
 
 #endif

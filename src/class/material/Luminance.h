@@ -12,7 +12,7 @@ protected:
     // Basic Color
     Color color;
     
-    virtual Color getShadingColor(Scene & scene, Intersection & intersection) const;
+    virtual Color getShadingColor(Scene & scene, Intersection & intersection) ;
     
 public:
     
@@ -21,7 +21,7 @@ public:
     Luminance(Color color);
     
     //
-    Color getColor() const;
+    Color getColor() ;
     void setColor(Color color);
 };
 

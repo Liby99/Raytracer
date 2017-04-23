@@ -25,9 +25,9 @@ public:
     // Constructor
     BoxTreeNode(vector<Triangle *> objs);
     
-    BoxTreeNode & getLeft() const;
-    BoxTreeNode & getRight() const;
-    bool leftRightIntersect() const;
+    BoxTreeNode & getLeft() ;
+    BoxTreeNode & getRight() ;
+    bool leftRightIntersect() ;
     bool isLeaf();
 };
 
@@ -42,6 +42,7 @@ protected:
 public:
     
     BoxTreeObject();
+    BoxTreeObject(char * filename);
 };
 
 #endif

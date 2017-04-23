@@ -13,14 +13,23 @@ private:
 public:
     
     // Constructor
+    Vertex();
     Vertex(vec3 position);
     Vertex(vec3 position, vec3 normal);
     
     // Basic getter and setter
-    vec3 getPosition() const;
+    vec3 getPosition() ;
     void setPosition(vec3 position);
-    vec3 getNormal() const;
+    void setPositionX(float x);
+    void setPositionY(float y);
+    void setPositionZ(float z);
+    
+    vec3 getNormal() ;
     void setNormal(vec3 normal);
+    void setNormalX(float x);
+    void setNormalY(float y);
+    void setNormalZ(float z);
+    
     void addUnnormalized(vec3 normal);
     void divideNormal(float num);
     void normalize();
