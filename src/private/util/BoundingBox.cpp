@@ -38,6 +38,11 @@ void BoundingBox::extend(BoundingBox & box) {
 }
 
 bool BoundingBox::intersect(Ray & ray) {
+    float t = 0;
+    return intersect(ray, t);
+}
+
+bool BoundingBox::intersect(Ray & ray, float & t) {
     float tmin = (minCorner.x - ray.getOrigin().x) / ray.getDirection().x;
     float tmax = (maxCorner.x - ray.getOrigin().x) / ray.getDirection().x;
     if (tmin > tmax) swap(tmin, tmax);
@@ -51,6 +56,11 @@ bool BoundingBox::intersect(Ray & ray) {
     float tzmax = (maxCorner.z - ray.getOrigin().z) / ray.getDirection().z;
     if (tzmin > tzmax) swap(tzmin, tzmax);
     if ((tmin > tzmax) || (tzmin > tmax)) return false;
+    if (tzmin > tmin) tmin = tzmin;
+    if (tzmax < tmax) tmax = tzmax;
+    if (tmin > 0 && tmax > 0) t = tmin;
+    else if (tmin < 0 && tmax > 0) t = tmax;
+    else return false;
     return true;
 }
 
