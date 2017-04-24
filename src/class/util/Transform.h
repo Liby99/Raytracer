@@ -13,6 +13,8 @@ typedef glm::vec4 vec4;
 
 const float pi = 3.14159265f;
 
+float max(float a, float b, float c);
+float min(float a, float b, float c);
 int maxAxis(const vec3 & v);
 vec3 maxVec(const vec3 & a, const vec3 & b);
 vec3 minVec(const vec3 & a, const vec3 & b);

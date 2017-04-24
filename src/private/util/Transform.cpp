@@ -1,5 +1,13 @@
 #include "util/Transform.h"
 
+float max(float a, float b, float c) {
+    return a > b ? (a > c ? a : c) : (b > c ? b : c);
+}
+
+float min(float a, float b, float c) {
+    return a < b ? (a < c ? a : c) : (b < c ? b : c);
+}
+
 int maxAxis(const vec3 & v) {
     return v.x > v.y ? (v.x > v.z ? 0 : 2) : (v.y > v.z ? 1 : 2);
 }

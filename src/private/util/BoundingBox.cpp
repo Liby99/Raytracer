@@ -66,7 +66,7 @@ void BoundingBox::extend(Object & object) {
 
 void BoundingBox::extend(BoundingBox box) {
     setMinCorner(initiated ? minVec(minCorner, box.minCorner) : box.minCorner);
-    setMaxCorner(initiated ? maxVec(minCorner, box.maxCorner) : box.maxCorner);
+    setMaxCorner(initiated ? maxVec(maxCorner, box.maxCorner) : box.maxCorner);
     initiated = true;
 }
 
@@ -81,25 +81,18 @@ bool BoundingBox::intersect(Ray & ray) {
 }
 
 bool BoundingBox::intersect(Ray & ray, float & t) {
-    float tmin = (minCorner.x - ray.getOrigin().x) / ray.getDirection().x;
-    float tmax = (maxCorner.x - ray.getOrigin().x) / ray.getDirection().x;
-    if (tmin > tmax) swap(tmin, tmax);
-    float tymin = (minCorner.y - ray.getOrigin().y) / ray.getDirection().y;
-    float tymax = (maxCorner.y - ray.getOrigin().y) / ray.getDirection().y;
-    if (tymin > tymax) swap(tymin, tymax);
-    if ((tmin > tymax) || (tymin > tmax)) return false;
-    if (tymin > tmin) tmin = tymin;
-    if (tymax < tmax) tmax = tymax;
-    float tzmin = (minCorner.z - ray.getOrigin().z) / ray.getDirection().z;
-    float tzmax = (maxCorner.z - ray.getOrigin().z) / ray.getDirection().z;
-    if (tzmin > tzmax) swap(tzmin, tzmax);
-    if ((tmin > tzmax) || (tzmin > tmax)) return false;
-    if (tzmin > tmin) tmin = tzmin;
-    if (tzmax < tmax) tmax = tzmax;
-    if (tmin > 0 && tmax > 0) t = tmin;
-    else if (tmin < 0 && tmax > 0) t = tmax;
-    else return false;
-    return true;
+    float t1[3], t2[3], tmin, tmax;
+    for (int i = 0; i < 3; ++i) {
+        t1[i] = ((minCorner[i] - ray.getOrigin()[i]) / ray.getDirection()[i]);
+        t2[i] = ((maxCorner[i] - ray.getOrigin()[i]) / ray.getDirection()[i]);
+    }
+    tmin = max(min(t1[0], t2[0]), min(t1[1], t2[1]), min(t1[2], t2[2]));
+    tmax = min(max(t1[0], t2[0]), max(t1[1], t2[1]), max(t1[2], t2[2]));
+    if (tmin <= tmax) {
+        t = tmin;
+        return true;
+    }
+    return false;
 }
 
 bool BoundingBox::intersect(Object & object) {
