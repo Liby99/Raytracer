@@ -1,5 +1,7 @@
 #include "object/Object.h"
 
+#include <iostream>
+
 const vec3 Object::DEFAULT_POSITION = vec3(0, 0, 0);
 const vec3 Object::DEFAULT_SCALER = vec3(1, 1, 1);
 const vec3 Object::DEFAULT_ROTATION = vec3(0, 0, 0);
@@ -124,7 +126,7 @@ BoundingBox Object::getBoundingBox() {
     // Check if the vector is empty
     if (vertices.empty()) {
         
-        // If empth then return the empty box
+        // If empty then return the empty box
         return BoundingBox();
     }
     else {

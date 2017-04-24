@@ -4,6 +4,8 @@
 
 using namespace std;
 
+int tricount = 0;
+
 BoxTreeNode::BoxTreeNode(Triangle * tri) {
     box = BoundingBox(tri);
     triangles.push_back(tri);
@@ -34,6 +36,7 @@ BoxTreeNode::BoxTreeNode(vector<Triangle *> & tris) {
         triangles.push_back(tris[0]);
     }
     else if (n == 2) {
+        leafFlag = false;
         left = new BoxTreeNode(tris[0]);
         right = new BoxTreeNode(tris[1]);
     }
@@ -48,7 +51,7 @@ BoxTreeNode::BoxTreeNode(vector<Triangle *> & tris) {
                 rightTris.push_back(tris[i]);
             }
         }
-        if (leftTris.size() == tris.size() || rightTris.size() == tris.size()) {
+        if (leftTris.size() == 0 || rightTris.size() == 0) {
             triangles = tris;
             leafFlag = true;
         }
@@ -113,14 +116,47 @@ bool BoxTreeNode::intersect(Ray & ray, Intersection & intersection) {
         i1 = b1.intersect(ray, t1);
         i2 = b2.intersect(ray, t2);
         
-        // Check intersection
-        if (i1 && left->intersect(ray, intersection)) {
-            hit = true;
+        if (i1 && i2) {
+            if (leftRightIntersect()) {
+                if (left->intersect(ray, intersection)) {
+                    hit = true;
+                }
+                if (right->intersect(ray, intersection)) {
+                    hit = true;
+                }
+            }
+            else {
+                if (t1 < t2) {
+                    if (!left->intersect(ray, intersection)) {
+                        if (right->intersect(ray, intersection)) {
+                            hit = true;
+                        }
+                    }
+                    else {
+                        hit = true;
+                    }
+                }
+                else {
+                    if (!right->intersect(ray, intersection)) {
+                        if (left->intersect(ray, intersection)) {
+                            hit = true;
+                        }
+                    }
+                    else {
+                        hit = true;
+                    }
+                }
+            }
+            return hit;
         }
-        if (i2 && right->intersect(ray, intersection)) {
-            hit = true;
+        else if (i1) {
+            return left->intersect(ray, intersection);
         }
-        
-        return hit;
+        else if (i2) {
+            return right->intersect(ray, intersection);
+        }
+        else {
+            return false;
+        }
     }
 }

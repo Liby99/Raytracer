@@ -24,6 +24,9 @@ bool Triangle::updateIntersect(Ray & ray, Intersection & intersection) {
     vec3 p0 = v0->getPosition();
     vec3 p1 = v1->getPosition();
     vec3 p2 = v2->getPosition();
+    vec3 n0 = v0->getNormal();
+    vec3 n1 = v1->getNormal();
+    vec3 n2 = v2->getNormal();
     
     // Same the variables
     vec3 normal = cross(p1 - p0, p2 - p0);
@@ -46,6 +49,11 @@ bool Triangle::updateIntersect(Ray & ray, Intersection & intersection) {
         lambda.x >= 0 && lambda.x <= 1 &&
         lambda.y >= 0 && lambda.y <= 1 &&
         lambda.z >= 0 && lambda.z <= 1) {
+            
+        if (n0 != vec3() || n1 != vec3() || n2 != vec3()) {
+            normal = lambda.x * n0 + lambda.y * n1 + lambda.z * n2;
+            normal = normalize(-normal);
+        }
         
         return intersection.update(t, position, normal);
     }

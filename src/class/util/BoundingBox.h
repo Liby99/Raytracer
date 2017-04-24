@@ -42,8 +42,10 @@ public:
     void extend(Object & object);
     void extend(BoundingBox box);
     
+    // Contains vector
+    bool contains(vec3 vec);
+    
     // Check intersect
-    bool intersect(vec3 vec);
     bool intersect(Ray & ray);
     bool intersect(Ray & ray, float & t);
     bool intersect(Object & object);

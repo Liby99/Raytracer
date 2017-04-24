@@ -19,10 +19,7 @@ bool BoxTreeObject::updateIntersect(Ray & ray, Intersection & intersection) {
     constructTree();
     BoundingBox box = root->getBoundingBox();
     if (box.intersect(ray)) {
-        if (root->intersect(ray, intersection)) {
-            intersection.setObject(*this);
-            return true;
-        }
+        return root->intersect(ray, intersection);
     }
     return false;
 }

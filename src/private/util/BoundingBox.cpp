@@ -2,6 +2,8 @@
 #include "object/Object.h"
 
 BoundingBox::BoundingBox() {
+    setMinCorner(vec3());
+    setMaxCorner(vec3());
     initiated = false;
 }
 
@@ -65,12 +67,22 @@ void BoundingBox::extend(Object & object) {
 }
 
 void BoundingBox::extend(BoundingBox box) {
-    setMinCorner(initiated ? minVec(minCorner, box.minCorner) : box.minCorner);
-    setMaxCorner(initiated ? maxVec(maxCorner, box.maxCorner) : box.maxCorner);
-    initiated = true;
+    if (!initiated) {
+        minCorner = box.minCorner;
+        maxCorner = box.maxCorner;
+        initiated = true;
+    }
+    else {
+        minCorner.x = glm::min(box.minCorner.x, minCorner.x);
+        minCorner.y = glm::min(box.minCorner.y, minCorner.y);
+        minCorner.z = glm::min(box.minCorner.z, minCorner.z);
+        maxCorner.x = glm::max(box.maxCorner.x, maxCorner.x);
+        maxCorner.y = glm::max(box.maxCorner.y, maxCorner.y);
+        maxCorner.z = glm::max(box.maxCorner.z, maxCorner.z);
+    }
 }
 
-bool BoundingBox::intersect(vec3 vec) {
+bool BoundingBox::contains(vec3 vec) {
     return vec.x > minCorner.x && vec.y > minCorner.y && vec.z > minCorner.z &&
            vec.x < maxCorner.x && vec.y < maxCorner.y && vec.z < maxCorner.z;
 }
@@ -88,8 +100,12 @@ bool BoundingBox::intersect(Ray & ray, float & t) {
     }
     tmin = max(min(t1[0], t2[0]), min(t1[1], t2[1]), min(t1[2], t2[2]));
     tmax = min(max(t1[0], t2[0]), max(t1[1], t2[1]), max(t1[2], t2[2]));
-    if (tmin <= tmax) {
+    if (tmin > 0 && tmin <= tmax) {
         t = tmin;
+        return true;
+    }
+    else if (tmin < 0 && tmax > 0) {
+        t = tmax;
         return true;
     }
     return false;
