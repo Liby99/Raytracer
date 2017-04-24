@@ -1,5 +1,9 @@
 #include "object/BoxTreeNode.h"
 
+#include <iostream>
+
+using namespace std;
+
 BoxTreeNode::BoxTreeNode(Triangle * tri) {
     box = BoundingBox(tri);
     triangles.push_back(tri);

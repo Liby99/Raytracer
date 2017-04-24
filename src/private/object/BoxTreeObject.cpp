@@ -1,9 +1,5 @@
 #include "object/BoxTreeObject.h"
 
-void BoxTreeObject::clearTree() {
-    
-}
-
 void BoxTreeObject::forceConstruct() {
     root = new BoxTreeNode(triangles);
 }

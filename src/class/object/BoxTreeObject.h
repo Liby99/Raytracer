@@ -10,7 +10,6 @@ protected:
     BoxTreeNode * root;
     
     // Helper construct method
-    void clearTree();
     void forceConstruct();
     void constructTree();
     

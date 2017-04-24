@@ -30,6 +30,10 @@ bool Sphere::updateIntersect(Ray & ray, Intersection & intersection) {
     return intersection.update(t, position, position);
 }
 
+vector<vec3> Sphere::getBoundingVertices() {
+    
+}
+
 Sphere::Sphere() {
     setRadius(1);
 }
