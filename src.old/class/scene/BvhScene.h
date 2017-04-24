@@ -1,3 +1,0 @@
-class BvhScene : public Scene {
-    
-}
