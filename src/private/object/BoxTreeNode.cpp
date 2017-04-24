@@ -26,7 +26,6 @@ BoxTreeNode::BoxTreeNode(vector<Triangle *> & tris) {
     //
     if (n == 0) {
         leafFlag = false;
-        return;
     }
     else if (n == 1) {
         leafFlag = true;
@@ -61,10 +60,8 @@ BoxTreeNode::BoxTreeNode(vector<Triangle *> & tris) {
 }
 
 BoxTreeNode::~BoxTreeNode() {
-    if (left) {
+    if (!isLeaf()) {
         delete left;
-    }
-    if (right) {
         delete right;
     }
 }
@@ -116,35 +113,11 @@ bool BoxTreeNode::intersect(Ray & ray, Intersection & intersection) {
         
         // Check intersection
         if (i1 && i2) {
-            if (leftRightIntersect()) {
-                if (left->intersect(ray, intersection)) {
-                    hit = true;
-                }
-                if (right->intersect(ray, intersection)) {
-                    hit = true;
-                }
+            if (left->intersect(ray, intersection)) {
+                hit = true;
             }
-            else {
-                if (t1 < t2) {
-                    if (!left->intersect(ray, intersection)) {
-                        if (right->intersect(ray, intersection)) {
-                            hit = true;
-                        }
-                    }
-                    else {
-                        hit = true;
-                    }
-                }
-                else {
-                    if (!right->intersect(ray, intersection)) {
-                        if (left->intersect(ray, intersection)) {
-                            hit = true;
-                        }
-                    }
-                    else {
-                        hit = true;
-                    }
-                }
+            if (right->intersect(ray, intersection)) {
+                hit = true;
             }
             return hit;
         }

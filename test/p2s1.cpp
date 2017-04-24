@@ -9,6 +9,10 @@
 #include "util/Bitmap.h"
 #include "util/Color.h"
 
+#include <iostream>
+
+using namespace std;
+
 int main() {
     
     // Create scene

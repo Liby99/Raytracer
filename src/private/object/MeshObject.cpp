@@ -1,5 +1,7 @@
 #include "object/MeshObject.h"
 
+#include <iostream>
+
 void MeshObject::getCorner(vec3 minCorner, vec3 maxCorner) {
     for (int i = 0; i < vertices.size(); i++) {
         minCorner = minVec(minCorner, vertices[i]->getPosition());
@@ -154,7 +156,6 @@ bool MeshObject::loadPly(char * filename) {
             }
             addTriangle(i0, i1, i2);
         }
-        return false;
     }
     
     // Smooth
