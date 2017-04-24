@@ -1,8 +1,8 @@
 #include "material/Specular.h"
 #include "scene/Scene.h"
 
-Color Specular::DEFAULT_SPECULAR = Color(1, 1, 1);
-float Specular::DEFAULT_SHININESS = 20;
+const Color Specular::DEFAULT_SPECULAR = Color(1, 1, 1);
+const float Specular::DEFAULT_SHININESS = 20;
 
 Color Specular::getShadingColor(Scene & scene, Intersection & intersection) {
     Color color;

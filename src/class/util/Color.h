@@ -11,10 +11,10 @@ using namespace std;
 class Color {
 private:
     
-    static float MAX;
-    static float DEFAULT_R;
-    static float DEFAULT_G;
-    static float DEFAULT_B;
+    const static float MAX;
+    const static float DEFAULT_R;
+    const static float DEFAULT_G;
+    const static float DEFAULT_B;
     
     // Local variables
     float r;

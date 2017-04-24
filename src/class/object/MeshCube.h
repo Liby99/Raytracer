@@ -18,7 +18,8 @@ private:
 protected:
     
     // Inherited intersect method
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection) ;
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    virtual vector<vec3> getBoundingVertices();
     
 public:
     

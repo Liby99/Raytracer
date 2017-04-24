@@ -5,30 +5,33 @@
 #include "object/Triangle.h"
 #include "util/Vertex.h"
 
+#include <string.h>
+
 class MeshObject : public Object {
-private:
-    
-    vec3 getCorner(vec3 minCorner, vec3 maxCorner);
-    
 protected:
     
     // Vertex and Triangle Array
     vector<Vertex *> vertices;
     vector<Triangle *> triangles;
     
+    // Helper Corner Method
+    void getCorner(vec3 minCorner, vec3 maxCorner);
+    
     // Intersect
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection) ;
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    virtual vector<vec3> getBoundingVertices();
     
 public:
     
     // Constructor and Destructor
     MeshObject();
+    MeshObject(char * filename);
     ~MeshObject();
     
     // Vertex and Triangle Manipulation
     void addVertex(vec3 position);
     void addVertex(vec3 position, vec3 normal);
-    void addTriangle(int i1, int i2, int i3);
+    void addTriangle(int i0, int i1, int i2);
     
     // Destructor helper methods
     void clear();

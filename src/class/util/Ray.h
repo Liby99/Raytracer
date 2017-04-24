@@ -7,7 +7,7 @@ class Ray {
 private:
     
     // Constants
-    static float INCREMENT;
+    const static float INCREMENT;
     
     // Basic Ray Parameter
     vec3 origin;

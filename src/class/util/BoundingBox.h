@@ -3,6 +3,10 @@
 
 #include "util/Ray.h"
 
+#include <vector>
+
+using namespace std;
+
 class Object;
 
 class BoundingBox {
@@ -19,11 +23,16 @@ public:
     BoundingBox();
     BoundingBox(vec3 minCorner, vec3 maxCorner);
     BoundingBox(Object * obj);
-    BoundingBox(vector<Object *> objs);
+    
+    float getWidth();
+    float getHeight();
+    float getLength();
+    vec3 getSize();
     
     // Basic getter
     vec3 getMinCorner();
     vec3 getMaxCorner();
+    vector<vec3> getBoundingVertices();
     
     // Basic setter
     void setMinCorner(vec3 minCorner);
@@ -31,14 +40,18 @@ public:
     
     // Extend the box to a new bound
     void extend(Object & object);
-    void extend(BoundingBox & box);
+    void extend(BoundingBox box);
     
     // Check intersect
     bool intersect(vec3 vec);
     bool intersect(Ray & ray);
     bool intersect(Ray & ray, float & t);
     bool intersect(Object & object);
-    bool intersect(BoundingBox & box);
+    bool intersect(BoundingBox box);
+    
+    void combine(BoundingBox & box);
+    
+    static BoundingBox combine(BoundingBox & b1, BoundingBox & b2);
 };
 
 #endif

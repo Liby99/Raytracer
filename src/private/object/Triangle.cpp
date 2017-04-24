@@ -54,7 +54,7 @@ bool Triangle::updateIntersect(Ray & ray, Intersection & intersection) {
     return false;
 }
 
-vector<vec3> getBoundingVertices() {
+vector<vec3> Triangle::getBoundingVertices() {
     vector<vec3> vertices;
     vertices.push_back(v0->getPosition());
     vertices.push_back(v1->getPosition());
@@ -77,18 +77,18 @@ Vertex & Triangle::getVertex(int i) {
     }
 }
 
-vertex & Triangle::getV0() {
+Vertex & Triangle::getV0() {
     return *v0;
 }
 
-vertex & Triangle::getV1() {
+Vertex & Triangle::getV1() {
     return *v1;
 }
 
-vertex & Triangle::getV2() {
+Vertex & Triangle::getV2() {
     return *v2;
 }
 
 vec3 Triangle::getCenter() {
-    return (*v0 + *v1 + *v2) / 3;
+    return (v0->getPosition() + v1->getPosition() + v2->getPosition()) / 3.0f;
 }

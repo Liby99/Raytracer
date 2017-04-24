@@ -1,6 +1,6 @@
 #include "material/Material.h"
 
-float Material::DEFAULT_OPACITY = 1;
+const float Material::DEFAULT_OPACITY = 1;
 
 Color Material::getShadingColor(Scene & scene, Intersection & intersection) {
     return Color();

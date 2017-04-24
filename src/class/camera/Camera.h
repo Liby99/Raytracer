@@ -13,12 +13,12 @@ class Camera {
 protected:
     
     // Constants
-    static vec3 DEFAULT_POSITION;
-    static vec3 DEFAULT_FOCAL_POINT;
-    static vec3 DEFAULT_UP;
-    static int DEFAULT_WIDTH;
-    static int DEFAULT_HEIGHT;
-    static float DEFAULT_FOVY;
+    const static vec3 DEFAULT_POSITION;
+    const static vec3 DEFAULT_FOCAL_POINT;
+    const static vec3 DEFAULT_UP;
+    const static int DEFAULT_WIDTH;
+    const static int DEFAULT_HEIGHT;
+    const static float DEFAULT_FOVY;
     
     // Private position vectors
     vec3 position;

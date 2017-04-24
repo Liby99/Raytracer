@@ -1,7 +1,7 @@
 #include "util/Ray.h"
 #include "scene/Scene.h"
 
-float Ray::INCREMENT = 0.001;
+const float Ray::INCREMENT = 0.001;
 
 int Ray::maxDepth = 3;
 

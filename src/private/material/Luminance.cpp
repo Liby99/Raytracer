@@ -1,6 +1,6 @@
 #include "material/Luminance.h"
 
-Color Luminance::DEFAULT_COLOR = Color(1, 1, 1);
+const Color Luminance::DEFAULT_COLOR = Color(1, 1, 1);
 
 Color Luminance::getShadingColor(Scene & scene, Intersection & intersection) {
     return color;

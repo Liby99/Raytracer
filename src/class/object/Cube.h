@@ -6,7 +6,7 @@
 class Cube : public Object {
 protected:
     
-    static float DEFAULT_SIZE;
+    const static float DEFAULT_SIZE;
     
     // Private parameters
     float width;
@@ -18,7 +18,8 @@ protected:
     vec3 getMinCorner() ;
     
     // Intersection
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection) ;
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    virtual vector<vec3> getBoundingVertices();
     
 public:
     

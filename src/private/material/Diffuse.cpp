@@ -1,7 +1,7 @@
 #include "material/Diffuse.h"
 #include "scene/Scene.h"
 
-Color Diffuse::DEFAULT_DIFFUSE = Color(1, 1, 1);
+const Color Diffuse::DEFAULT_DIFFUSE = Color(1, 1, 1);
 
 Color Diffuse::getShadingColor(Scene & scene, Intersection & intersection) {
     Color color;

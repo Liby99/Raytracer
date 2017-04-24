@@ -8,7 +8,7 @@ using namespace std;
 class DirectionalLight : public Light {
 protected:
     
-    static vec3 DEFAULT_DIRECTION;
+    const static vec3 DEFAULT_DIRECTION;
     
     //
     vec3 direction;

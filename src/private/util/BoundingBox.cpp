@@ -15,12 +15,6 @@ BoundingBox::BoundingBox(Object * obj) {
     extend(*obj);
 }
 
-BoundingBox::BoundingBox(vector<Object *> objs) {
-    for (int i = 0; i < objs.size(); i++) {
-        extend(*objs[i]);
-    }
-}
-
 float BoundingBox::getWidth() {
     return maxCorner.x - minCorner.x;
 }
@@ -45,6 +39,19 @@ vec3 BoundingBox::getMaxCorner() {
     return maxCorner;
 }
 
+vector<vec3> BoundingBox::getBoundingVertices() {
+    vector<vec3> vertices;
+    vertices.push_back(vec3(minCorner.x, minCorner.y, minCorner.z));
+    vertices.push_back(vec3(minCorner.x, minCorner.y, maxCorner.z));
+    vertices.push_back(vec3(minCorner.x, maxCorner.y, minCorner.z));
+    vertices.push_back(vec3(minCorner.x, maxCorner.y, maxCorner.z));
+    vertices.push_back(vec3(maxCorner.x, minCorner.y, minCorner.z));
+    vertices.push_back(vec3(maxCorner.x, minCorner.y, maxCorner.z));
+    vertices.push_back(vec3(maxCorner.x, maxCorner.y, minCorner.z));
+    vertices.push_back(vec3(maxCorner.x, maxCorner.y, maxCorner.z));
+    return vertices;
+}
+
 void BoundingBox::setMinCorner(vec3 minCorner) {
     this->minCorner = minCorner;
 }
@@ -57,7 +64,7 @@ void BoundingBox::extend(Object & object) {
     extend(object.getBoundingBox());
 }
 
-void BoundingBox::extend(BoundingBox & box) {
+void BoundingBox::extend(BoundingBox box) {
     setMinCorner(initiated ? minVec(minCorner, box.minCorner) : box.minCorner);
     setMaxCorner(initiated ? maxVec(minCorner, box.maxCorner) : box.maxCorner);
     initiated = true;
@@ -99,9 +106,19 @@ bool BoundingBox::intersect(Object & object) {
     return intersect(object.getBoundingBox());
 }
 
-bool BoundingBox::intersect(BoundingBox & box) {
+bool BoundingBox::intersect(BoundingBox box) {
     vec3 nmin = maxVec(minCorner, box.minCorner);
     vec3 nmax = minVec(maxCorner, box.maxCorner);
     vec3 diagnal = nmax - nmin;
     return diagnal.x > 0 && diagnal.y > 0 && diagnal.z > 0;
+}
+
+void BoundingBox::combine(BoundingBox & box) {
+    setMinCorner(minVec(minCorner, box.minCorner));
+    setMaxCorner(maxVec(maxCorner, box.maxCorner));
+}
+
+BoundingBox BoundingBox::combine(BoundingBox & b1, BoundingBox & b2) {
+    return BoundingBox(minVec(b1.minCorner, b2.minCorner),
+                       maxVec(b1.maxCorner, b2.maxCorner));
 }

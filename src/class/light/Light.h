@@ -13,9 +13,9 @@ class Scene;
 class Light {
 protected:
     
-    static Color DEFAULT_COLOR;
-    static float DEFAULT_INTENSITY;
-    static bool DEFAULT_CAST_SHADOW;
+    const static Color DEFAULT_COLOR;
+    const static float DEFAULT_INTENSITY;
+    const static bool DEFAULT_CAST_SHADOW;
     
     // Private color
     Color color;

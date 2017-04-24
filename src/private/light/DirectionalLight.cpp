@@ -1,7 +1,7 @@
 #include "light/DirectionalLight.h"
 #include "scene/Scene.h"
 
-vec3 DirectionalLight::DEFAULT_DIRECTION = vec3(-1, -1, -1);
+const vec3 DirectionalLight::DEFAULT_DIRECTION = vec3(-1, -1, -1);
 
 DirectionalLight::DirectionalLight() : Light() {
     setDirection(DEFAULT_DIRECTION);

@@ -1,8 +1,8 @@
 #include "light/PointLight.h"
 #include "scene/Scene.h"
 
-vec3 PointLight::DEFAULT_FALL_OFF = vec3(0, 0, 1);
-vec3 PointLight::DEFAULT_POSITION = vec3(0, 0, 0);
+const vec3 PointLight::DEFAULT_FALL_OFF = vec3(0, 0, 1);
+const vec3 PointLight::DEFAULT_POSITION = vec3(0, 0, 0);
 
 float PointLight::calcBrightness(float dist) {
     return intensity / (fallOff.x + fallOff.y * dist + fallOff.z * dist * dist);

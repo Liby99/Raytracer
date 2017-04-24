@@ -1,11 +1,11 @@
 #include "camera/Camera.h"
 
-vec3 Camera::DEFAULT_POSITION = vec3(0, 0, 1);
-vec3 Camera::DEFAULT_FOCAL_POINT = vec3(0, 0, 0);
-vec3 Camera::DEFAULT_UP = vec3(0, 1, 0);
-int Camera::DEFAULT_WIDTH = 720;
-int Camera::DEFAULT_HEIGHT = 480;
-float Camera::DEFAULT_FOVY = 90;
+const vec3 Camera::DEFAULT_POSITION = vec3(0, 0, 1);
+const vec3 Camera::DEFAULT_FOCAL_POINT = vec3(0, 0, 0);
+const vec3 Camera::DEFAULT_UP = vec3(0, 1, 0);
+const int Camera::DEFAULT_WIDTH = 720;
+const int Camera::DEFAULT_HEIGHT = 480;
+const float Camera::DEFAULT_FOVY = 90;
 
 Camera::Camera() {
     lookAt(DEFAULT_POSITION, DEFAULT_FOCAL_POINT, DEFAULT_UP);

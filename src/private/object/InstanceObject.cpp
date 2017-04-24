@@ -5,12 +5,10 @@ bool InstanceObject::updateIntersect(Ray & ray, Intersection & intersection) {
 }
 
 vector<vec3> InstanceObject::getBoundingVertices() {
-    return object->getBoundingVertices();
+    return object->getBoundingBox().getBoundingVertices();
 }
 
-InstanceObject::InstanceObject() : Object() {
-    
-}
+InstanceObject::InstanceObject() : Object() {}
 
 InstanceObject::InstanceObject(Object & object) : Object() {
     setObject(object);

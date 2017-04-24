@@ -1,6 +1,6 @@
 #include "object/Cube.h"
 
-float Cube::DEFAULT_SIZE = 1;
+const float Cube::DEFAULT_SIZE = 1;
 
 bool Cube::updateIntersect(Ray & ray, Intersection & intersection) {
     

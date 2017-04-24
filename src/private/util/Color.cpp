@@ -2,10 +2,10 @@
 
 using namespace std;
 
-float Color::MAX = 255.0f;
-float Color::DEFAULT_R = 0;
-float Color::DEFAULT_G = 0;
-float Color::DEFAULT_B = 0;
+const float Color::MAX = 255.0f;
+const float Color::DEFAULT_R = 0;
+const float Color::DEFAULT_G = 0;
+const float Color::DEFAULT_B = 0;
 
 float bound(float f) {
     return (f <= 0) ? 0 : (f >= 1) ? 1 : f;

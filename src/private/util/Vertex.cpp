@@ -64,5 +64,5 @@ void Vertex::divideNormal(float num) {
 }
 
 void Vertex::normalize() {
-    this->normal = normalize(this->normal);
+    this->normal = glm::normalize(this->normal);
 }

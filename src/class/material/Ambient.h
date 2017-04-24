@@ -7,13 +7,13 @@ class Ambient : public Material {
 protected:
     
     // Default Ambient Color
-    static Color DEFAULT_AMBIENT;
+    const static Color DEFAULT_AMBIENT;
     
     // Ambient color
     Color ambient;
     
     // Get shading method
-    virtual Color getShadingColor(Scene & scene, Intersection & intersection) ;
+    virtual Color getShadingColor(Scene & scene, Intersection & intersection);
     
 public:
     
@@ -22,7 +22,7 @@ public:
     Ambient(Color ambient);
     
     // Getter and setter
-    Color getAmbient() ;
+    Color getAmbient();
     void setAmbient(Color ambient);
 };
 

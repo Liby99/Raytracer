@@ -1,8 +1,8 @@
 #include "light/Light.h"
 
-Color Light::DEFAULT_COLOR = Color(1, 1, 1);
-float Light::DEFAULT_INTENSITY = 1;
-bool Light::DEFAULT_CAST_SHADOW = false;
+const Color Light::DEFAULT_COLOR = Color(1, 1, 1);
+const float Light::DEFAULT_INTENSITY = 1;
+const bool Light::DEFAULT_CAST_SHADOW = false;
 
 Light::Light() {
     setColor(DEFAULT_COLOR);

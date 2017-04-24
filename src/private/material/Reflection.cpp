@@ -1,8 +1,8 @@
 #include "material/Reflection.h"
 #include "scene/Scene.h"
 
-Color Reflection::DEFAULT_TINT = Color(1, 1, 1);
-float Reflection::DEFAULT_ATTENUATION = 0.8;
+const Color Reflection::DEFAULT_TINT = Color(1, 1, 1);
+const float Reflection::DEFAULT_ATTENUATION = 0.8;
 
 Color Reflection::getShadingColor(Scene & scene, Intersection & intersection) {
     

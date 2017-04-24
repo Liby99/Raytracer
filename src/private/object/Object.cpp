@@ -1,8 +1,8 @@
 #include "object/Object.h"
 
-vec3 Object::DEFAULT_POSITION = vec3(0, 0, 0);
-vec3 Object::DEFAULT_SCALER = vec3(1, 1, 1);
-vec3 Object::DEFAULT_ROTATION = vec3(0, 0, 0);
+const vec3 Object::DEFAULT_POSITION = vec3(0, 0, 0);
+const vec3 Object::DEFAULT_SCALER = vec3(1, 1, 1);
+const vec3 Object::DEFAULT_ROTATION = vec3(0, 0, 0);
 
 vec3 transfHomogenous(mat4 matrix, vec3 vertex) {
     vec4 v = matrix * vec4(vertex, 1);

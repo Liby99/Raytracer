@@ -13,9 +13,9 @@ class Object {
 protected:
     
     // Default Values
-    static vec3 DEFAULT_POSITION;
-    static vec3 DEFAULT_SCALER;
-    static vec3 DEFAULT_ROTATION;
+    const static vec3 DEFAULT_POSITION;
+    const static vec3 DEFAULT_SCALER;
+    const static vec3 DEFAULT_ROTATION;
     
     // Materials
     vector<Material *> materials;
@@ -26,7 +26,8 @@ protected:
     vec3 rotation;
     
     // Virtual Functions
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection) ;
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    virtual vector<vec3> getBoundingVertices();
     
 public:
     
@@ -69,11 +70,9 @@ public:
     void scaleZ(float scaleZ);
     
     // Get transformation helper method
-    mat4 getTransformMatrix() ;
+    mat4 getTransformMatrix();
     
-    BoundingBox getBoundingBox() {
-        
-    }
+    BoundingBox getBoundingBox();
     
     // Virtaul intersect method
     bool intersect(Ray & ray, Intersection & intersection) ;

@@ -1,9 +1,9 @@
 #include "object/MeshObject.h"
 
-void getCorner(vec3 minCorner, vec3 maxCorner) {
+void MeshObject::getCorner(vec3 minCorner, vec3 maxCorner) {
     for (int i = 0; i < vertices.size(); i++) {
-        minCorner = minVec(minCorner, vertices[i].getPosition());
-        maxCorner = maxVec(maxCorner, vertices[i].getPosition());
+        minCorner = minVec(minCorner, vertices[i]->getPosition());
+        maxCorner = maxVec(maxCorner, vertices[i]->getPosition());
     }
 }
 
@@ -20,10 +20,7 @@ bool MeshObject::updateIntersect(Ray & ray, Intersection & intersection) {
 vector<vec3> MeshObject::getBoundingVertices() {
     vec3 minCorner;
     vec3 maxCorner;
-    for (int i = 0; i < vertices.size(); i++) {
-        minCorner = minVec(minCorner, vertices[i].getPosition());
-        maxCorner = maxVec(maxCorner, vertices[i].getPosition());
-    }
+    getCorner(minCorner, maxCorner);
     vector<vec3> result;
     result.push_back(vec3(maxCorner.x, maxCorner.y, maxCorner.z));
     result.push_back(vec3(maxCorner.x, maxCorner.y, minCorner.z));
@@ -40,13 +37,13 @@ MeshObject::MeshObject() : Object() {
     
 }
 
-MeshObject::~MeshObject() {
-    clear();
-}
-
 MeshObject::MeshObject(char * filename) {
     loadPly(filename);
     smooth();
+}
+
+MeshObject::~MeshObject() {
+    clear();
 }
 
 void MeshObject::addVertex(vec3 position) {
@@ -57,8 +54,8 @@ void MeshObject::addVertex(vec3 position, vec3 normal) {
     vertices.push_back(new Vertex(position, normal));
 }
 
-void MeshObject::addTriangle(int i1, int i2, int i3) {
-    triangles.push_back(new Triangle(vertices[i1], vertices[i2], vertices[i3]));
+void MeshObject::addTriangle(int i0, int i1, int i2) {
+    triangles.push_back(new Triangle(vertices[i0], vertices[i1], vertices[i2]));
 }
 
 void MeshObject::clear() {
@@ -174,18 +171,18 @@ bool MeshObject::loadPly(char * filename) {
 void MeshObject::smooth() {
     int i, j;
     for (i = 0; i < vertices.size(); i++) {
-        vertices[i].setNormal(vec3(0));
+        vertices[i]->setNormal(vec3(0));
     }
     for (i = 0; i < triangles.size(); i++) {
         Triangle & tri = *triangles[i];
         vec3 e1 = tri.getVertex(2).getPosition() - tri.getVertex(0).getPosition();
-        vec3 e1 = tri.getVertex(1).getPosition() - tri.getVertex(0).getPosition();
+        vec3 e2 = tri.getVertex(1).getPosition() - tri.getVertex(0).getPosition();
         vec3 c = cross(e1, e2);
         for (j = 0; j < 3; j++) {
-            tri.getVertex(j).addUnnormalized(cross);
+            tri.getVertex(j).addUnnormalized(c);
         }
     }
     for (i = 0; i < vertices.size(); i++) {
-        vertices[i].normalize();
+        vertices[i]->normalize();
     }
 }

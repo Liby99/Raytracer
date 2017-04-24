@@ -9,9 +9,9 @@ class SpotLight : public PointLight {
 protected:
     
     // Constant default value
-    static vec3 DEFAULT_FALL_OFF;
-    static vec3 DEFAULT_TARGET;
-    static float DEFAULT_ANGLE;
+    const static vec3 DEFAULT_FALL_OFF;
+    const static vec3 DEFAULT_TARGET;
+    const static float DEFAULT_ANGLE;
     
     //
     vec3 target;

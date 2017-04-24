@@ -9,8 +9,8 @@ class PointLight : public Light {
 protected:
     
     // Default Fall Off and position
-    static vec3 DEFAULT_POSITION;
-    static vec3 DEFAULT_FALL_OFF;
+    const static vec3 DEFAULT_POSITION;
+    const static vec3 DEFAULT_FALL_OFF;
     
     // Basic Variables
     vec3 position;

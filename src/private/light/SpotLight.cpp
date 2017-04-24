@@ -1,8 +1,8 @@
 #include "light/SpotLight.h"
 #include "scene/Scene.h"
 
-vec3 SpotLight::DEFAULT_TARGET = vec3(0, 0, 0);
-float SpotLight::DEFAULT_ANGLE = 90;
+const vec3 SpotLight::DEFAULT_TARGET = vec3(0, 0, 0);
+const float SpotLight::DEFAULT_ANGLE = 90;
 
 SpotLight::SpotLight() : PointLight() {
     setTarget(DEFAULT_TARGET);
