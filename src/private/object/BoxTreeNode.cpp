@@ -7,6 +7,8 @@ using namespace std;
 BoxTreeNode::BoxTreeNode(Triangle * tri) {
     box = BoundingBox(tri);
     triangles.push_back(tri);
+    left = nullptr;
+    right = nullptr;
     leafFlag = true;
 }
 
@@ -19,9 +21,9 @@ BoxTreeNode::BoxTreeNode(vector<Triangle *> & tris) {
         box.extend(*tris[i]);
     }
     
-    vec3 size = box.getSize();
-    int axis = maxAxis(size);
-    float mid = box.getMinCorner()[axis] + size[axis] / 2;
+    vec3 dimension = box.getSize();
+    int axis = maxAxis(dimension);
+    float mid = box.getMinCorner()[axis] + dimension[axis] / 2.0f;
     
     //
     if (n == 0) {
@@ -106,29 +108,19 @@ bool BoxTreeNode::intersect(Ray & ray, Intersection & intersection) {
         
         // Prepare all the variables
         BoundingBox & b1 = left->getBoundingBox(), & b2 = right->getBoundingBox();
-        float t1, t2;
-        bool i1, i2;
+        float t1 = 0, t2 = 0;
+        bool i1 = false, i2 = false;
         i1 = b1.intersect(ray, t1);
         i2 = b2.intersect(ray, t2);
         
         // Check intersection
-        if (i1 && i2) {
-            if (left->intersect(ray, intersection)) {
-                hit = true;
-            }
-            if (right->intersect(ray, intersection)) {
-                hit = true;
-            }
-            return hit;
+        if (i1 && left->intersect(ray, intersection)) {
+            hit = true;
         }
-        else if (i1) {
-            return left->intersect(ray, intersection);
+        if (i2 && right->intersect(ray, intersection)) {
+            hit = true;
         }
-        else if (i2) {
-            return right->intersect(ray, intersection);
-        }
-        else {
-            return false;
-        }
+        
+        return hit;
     }
 }

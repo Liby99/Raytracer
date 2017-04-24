@@ -39,7 +39,7 @@ MeshObject::MeshObject() : Object() {
     
 }
 
-MeshObject::MeshObject(char * filename) {
+MeshObject::MeshObject(const char * filename) {
     loadPly(filename);
     smooth();
 }
@@ -79,7 +79,7 @@ void MeshObject::clearTriangles() {
     triangles = vector<Triangle *>();
 }
 
-bool MeshObject::loadPly(char * filename) {
+bool MeshObject::loadPly(const char * filename) {
     
     // Open file
     FILE * f = fopen(filename,"r");

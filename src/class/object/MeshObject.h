@@ -25,7 +25,7 @@ public:
     
     // Constructor and Destructor
     MeshObject();
-    MeshObject(char * filename);
+    MeshObject(const char * filename);
     ~MeshObject();
     
     // Vertex and Triangle Manipulation
@@ -39,7 +39,7 @@ public:
     void clearTriangles();
     
     // Load object from file
-    bool loadPly(char * filename);
+    bool loadPly(const char * filename);
     void smooth();
 };
 

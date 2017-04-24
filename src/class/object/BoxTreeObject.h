@@ -20,7 +20,7 @@ public:
     
     //
     BoxTreeObject();
-    BoxTreeObject(char * filename);
+    BoxTreeObject(const char * filename);
     ~BoxTreeObject();
 };
 

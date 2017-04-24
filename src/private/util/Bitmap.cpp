@@ -37,7 +37,7 @@ void Bitmap::setPixel(int x, int y, Color color) {
     pixel[y * width + x] = color.toInt();
 }
 
-bool Bitmap::saveImage(char * filename) {
+bool Bitmap::saveImage(const char * filename) {
     BitmapHeader head;
     head.fileSize = sizeof(BitmapHeader) + 2 + width * height * sizeof(int);
     head.reserved = 0;
