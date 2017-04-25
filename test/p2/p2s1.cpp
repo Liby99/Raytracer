@@ -16,6 +16,8 @@ using namespace std;
 
 int main() {
     
+    StopWatch watch;
+    
     // Create scene
     Scene scn;
     scn.setBackgroundColor(Color(0.8f, 0.8f, 1.0f));
@@ -28,7 +30,10 @@ int main() {
     scn.addObject(ground);
     
     // Create dragon
+    watch.start();
+    cout << "Starting to build box tree" << endl;
     BoxTreeObject dragon = BoxTreeObject("res/dragon.ply");
+    cout << "Completed building tree in " << watch.stop() << "s." << endl;
     dragon.addMaterial(diffuse);
     scn.addObject(dragon);
     
@@ -60,14 +65,13 @@ int main() {
     cam.setFovy(40.0f);
     cam.setResolution(800, 600);
     
-    cout << "Starting to count time" << endl;
-    StopWatch watch;
+    cout << "Starting rendering process" << endl;
     watch.start();
     
     // Render image
     Bitmap bmp = cam.render(scn);
     bmp.saveImage("project2.bmp");
     
-    cout << "Total Runtime: " << watch.stop() << "s" << endl;
+    cout << "Render Runtime: " << watch.stop() << "s" << endl;
 }
  
