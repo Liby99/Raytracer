@@ -23,6 +23,7 @@ Object::Object() {
     setRotate(DEFAULT_ROTATION);
     setTranslate(DEFAULT_POSITION);
     setScale(DEFAULT_SCALER);
+    transformed = false;
 }
 
 int Object::materialAmount() {
@@ -51,62 +52,77 @@ vec3 Object::getPosition() {
 
 void Object::setRotate(vec3 rotation) {
     this->rotation = rotation;
+    transformed = true;
 }
 
 void Object::rotate(vec3 rotation) {
     this->rotation += rotation;
+    transformed = true;
 }
 
 void Object::rotateX(float degX) {
     rotation.x += degX;
+    transformed = true;
 }
 
 void Object::rotateY(float degY) {
     rotation.y += degY;
+    transformed = true;
 }
 
 void Object::rotateZ(float degZ) {
     rotation.z += degZ;
+    transformed = true;
 }
 
 void Object::setTranslate(vec3 translate) {
     this->position = translate;
+    transformed = true;
 }
 
 void Object::translate(vec3 translate) {
     this->position += translate;
+    transformed = true;
 }
 
 void Object::translateX(float x) {
     position.x += x;
+    transformed = true;
 }
 
 void Object::translateY(float y) {
     position.y += y;
+    transformed = true;
 }
 
 void Object::translateZ(float z) {
     position.z += z;
+    transformed = true;
 }
 
 void Object::setScale(vec3 scaler) {
     this->scaler = scaler;
+    transformed = true;
 }
 
 void Object::scale(vec3 scaler) {
     this->scaler *= scaler;
+    transformed = true;
 }
 
 void Object::scaleX(float scaleX) {
     scaler.x *= scaleX;
+    transformed = true;
 }
 
 void Object::scaleY(float scaleY) {
     scaler.y *= scaleY;
+    transformed = true;
 }
 
 void Object::scaleZ(float scaleZ) {
     scaler.z *= scaleZ;
+    transformed = true;
 }
 
 mat4 Object::getTransformMatrix() {
@@ -133,12 +149,7 @@ BoundingBox Object::getBoundingBox() {
     }
     else {
         
-        if (position == vec3() && scaler == vec3(1, 1, 1) && rotation == vec3()) {
-            for (int i = 0; i < vertices.size(); i++) {
-                box.extend(vertices[i]);
-            }
-        }
-        else {
+        if (transformed) {
         
             // First cache the matrix
             mat4 m = getTransformMatrix();
@@ -149,6 +160,13 @@ BoundingBox Object::getBoundingBox() {
                 // Transform and update min max
                 vec3 v = transfHomogenous(m, vertices[i]);
                 box.extend(v);
+            }
+        }
+        else {
+            
+            // If not transformed then directly extend v
+            for (int i = 0; i < vertices.size(); i++) {
+                box.extend(vertices[i]);
             }
         }
         

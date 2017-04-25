@@ -21,6 +21,7 @@ protected:
     vector<Material *> materials;
     
     // Transform properties
+    bool transformed;
     vec3 position;
     vec3 scaler;
     vec3 rotation;
