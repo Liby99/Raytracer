@@ -13,6 +13,7 @@ void StopWatch::reset() {
 }
 
 void StopWatch::start() {
+    reset();
     startTime = time(NULL);
     started = true;
 }
