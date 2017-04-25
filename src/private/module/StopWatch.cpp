@@ -5,6 +5,8 @@ StopWatch::StopWatch() {
 }
 
 void StopWatch::reset() {
+    started = false;
+    stopped = false;
     startTime = 0;
     stopTime = 0;
     duration = 0;
@@ -12,10 +14,16 @@ void StopWatch::reset() {
 
 void StopWatch::start() {
     startTime = time(NULL);
+    started = true;
 }
 
 void StopWatch::cont() {
-    startTime += difftime(time(NULL), stopTime);
+    if (started) {
+        startTime += difftime(time(NULL), stopTime);
+    }
+    else {
+        start();
+    }
 }
 
 time_t StopWatch::curr() {
@@ -23,6 +31,10 @@ time_t StopWatch::curr() {
 }
 
 time_t StopWatch::stop() {
-    stopTime = time(NULL);
-    duration = difftime(stopTime, startTime);
+    if (!stopped) {
+        stopTime = time(NULL);
+        duration = difftime(stopTime, startTime);
+        stopped = true;
+    }
+    return duration;
 }

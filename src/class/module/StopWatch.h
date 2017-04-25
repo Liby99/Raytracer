@@ -5,6 +5,8 @@
 
 class StopWatch {
 private:
+    bool started;
+    bool stopped;
     time_t startTime;
     time_t stopTime;
     time_t duration;
