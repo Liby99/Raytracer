@@ -28,7 +28,7 @@ TEST_OBJ_FILES := $(addprefix $(BUILD_TEST_DIRECTORY), $(TESTS))
 
 RAYTRACER := ./build/raytracer.o
 
-all: $(TEST_OBJ_FILES)
+all: raytracer tests
 	$(MAKE) cleanCache
 
 raytracer: $(RAYTRACER)
