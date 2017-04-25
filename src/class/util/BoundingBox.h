@@ -39,6 +39,7 @@ public:
     void setMaxCorner(vec3 maxCorner);
     
     // Extend the box to a new bound
+    void extend(vec3 v);
     void extend(Object & object);
     void extend(BoundingBox box);
     

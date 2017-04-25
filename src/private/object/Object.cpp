@@ -123,33 +123,37 @@ BoundingBox Object::getBoundingBox() {
     // Get all the vertices (approximatly 8) to find the bounding box
     vector<vec3> vertices = getBoundingVertices();
     
+    BoundingBox box;
+    
     // Check if the vector is empty
     if (vertices.empty()) {
         
         // If empty then return the empty box
-        return BoundingBox();
+        return box;
     }
     else {
         
-        // First cache the matrix
-        mat4 m = getTransformMatrix();
+        if (position == vec3() && scaler == vec3(1, 1, 1) && rotation == vec3()) {
+            for (int i = 0; i < vertices.size(); i++) {
+                box.extend(vertices[i]);
+            }
+        }
+        else {
         
-        // Calculate the first corner
-        vec3 vertex = transfHomogenous(m, vertices[0]);
-        vec3 minCorner = vertex;
-        vec3 maxCorner = vertex;
-        
-        // Iterate through
-        for (int i = 1; i < vertices.size(); i++) {
+            // First cache the matrix
+            mat4 m = getTransformMatrix();
             
-            // Transform and update min max
-            vertex = transfHomogenous(m, vertices[i]);
-            minCorner = minVec(minCorner, vertex);
-            maxCorner = maxVec(maxCorner, vertex);
+            // Iterate through
+            for (int i = 0; i < vertices.size(); i++) {
+                
+                // Transform and update min max
+                vec3 v = transfHomogenous(m, vertices[i]);
+                box.extend(v);
+            }
         }
         
         // Return the box
-        return BoundingBox(minCorner, maxCorner);
+        return box;
     }
 }
 

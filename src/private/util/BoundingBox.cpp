@@ -62,6 +62,18 @@ void BoundingBox::setMaxCorner(vec3 maxCorner) {
     this->maxCorner = maxCorner;
 }
 
+void BoundingBox::extend(vec3 v) {
+    if (!initiated) {
+        minCorner = v;
+        maxCorner = v;
+        initiated = true;
+    }
+    else {
+        minCorner = minVec(v, minCorner);
+        maxCorner = maxVec(v, maxCorner);
+    }
+}
+
 void BoundingBox::extend(Object & object) {
     extend(object.getBoundingBox());
 }
@@ -73,12 +85,8 @@ void BoundingBox::extend(BoundingBox box) {
         initiated = true;
     }
     else {
-        minCorner.x = glm::min(box.minCorner.x, minCorner.x);
-        minCorner.y = glm::min(box.minCorner.y, minCorner.y);
-        minCorner.z = glm::min(box.minCorner.z, minCorner.z);
-        maxCorner.x = glm::max(box.maxCorner.x, maxCorner.x);
-        maxCorner.y = glm::max(box.maxCorner.y, maxCorner.y);
-        maxCorner.z = glm::max(box.maxCorner.z, maxCorner.z);
+        minCorner = minVec(box.minCorner, minCorner);
+        maxCorner = maxVec(box.maxCorner, maxCorner);
     }
 }
 
