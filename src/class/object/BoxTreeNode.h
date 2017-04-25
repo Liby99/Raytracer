@@ -4,32 +4,33 @@
 #include "object/Triangle.h"
 
 class BoxTreeNode {
-private:
+protected:
     
     // Left and right nodes if not leaf
     BoxTreeNode * left;
     BoxTreeNode * right;
     
-    // Triangles that stores inside the node
+    // Variables
     vector<Triangle *> triangles;
-    
-    // Box object
     BoundingBox box;
-    
-    // Flag of leaf
     bool leafFlag;
+    
+    // Protected constructor, only used for internal call
+    BoxTreeNode(vector<Triangle *> & tris, int start, int amount);
     
 public:
     
     // Constructor
     BoxTreeNode(Triangle * tris);
     BoxTreeNode(vector<Triangle *> & tris);
-    BoxTreeNode(vector<Triangle *> & tris, int start, int amount);
     ~BoxTreeNode();
     
+    // Getter
     BoxTreeNode & getLeft();
     BoxTreeNode & getRight();
     BoundingBox & getBoundingBox();
+    
+    // Helper Methods
     bool leftRightIntersect();
     bool isLeaf();
     bool intersect(Ray & ray, Intersection & intersection);
