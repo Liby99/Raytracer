@@ -116,47 +116,15 @@ bool BoxTreeNode::intersect(Ray & ray, Intersection & intersection) {
         i1 = b1.intersect(ray, t1);
         i2 = b2.intersect(ray, t2);
         
-        if (i1 && i2) {
-            if (leftRightIntersect()) {
-                if (left->intersect(ray, intersection)) {
-                    hit = true;
-                }
-                if (right->intersect(ray, intersection)) {
-                    hit = true;
-                }
-            }
-            else {
-                if (t1 < t2) {
-                    if (!left->intersect(ray, intersection)) {
-                        if (right->intersect(ray, intersection)) {
-                            hit = true;
-                        }
-                    }
-                    else {
-                        hit = true;
-                    }
-                }
-                else {
-                    if (!right->intersect(ray, intersection)) {
-                        if (left->intersect(ray, intersection)) {
-                            hit = true;
-                        }
-                    }
-                    else {
-                        hit = true;
-                    }
-                }
-            }
-            return hit;
-        }
-        else if (i1) {
-            return left->intersect(ray, intersection);
-        }
-        else if (i2) {
-            return right->intersect(ray, intersection);
+        if (i1 < i2) {
+            i1 = i1 && (!intersection.hit() || t1 < intersection.getT()) && left->intersect(ray, intersection);
+            i2 = i2 && (!intersection.hit() || t2 < intersection.getT()) && right->intersect(ray, intersection);
         }
         else {
-            return false;
+            i2 = i2 && (!intersection.hit() || t2 < intersection.getT()) && right->intersect(ray, intersection);
+            i1 = i1 && (!intersection.hit() || t1 < intersection.getT()) && left->intersect(ray, intersection);
         }
+        
+        return i1 || i2;
     }
 }
