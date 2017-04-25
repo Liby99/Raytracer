@@ -24,6 +24,7 @@ public:
     // Constructor
     BoxTreeNode(Triangle * tris);
     BoxTreeNode(vector<Triangle *> & tris);
+    BoxTreeNode(vector<Triangle *> & tris, int start, int amount);
     ~BoxTreeNode();
     
     BoxTreeNode & getLeft();

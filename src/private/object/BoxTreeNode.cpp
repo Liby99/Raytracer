@@ -14,12 +14,13 @@ BoxTreeNode::BoxTreeNode(Triangle * tri) {
     leafFlag = true;
 }
 
-BoxTreeNode::BoxTreeNode(vector<Triangle *> & tris) {
-    int n = tris.size();
+BoxTreeNode::BoxTreeNode(vector<Triangle *> & tris) : BoxTreeNode(tris, 0, tris.size()) {}
+
+BoxTreeNode::BoxTreeNode(vector<Triangle *> & tris, int start, int amount) {
     
     // Construct Bounding Box
     box = BoundingBox();
-    for (int i = 0; i < n; i++) {
+    for (int i = start; i < start + amount; i++) {
         box.extend(*tris[i]);
     }
     
@@ -27,37 +28,37 @@ BoxTreeNode::BoxTreeNode(vector<Triangle *> & tris) {
     int axis = maxAxis(dimension);
     float mid = box.getMinCorner()[axis] + dimension[axis] / 2.0f;
     
-    //
-    if (n == 0) {
+    // Check the amount
+    if (amount == 0) {
         leafFlag = false;
     }
-    else if (n == 1) {
+    else if (amount == 1) {
         leafFlag = true;
-        triangles.push_back(tris[0]);
+        triangles.push_back(tris[start]);
     }
-    else if (n == 2) {
+    else if (amount == 2) {
         leafFlag = false;
-        left = new BoxTreeNode(tris[0]);
-        right = new BoxTreeNode(tris[1]);
+        left = new BoxTreeNode(tris[start]);
+        right = new BoxTreeNode(tris[start + 1]);
     }
     else {
-        vector<Triangle *> leftTris;
-        vector<Triangle *> rightTris;
-        for (int i = 0; i < n; i++) {
+        int curr = start;
+        for (int i = start; i < start + amount; i++) {
             if (tris[i]->getCenter()[axis] < mid) {
-                leftTris.push_back(tris[i]);
-            }
-            else {
-                rightTris.push_back(tris[i]);
+                swap(tris[i], tris[curr]);
+                curr++;
             }
         }
-        if (leftTris.size() == 0 || rightTris.size() == 0) {
-            triangles = tris;
+        int na = curr - start;
+        if (na == 0 || na == amount) {
+            for (int i = start; i < start + amount; i++) {
+                triangles.push_back(tris[i]);
+            }
             leafFlag = true;
         }
         else {
-            left = new BoxTreeNode(leftTris);
-            right = new BoxTreeNode(rightTris);
+            left = new BoxTreeNode(tris, start, na);
+            right = new BoxTreeNode(tris, start + na, amount - na);
             box = BoundingBox::combine(left->getBoundingBox(), right->getBoundingBox());
             leafFlag = false;
         }
