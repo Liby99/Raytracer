@@ -23,15 +23,15 @@ public:
     ~Bitmap();
     
     // Getter of width and height
-    int getWidth() ;
-    int getHeight() ;
+    int getWidth();
+    int getHeight();
     
     // Pixel getter and setter
-    Color getPixel(int x, int y) ;
+    Color getPixel(int x, int y);
     void setPixel(int x, int y, Color color);
     
     // Save image api
-    bool saveImage(const char * filename) ;
+    bool saveImage(const char * filename);
 };
 
 #endif

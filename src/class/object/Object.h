@@ -45,9 +45,9 @@ public:
     void setBoundable(bool boundable);
     
     // Basic Getter
-    vec3 getRotation() ;
-    vec3 getScale() ;
-    vec3 getPosition() ;
+    vec3 getRotation();
+    vec3 getScale();
+    vec3 getPosition();
     
     // Rotate Transformation
     void setRotate(vec3 rotation);
@@ -76,7 +76,7 @@ public:
     BoundingBox getBoundingBox();
     
     // Virtaul intersect method
-    bool intersect(Ray & ray, Intersection & intersection) ;
+    bool intersect(Ray & ray, Intersection & intersection);
 };
 
 #endif

@@ -27,25 +27,25 @@ public:
     Ray(vec3 origin, vec3 direction, int depth, bool inside);
     
     // Setter
-    vec3 getOrigin() ;
+    vec3 getOrigin();
     void setOrigin(vec3 origin);
-    vec3 getDirection() ;
+    vec3 getDirection();
     void setDirection(vec3 direction);
-    int getDepth() ;
+    int getDepth();
     void setDepth(int depth);
-    bool isInside() ;
+    bool isInside();
     void setInside(bool inside);
     
-    vec3 getPoint(float t) ;
+    vec3 getPoint(float t);
     
     void increment();
     void increment(vec3 direction);
     
-    bool canRecurse() ;
+    bool canRecurse();
     
     // Transform
-    Ray transform(mat4 transf) ;
-    Ray inverseTransform(mat4 transf) ;
+    Ray transform(mat4 transf);
+    Ray inverseTransform(mat4 transf);
     
     // Static getter and setter
     static int getMaxDepth();

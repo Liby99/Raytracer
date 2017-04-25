@@ -25,23 +25,23 @@ public:
     Intersection(Ray & ray);
     
     // Reference Getter and setter
-    Object & getObject() ;
+    Object & getObject();
     void setObject(Object & object);
-    Ray & getRay() ;
+    Ray & getRay();
     void setRay(Ray & ray);
     
     // Parameter Getter and setter
-    bool hit() ;
+    bool hit();
     void setHit(bool hit);
-    float getT() ;
+    float getT();
     void setT(float t);
-    vec3 getPosition() ;
+    vec3 getPosition();
     void setPosition(vec3 position);
-    vec3 getNormal() ;
+    vec3 getNormal();
     void setNormal(vec3 normal);
     
-    float getDistanceToOrigin() ;
-    bool needUpdate(float t) ;
+    float getDistanceToOrigin();
+    bool needUpdate(float t);
     bool update(float t, vec3 position, vec3 normal);
     
     void transform(mat4 transform);

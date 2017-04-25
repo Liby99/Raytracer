@@ -27,14 +27,14 @@ public:
     Color(float r, float g, float b);
     
     // Getters
-    float getR() ;
-    float getG() ;
-    float getB() ;
+    float getR();
+    float getG();
+    float getB();
     
     // To int version
-    int getIntR() ;
-    int getIntG() ;
-    int getIntB() ;
+    int getIntR();
+    int getIntG();
+    int getIntB();
     
     // Setters
     void setR(float r);
@@ -45,15 +45,15 @@ public:
     int toInt() ;
     
     // Operators
-    Color operator+(Color c) ;
+    Color operator+(Color c);
     Color & operator+=(Color c);
-    Color operator-(Color c) ;
+    Color operator-(Color c);
     Color & operator-=(Color c);
-    Color operator*(Color c) ;
+    Color operator*(Color c);
     Color & operator*=(Color c);
-    Color operator*(float scale) ;
+    Color operator*(float scale);
     Color & operator*=(float scale);
-    operator string() ;
+    operator string();
     
     static Color parse(int c);
     

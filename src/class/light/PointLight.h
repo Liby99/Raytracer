@@ -27,16 +27,16 @@ public:
     PointLight(Color color, vec3 position);
     
     // Position setter getter
-    vec3 getPosition() ;
+    vec3 getPosition();
     void setPosition(vec3 position);
     
     // Fall Off related setter getter
-    vec3 getFallOff() ;
+    vec3 getFallOff();
     void setFallOff(vec3 fallOff);
     
     // Inherited brightness and tolight
-    virtual float getBrightness(Scene & scene, Intersection & intersection) ;
-    virtual vec3 getToLightDirection(Intersection & intersection) ;
+    virtual float getBrightness(Scene & scene, Intersection & intersection);
+    virtual vec3 getToLightDirection(Intersection & intersection);
 };
 
 #endif

@@ -41,9 +41,9 @@ public:
     void setFocalPoint(vec3 focalPoint);
     void setUp(vec3 up);
     
-    vec3 getPosition() ;
-    vec3 getFocalPoint() ;
-    vec3 getUp() ;
+    vec3 getPosition();
+    vec3 getFocalPoint();
+    vec3 getUp();
     
     void setResolution(int width, int height);
     void setWidth(int width);
@@ -51,7 +51,7 @@ public:
     void setFovy(float fovy);
     
     // Render Functions
-    virtual Bitmap render(Scene & scene) ;
+    virtual Bitmap render(Scene & scene);
 };
 
 #endif
