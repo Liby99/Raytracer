@@ -1,4 +1,6 @@
 #include "object/BoxTreeObject.h"
+#include "module/StopWatch.h"
+#include <iostream>
 
 void BoxTreeObject::forceConstruct() {
     root = new BoxTreeNode(triangles);
@@ -6,7 +8,10 @@ void BoxTreeObject::forceConstruct() {
 
 void BoxTreeObject::constructTree() {
     if (!root) {
+        StopWatch watch;
+        watch.start();
         forceConstruct();
+        cout << "Completed building tree in " << watch.stop() << "s." << endl;
     }
 }
 
@@ -26,7 +31,9 @@ bool BoxTreeObject::updateIntersect(Ray & ray, Intersection & intersection) {
 
 BoxTreeObject::BoxTreeObject() : MeshObject() {}
 
-BoxTreeObject::BoxTreeObject(const char * filename) : MeshObject(filename) {}
+BoxTreeObject::BoxTreeObject(const char * filename) : MeshObject(filename) {
+    constructTree();
+}
 
 BoxTreeObject::~BoxTreeObject() {
     delete root;

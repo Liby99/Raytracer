@@ -116,7 +116,7 @@ bool BoxTreeNode::intersect(Ray & ray, Intersection & intersection) {
         i1 = b1.intersect(ray, t1);
         i2 = b2.intersect(ray, t2);
         
-        if (i1 < i2) {
+        if (t1 < t2) {
             i1 = i1 && (!intersection.hit() || t1 < intersection.getT()) && left->intersect(ray, intersection);
             i2 = i2 && (!intersection.hit() || t2 < intersection.getT()) && right->intersect(ray, intersection);
         }
