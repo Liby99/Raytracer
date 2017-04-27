@@ -101,13 +101,20 @@ bool BoundingBox::intersect(Ray & ray) {
 }
 
 bool BoundingBox::intersect(Ray & ray, float & t) {
-    float t1[3], t2[3], tmin, tmax;
+    
+    // Calculate the intersections
+    vec3 t1, t2;
     for (int i = 0; i < 3; ++i) {
         t1[i] = ((minCorner[i] - ray.getOrigin()[i]) / ray.getDirection()[i]);
         t2[i] = ((maxCorner[i] - ray.getOrigin()[i]) / ray.getDirection()[i]);
     }
+    
+    // Calculate the t
+    float tmin, tmax;
     tmin = max(min(t1[0], t2[0]), min(t1[1], t2[1]), min(t1[2], t2[2]));
     tmax = min(max(t1[0], t2[0]), max(t1[1], t2[1]), max(t1[2], t2[2]));
+    
+    // Check t
     if (tmin > 0 && tmin <= tmax) {
         t = tmin;
         return true;
