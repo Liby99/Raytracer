@@ -28,6 +28,12 @@ protected:
     int height;
     float fovy;
     
+    // Advanced Settings
+    bool dof;
+    float focalDistance;
+    float aperture;
+    float shutter;
+    
 public:
     
     // Constructors

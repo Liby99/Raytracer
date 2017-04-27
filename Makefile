@@ -7,13 +7,13 @@ MAKE = @ make
 
 ifeq ($(shell sw_vers 2>/dev/null | grep Mac | awk '{ print $$2}'), Mac)
 CFLAGS = -g -fopenmp -DGL_GLEXT_PROTOTYPES -DGL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED -DOSX -Wno-deprecated-register -Wno-deprecated-declarations -Wno-shift-op-parentheses
-INCFLAGS = -I./lib/glm-0.9.7.1 -I/usr/X11/include -I./src/class
+INCFLAGS = -I./include/glm-0.9.7.1 -I/usr/X11/include -I./source/extern
 endif
 
 BUILD_DIRECTORY := ./build/
 
-HEADER_DIRECTORY := ./src/class/
-CPP_DIRECTORY := ./src/private/
+HEADER_DIRECTORY := ./source/extern/
+CPP_DIRECTORY := ./source/intern/
 BIN_DIRECTORY := ./build/bin/
 CPP_FILES := $(wildcard $(CPP_DIRECTORY)*/*.cpp)
 HEADER_FILES := $(patsubst $(CPP_DIRECTORY)%.cpp, $(HEADER_DIRECTORY)%.h, $(CPP_FILES))

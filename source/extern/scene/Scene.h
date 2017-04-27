@@ -13,6 +13,7 @@ protected:
     
     // Global Variables
     Color background;
+    Engine * engine;
     vector<Object *> objects;
     vector<Light *> lights;
     
@@ -20,6 +21,9 @@ public:
     
     // Constructor and Destructors
     Scene();
+    
+    Engine & getEngine();
+    void setEngine(Engine & engine);
     
     // Background
     Color getBackgroundColor();
