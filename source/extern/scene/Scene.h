@@ -32,17 +32,17 @@ public:
     // Light related getter and setter
     unsigned int lightAmount();
     Light & getLight(int i);
-    void addLight(Light & light);
+    virtual void addLight(Light & light);
     
     // Object related getter and setter
     unsigned int objectAmount();
     Object & getObject(int i);
-    void addObject(Object & object);
+    virtual void addObject(Object & object);
     
     // Intersection
-    bool getIntersection(Ray & ray, Intersection & intersection);
-    Color getIntersectionColor(Intersection & intersection);
-    Color getRayColor(Ray & ray);
+    virtual bool getIntersection(Ray & ray, Intersection & intersection);
+    virtual Color getIntersectionColor(Intersection & intersection);
+    virtual Color getRayColor(Ray & ray);
 };
 
 #endif
