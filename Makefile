@@ -33,7 +33,7 @@ all: raytracer tests
 
 raytracer: $(RAYTRACER)
 
-tests: $(TESTS)
+tests: $(TEST_OBJ_FILES)
 
 $(TESTS): $(patsubst $(TEST_DIRECTORY)%.cpp, $(BUILD_TEST_DIRECTORY)%, $@)
 	
