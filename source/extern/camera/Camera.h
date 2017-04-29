@@ -2,9 +2,9 @@
 #define CAMERA_H
 
 #include "scene/Scene.h"
+#include "image/Image.h"
 #include "util/Color.h"
 #include "util/Transform.h"
-#include "util/Bitmap.h"
 #include "util/Ray.h"
 
 using namespace std;
@@ -57,7 +57,7 @@ public:
     void setFovy(float fovy);
     
     // Render Functions
-    virtual Bitmap render(Scene & scene);
+    virtual Image render(Scene & scene);
 };
 
 #endif

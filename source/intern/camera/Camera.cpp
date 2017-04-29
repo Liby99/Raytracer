@@ -78,9 +78,10 @@ void Camera::setFovy(float fovy) {
     this->fovy = fovy;
 }
 
-Bitmap Camera::render(Scene & scene) {
+Image Camera::render(Scene & scene) {
     
-    Bitmap bitmap(width, height);
+    // Setup image buffer
+    Image image(width, height);
     
     // Setup camera variables
     vec3 w = normalize(focalPoint - position);
@@ -106,10 +107,10 @@ Bitmap Camera::render(Scene & scene) {
             Ray ray = Ray(position, dir);
             
             // Set the related pixel color
-            bitmap.setPixel(i, j, scene.getRayColor(ray));
+            image.setPixel(i, j, scene.getRayColor(ray));
         }
     }
     
-    // Return the bitmap
-    return bitmap;
+    // Return the image
+    return image;
 }
