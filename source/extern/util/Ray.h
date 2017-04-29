@@ -4,7 +4,7 @@
 #include "util/Transform.h"
 
 class Ray {
-private:
+protected:
     
     // Constants
     const static float INCREMENT;
@@ -41,7 +41,7 @@ public:
     void increment();
     void increment(vec3 direction);
     
-    bool canRecurse();
+    virtual bool canRecurse();
     
     // Transform
     Ray transform(mat4 transf);
