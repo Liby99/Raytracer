@@ -6,8 +6,8 @@
 #include "light/DirectionalLight.h"
 #include "light/PointLight.h"
 #include "camera/Camera.h"
-#include "util/Bitmap.h"
 #include "util/Color.h"
+#include "image/Bitmap.h"
 #include "module/StopWatch.h"
 
 #include <iostream>
@@ -69,8 +69,8 @@ int main() {
     watch.start();
     
     // Render image
-    Bitmap bmp = cam.render(scn);
-    bmp.saveImage("project2.bmp");
+    Image image = cam.render(scn);
+    Bitmap::saveImage(image, "project2.bmp");
     
     cout << "Render Runtime: " << watch.stop() << "s" << endl;
 }
