@@ -7,22 +7,15 @@ const int Camera::DEFAULT_WIDTH = 720;
 const int Camera::DEFAULT_HEIGHT = 480;
 const float Camera::DEFAULT_FOVY = 90;
 
-Camera::Camera() {
-    lookAt(DEFAULT_POSITION, DEFAULT_FOCAL_POINT, DEFAULT_UP);
-    setResolution(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-    setFovy(DEFAULT_FOVY);
-}
+Camera::Camera() : Camera(DEFAULT_POSITION, DEFAULT_FOCAL_POINT) {}
 
-Camera::Camera(vec3 position, vec3 focalPoint) {
-    lookAt(position, focalPoint, DEFAULT_UP);
-    setResolution(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-    setFovy(DEFAULT_FOVY);
-}
+Camera::Camera(vec3 position, vec3 focalPoint) : Camera(position, focalPoint, DEFAULT_UP) {}
 
 Camera::Camera(vec3 position, vec3 focalPoint, vec3 up) {
     lookAt(position, focalPoint, up);
     setResolution(DEFAULT_WIDTH, DEFAULT_HEIGHT);
     setFovy(DEFAULT_FOVY);
+    onPixelUpdate(nullptr);
 }
 
 void Camera::lookAt(vec3 position, vec3 focalPoint) {
@@ -78,6 +71,10 @@ void Camera::setFovy(float fovy) {
     this->fovy = fovy;
 }
 
+void Camera::onPixelUpdate(function<void(int, int, Color)> func) {
+    this->onPixelUpdateCallback = func;
+}
+
 Image Camera::render(Scene & scene) {
     
     // Setup image buffer
@@ -104,10 +101,17 @@ Image Camera::render(Scene & scene) {
             float beta = betaMult * (j - halfHeight + 0.5f) / halfHeight;
             vec3 dir = normalize(alpha * u + beta * v + w);
             
+            // Generate and get the color
             Ray ray = Ray(position, dir);
+            Color c = scene.getRayColor(ray);
             
             // Set the related pixel color
-            image.setPixel(i, j, scene.getRayColor(ray));
+            image.setPixel(i, j, c);
+            
+            // Callback pixel update
+            if (onPixelUpdateCallback) {
+                onPixelUpdateCallback(i, j, c);
+            }
         }
     }
     

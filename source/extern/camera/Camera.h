@@ -1,6 +1,8 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include <functional>
+
 #include "scene/Scene.h"
 #include "image/Image.h"
 #include "util/Color.h"
@@ -20,6 +22,9 @@ protected:
     const static int DEFAULT_HEIGHT;
     const static float DEFAULT_FOVY;
     
+    // Callback Functions
+    function<void(int, int, Color)> onPixelUpdateCallback;
+    
     // Private position vectors
     vec3 position;
     vec3 focalPoint;
@@ -29,7 +34,7 @@ protected:
     float fovy;
     
     // Advanced Settings
-    bool dof;
+    bool depthOfField;
     float focalDistance;
     float aperture;
     float shutter;
@@ -55,6 +60,8 @@ public:
     void setWidth(int width);
     void setHeight(int height);
     void setFovy(float fovy);
+    
+    void onPixelUpdate(function<void(int, int, Color)> func);
     
     // Render Functions
     virtual Image render(Scene & scene);
