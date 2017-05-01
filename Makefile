@@ -7,7 +7,8 @@ MAKE = @ make
 
 ifeq ($(shell sw_vers 2>/dev/null | grep Mac | awk '{ print $$2}'), Mac)
 CFLAGS = -g -fopenmp -DGL_GLEXT_PROTOTYPES -DGL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED -DOSX -Wno-deprecated-register -Wno-deprecated-declarations -Wno-shift-op-parentheses
-INCFLAGS = -I./include/glm-0.9.7.1 -I/usr/X11/include -I./source/extern
+INCFLAGS = -I./source/extern -I./include/ -I./include/glm-0.9.7.1
+LDFLAGS = -framework GLUT -framework OpenGL -L"/System/Library/Frameworks/OpenGL.framework/Libraries" -lGL -lGLU -lm -lstdc++
 endif
 
 BUILD_DIRECTORY := ./build/
@@ -39,12 +40,12 @@ $(TESTS): $(patsubst $(TEST_DIRECTORY)%.cpp, $(BUILD_TEST_DIRECTORY)%, $@)
 	
 $(BUILD_TEST_DIRECTORY)%: $(TEST_DIRECTORY)%.cpp $(RAYTRACER) | $(BUILD_TEST_DIRECTORY)
 	$(ECHO) "Building Test File $@"
-	$(CC) $(CFLAGS) $(TEST_DIRECTORY)$(basename $(notdir $@)).cpp $(RAYTRACER) -o $@ $(INCFLAGS)
+	$(CC) $(CFLAGS) $(TEST_DIRECTORY)$(basename $(notdir $@)).cpp -o $@ $(RAYTRACER) $(INCFLAGS) $(LDFLAGS)
 
 $(RAYTRACER): $(OBJ_FILES)
 	$(ECHO) "Linking Raytracer"
 	$(LD) $(OBJ_FILES) -o $(RAYTRACER)
-	
+
 $(BIN_DIRECTORY)%.o: $(CPP_DIRECTORY)%.cpp $(HEADER_DIRECTORY)%.h | $(OBJ_DIRECTORIES)
 	$(ECHO) "Building $@"
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCFLAGS)
