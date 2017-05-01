@@ -1,11 +1,13 @@
 #include "object/InstanceObject.h"
 
 bool InstanceObject::updateIntersect(Ray & ray, Intersection & intersection) {
-    return object->intersect(ray, intersection);
+    if (object) return object->intersect(ray, intersection);
+    else return false;
 }
 
 vector<vec3> InstanceObject::getBoundingVertices() {
-    return object->getBoundingBox().getBoundingVertices();
+    if (object) return object->getBoundingBox().getBoundingVertices();
+    else return vector<vec3>();
 }
 
 InstanceObject::InstanceObject() : Object() {}
