@@ -48,16 +48,19 @@ MeshObject::~MeshObject() {
     clear();
 }
 
-void MeshObject::addVertex(vec3 position) {
+int MeshObject::addVertex(vec3 position) {
     vertices.push_back(new Vertex(position));
+    return vertices.size() - 1;
 }
 
-void MeshObject::addVertex(vec3 position, vec3 normal) {
+int MeshObject::addVertex(vec3 position, vec3 normal) {
     vertices.push_back(new Vertex(position, normal));
+    return vertices.size() - 1;
 }
 
-void MeshObject::addTriangle(int i0, int i1, int i2) {
+int MeshObject::addTriangle(int i0, int i1, int i2) {
     triangles.push_back(new Triangle(vertices[i0], vertices[i1], vertices[i2]));
+    return triangles.size() - 1;
 }
 
 void MeshObject::clear() {

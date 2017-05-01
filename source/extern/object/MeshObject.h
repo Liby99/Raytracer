@@ -29,9 +29,9 @@ public:
     ~MeshObject();
     
     // Vertex and Triangle Manipulation
-    void addVertex(vec3 position);
-    void addVertex(vec3 position, vec3 normal);
-    void addTriangle(int i0, int i1, int i2);
+    int addVertex(vec3 position);
+    int addVertex(vec3 position, vec3 normal);
+    int addTriangle(int i0, int i1, int i2);
     
     // Destructor helper methods
     void clear();
