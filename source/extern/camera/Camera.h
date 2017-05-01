@@ -29,10 +29,10 @@ protected:
     float fovy;
     
     // Advanced Settings
-    bool dof;
-    float focalDistance;
-    float aperture;
-    float shutter;
+    bool depthOfField; // Whether we calculate the depth of field
+    float focalDistance; // In meter
+    float aperture; //
+    float shutterSpeed; // In second
     
 public:
     
