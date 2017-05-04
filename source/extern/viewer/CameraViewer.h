@@ -1,6 +1,9 @@
 #ifndef CAMERA_VIEWER_H
 #define CAMERA_VIEWER_H
 
+#include <GLUT/glut.h>
+#include <iostream>
+
 #include "scene/Scene.h"
 #include "camera/Camera.h"
 
@@ -12,12 +15,7 @@ private:
     
 public:
     
-    CameraViewer();
-    CameraViewer(int width, int height);
-    CameraViewer(int width, int height, Scene & scene, Camera & camera);
-    
-    void setScene(Scene & scene);
-    void setCamera(Camera & camera);
+    CameraViewer(Camera & camera, Scene & scene);
 };
 
 #endif

@@ -65,6 +65,8 @@ int main() {
     cam.setFovy(40.0f);
     cam.setResolution(800, 600);
     
+    // cam.onPixelUpdate(progress);
+    
     cout << "Starting rendering process" << endl;
     watch.start();
     
