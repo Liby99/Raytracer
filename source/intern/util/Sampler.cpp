@@ -59,6 +59,36 @@ vector<float> Sampler::jitter1D(int amount) {
     return result;
 }
 
+vector<vec2> Sampler::sample2D(int amount, int sampleMethod) {
+    switch (sampleMethod) {
+        case RANDOM_SAMPLE: return random2D(amount);
+        case JITTER_SAMPLE: return jitter2D(amount);
+        default: throw std::invalid_argument("Non-Existing Sampling Method");
+    }
+}
+
+vector<vec2> Sampler::sample2D(int amount, int sampleMethod, int weightMethod) {
+    switch (sampleMethod) {
+        case RANDOM_SAMPLE:
+            switch (weightMethod) {
+                case NO_WEIGHT: return random2D(amount);
+                case GAUSSIAN_WEIGHT: return gaussianRandom2D(amount);
+                case SHIRLEY_WEIGHT: return shirleyRandom2D(amount);
+                default: throw std::invalid_argument("Non-Existing Weighting Method");
+            }
+            break;
+        case JITTER_SAMPLE:
+            switch (weightMethod) {
+                case NO_WEIGHT: return jitter2D(amount);
+                case GAUSSIAN_WEIGHT: return gaussianJitter2D(amount);
+                case SHIRLEY_WEIGHT: return shirleyJitter2D(amount);
+                default: throw std::invalid_argument("Non-Existing Weighting Method");
+            }
+            break;
+        default: throw std::invalid_argument("Non-Existing Sampling Method");
+    }
+}
+
 vector<vec2> Sampler::random2D(int amount) {
     vector<vec2> result;
     for (int i = 0; i < amount; i++) {

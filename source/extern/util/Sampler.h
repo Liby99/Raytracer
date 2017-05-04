@@ -3,6 +3,7 @@
 
 #include "util/Random.h"
 #include "util/Math.h"
+#include <stdexcept>
 #include <cstdint>
 #include <climits>
 #include <vector>
@@ -23,6 +24,13 @@ private:
     
 public:
     
+    const static int RANDOM_SAMPLE = 0;
+    const static int JITTER_SAMPLE = 1;
+    
+    const static int NO_WEIGHT = 0;
+    const static int GAUSSIAN_WEIGHT = 1;
+    const static int SHIRLEY_WEIGHT = 2;
+    
     static float random();
     static float random(uint32_t r);
     
@@ -31,6 +39,8 @@ public:
     // vector<float> gaussianJitter1D(int amount);
     // vector<float> shirleyJitter1D(int amount);
     
+    static vector<vec2> sample2D(int amount, int sampleMethod);
+    static vector<vec2> sample2D(int amount, int sampleMethod, int weightMethod);
     static vector<vec2> random2D(int amount);
     static vector<vec2> gaussianRandom2D(int amount);
     static vector<vec2> shirleyRandom2D(int amount);
