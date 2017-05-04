@@ -10,8 +10,8 @@ private:
     static uint64_t cs;
 public:
     static void seed(int input);
-    static uint64_t next();
     static void reset();
+    static uint64_t next();
 };
 
 #endif

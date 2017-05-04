@@ -8,13 +8,13 @@ void Random::seed(int input) {
     cs = input;
 }
 
+void Random::reset() {
+    cs = s;
+}
+
 uint64_t Random::next() {
     cs ^= cs >> 21;
     cs ^= cs << 35;
     cs ^= cs >> 4;
     return cs;
-}
-
-void Random::reset() {
-    cs = s;
 }
