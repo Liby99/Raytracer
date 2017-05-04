@@ -23,7 +23,12 @@ Object::Object() {
     setRotate(DEFAULT_ROTATION);
     setTranslate(DEFAULT_POSITION);
     setScale(DEFAULT_SCALER);
+    material = nullptr;
     transformed = false;
+}
+
+bool Object::hasMaterial() {
+    return material != nullptr;
 }
 
 Material & Object::getMaterial() {

@@ -36,6 +36,7 @@ public:
     Object();
     
     // Material Related
+    bool hasMaterial();
     Material & getMaterial();
     void setMaterial(Material & material);
     
