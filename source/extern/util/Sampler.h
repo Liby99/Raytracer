@@ -44,9 +44,9 @@ public:
     static vector<vec2> random2D(int amount);
     static vector<vec2> gaussianRandom2D(int amount);
     static vector<vec2> shirleyRandom2D(int amount);
-    static vector<vec2> jitter2D(int side);
-    static vector<vec2> gaussianJitter2D(int side);
-    static vector<vec2> shirleyJitter2D(int side);
+    static vector<vec2> jitter2D(int amount);
+    static vector<vec2> gaussianJitter2D(int amount);
+    static vector<vec2> shirleyJitter2D(int amount);
 };
 
 #endif

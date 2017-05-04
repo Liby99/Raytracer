@@ -108,8 +108,9 @@ vector<vec2> Sampler::shirleyRandom2D(int amount) {
     return shirleyWeight(random2D(amount));
 }
 
-vector<vec2> Sampler::jitter2D(int side) {
+vector<vec2> Sampler::jitter2D(int amount) {
     vector<vec2> result;
+    int side = sqrt(amount);
     float interval = 1.0f / side;
     for (int x = 0; x < side; x++) {
         for (int y = 0; y < side; y++) {
@@ -122,10 +123,10 @@ vector<vec2> Sampler::jitter2D(int side) {
     return result;
 }
 
-vector<vec2> Sampler::gaussianJitter2D(int side) {
-    return gaussianWeight(jitter2D(side));
+vector<vec2> Sampler::gaussianJitter2D(int amount) {
+    return gaussianWeight(jitter2D(amount));
 }
 
-vector<vec2> Sampler::shirleyJitter2D(int side) {
-    return shirleyWeight(jitter2D(side));
+vector<vec2> Sampler::shirleyJitter2D(int amount) {
+    return shirleyWeight(jitter2D(amount));
 }

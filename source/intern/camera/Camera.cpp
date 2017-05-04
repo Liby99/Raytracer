@@ -78,6 +78,42 @@ void Camera::setFovy(float fovy) {
     this->fovy = fovy;
 }
 
+bool Camera::isSampling() {
+    return sampling;
+}
+
+void Camera::enableSampling() {
+    sampling = true;
+}
+
+void Camera::disableSampling() {
+    sampling = false;
+}
+
+int Camera::getSamplingMethod() {
+    return samplingMethod;
+}
+
+int Camera::getWeightingMethod() {
+    return weightingMethod;
+}
+
+void Camera::setSamplingMethod(int method) {
+    this->samplingMethod = method;
+}
+
+void Camera::setWeightingMethod(int method) {
+    this->weightingMethod = method;
+}
+
+int Camera::getSamplingAmount() {
+    return samplingAmount;
+}
+
+void Camera::setSamplingAmount(int amount) {
+    this->samplingAmount = amount;
+}
+
 Image Camera::render(Scene & scene) {
     
     // Setup image buffer

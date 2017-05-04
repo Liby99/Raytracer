@@ -28,6 +28,12 @@ protected:
     int height;
     float fovy;
     
+    // Sampling Settings
+    bool sampling;
+    int samplingMethod;
+    int weightingMethod;
+    int samplingAmount;
+    
     // Advanced Settings
     bool depthOfField; // Whether we calculate the depth of field
     float focalDistance; // In meter
@@ -55,6 +61,16 @@ public:
     void setWidth(int width);
     void setHeight(int height);
     void setFovy(float fovy);
+    
+    bool isSampling();
+    void enableSampling();
+    void disableSampling();
+    int getSamplingMethod();
+    int getWeightingMethod();
+    void setSamplingMethod(int method);
+    void setWeightingMethod(int method);
+    int getSamplingAmount();
+    void setSamplingAmount(int amount);
     
     // Render Functions
     virtual Image render(Scene & scene);
