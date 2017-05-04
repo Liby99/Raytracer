@@ -1,6 +1,6 @@
 #include "engine/RenderEngine.h"
 
-RenderEngine::RenderEngine() {};
+RenderEngine::RenderEngine() : scene(nullptr) {};
 
 RenderEngine::RenderEngine(Scene & scene) {
     setScene(scene);

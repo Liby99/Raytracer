@@ -2,9 +2,10 @@
 #define RENDER_ENGINE_H
 
 #include "scene/Scene.h"
+#include "material/Material.h"
 
 class RenderEngine {
-private:
+protected:
     Scene * scene;
 public:
     RenderEngine();
