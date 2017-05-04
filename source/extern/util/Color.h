@@ -69,4 +69,6 @@ public:
     friend std::ostream& operator<< (std::ostream & stream, Color & color);
 };
 
+typedef Color rgb;
+
 #endif
