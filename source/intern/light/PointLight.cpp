@@ -63,6 +63,16 @@ float PointLight::getBrightness(Scene & scene, Intersection & intersection) {
     return calcBrightness(dist);
 }
 
+float PointLight::getBrightness(Scene & scene, Intersection & intersection, Ray & ray) {
+    return getBrightness(scene, intersection);
+}
+
 vec3 PointLight::getToLightDirection(Intersection & intersection) {
     return normalize(position - intersection.getPosition());
+}
+
+vector<vec3> PointLight::getToLightDirection(Intersection & intersection, int sampleAmount) {
+    vector<vec3> r = vector<vec3>();
+    r.push_back(getToLightDirection(intersection));
+    return r;
 }

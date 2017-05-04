@@ -6,6 +6,8 @@
 #include "util/Ray.h"
 #include "util/Intersection.h"
 
+#include <vector>
+
 using namespace std;
 
 class Scene;
@@ -38,7 +40,9 @@ public:
     
     // Illuminate
     virtual float getBrightness(Scene & scene, Intersection & intersection);
+    virtual float getBrightness(Scene & scene, Intersection & intersection, Ray & ray);
     virtual vec3 getToLightDirection(Intersection & intersection);
+    virtual vector<vec3> getToLightDirection(Intersection & intersection, int sampleAmount);
 };
 
 #endif

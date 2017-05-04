@@ -1,6 +1,6 @@
 #include "light/Light.h"
 
-const Color Light::DEFAULT_COLOR = Color(1, 1, 1);
+const Color Light::DEFAULT_COLOR = Color::WHITE;
 const float Light::DEFAULT_INTENSITY = 1;
 const bool Light::DEFAULT_CAST_SHADOW = false;
 
@@ -44,6 +44,14 @@ float Light::getBrightness(Scene & scene, Intersection & intersection) {
     return 0;
 }
 
+float Light::getBrightness(Scene & scene, Intersection & intersection, Ray & ray) {
+    return 0;
+}
+
 vec3 Light::getToLightDirection(Intersection & intersection) {
     return vec3(0, 0, 0);
+}
+
+vector<vec3> Light::getToLightDirection(Intersection & intersection, int sampleAmount) {
+    return vector<vec3>();
 }

@@ -42,6 +42,16 @@ float DirectionalLight::getBrightness(Scene & scene, Intersection & intersection
     return intensity;
 }
 
+float DirectionalLight::getBrightness(Scene & scene, Intersection & intersection, Ray & ray) {
+    return getBrightness(scene, intersection);
+}
+
 vec3 DirectionalLight::getToLightDirection(Intersection & intersection) {
     return -direction;
+}
+
+vector<vec3> DirectionalLight::getToLightDirection(Intersection & intersection, int sampleAmount) {
+    vector<vec3> r = vector<vec3>();
+    r.push_back(getToLightDirection(intersection));
+    return r;
 }
