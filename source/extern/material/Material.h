@@ -2,33 +2,22 @@
 #define MATERIAL_H
 
 #include "util/Color.h"
+#include "util/Intersection.h"
+#include "util/Ray.h"
+#include <vector>
+#include <utility>
 
 using namespace std;
 
-class Scene;
-class Intersection;
-
 class Material {
-protected:
-    
-    // Default
-    const static float DEFAULT_OPACITY;
-    
-    // Opacity parameter
-    float opacity;
-    
-    // Get shading color to be inherited by subclasses
-    virtual Color getShadingColor(Scene & scene, Intersection & intersection);
-    
 public:
     
     // Constructor
     Material();
     
-    // Getter and setter
-    void setOpacity(float opacity);
-    float getOpacity();
-    Color shade(Scene & scene, Intersection & intersection);
+    // Virtual methods
+    virtual vector<pair<Ray, Color>> reflection(Intersection & i, int amount);
+    virtual Color emission();
 };
 
 #endif

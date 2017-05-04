@@ -1,23 +1,11 @@
 #include "material/Material.h"
 
-const float Material::DEFAULT_OPACITY = 1;
+Material::Material() {}
 
-Color Material::getShadingColor(Scene & scene, Intersection & intersection) {
+vector<pair<Ray, Color>> Material::reflection(Intersection & i, int amount) {
+    return vector<pair<Ray, Color>>();
+}
+
+Color Material::emission() {
     return Color();
-}
-
-Material::Material() {
-    setOpacity(DEFAULT_OPACITY);
-}
-
-void Material::setOpacity(float opacity) {
-    this->opacity = opacity;
-}
-
-float Material::getOpacity() {
-    return opacity;
-}
-
-Color Material::shade(Scene & scene, Intersection & intersection) {
-    return getShadingColor(scene, intersection) * opacity;
 }
