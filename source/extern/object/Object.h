@@ -18,7 +18,7 @@ protected:
     const static vec3 DEFAULT_ROTATION;
     
     // Materials
-    vector<Material *> materials;
+    Material * material;
     
     // Transform properties
     bool transformed;
@@ -36,9 +36,8 @@ public:
     Object();
     
     // Material Related
-    int materialAmount() ;
-    Material & getMaterial(int i) ;
-    void addMaterial(Material & material);
+    Material & getMaterial();
+    void setMaterial(Material & material);
     
     // Boundable setting
     bool isBoundable();

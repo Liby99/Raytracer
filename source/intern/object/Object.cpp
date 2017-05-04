@@ -26,16 +26,12 @@ Object::Object() {
     transformed = false;
 }
 
-int Object::materialAmount() {
-    return materials.size();
+Material & Object::getMaterial() {
+    return *material;
 }
 
-Material & Object::getMaterial(int i) {
-    return *(materials[i]);
-}
-
-void Object::addMaterial(Material & material) {
-    materials.push_back(&material);
+void Object::setMaterial(Material & material) {
+    this->material = &material;
 }
 
 vec3 Object::getRotation() {
