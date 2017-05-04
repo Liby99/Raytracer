@@ -42,7 +42,7 @@ public:
     void setB(float b);
     
     // To Int representation for bitmap
-    int toInt() ;
+    int toInt();
     
     // Operators
     Color operator+(Color c);
@@ -53,6 +53,8 @@ public:
     Color & operator*=(Color c);
     Color operator*(float scale);
     Color & operator*=(float scale);
+    Color operator/(int count);
+    Color & operator/=(int count);
     operator string();
     
     static Color parse(int c);

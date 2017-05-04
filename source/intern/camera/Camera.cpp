@@ -7,22 +7,26 @@ const int Camera::DEFAULT_WIDTH = 720;
 const int Camera::DEFAULT_HEIGHT = 480;
 const float Camera::DEFAULT_FOVY = 90;
 
-Camera::Camera() {
-    lookAt(DEFAULT_POSITION, DEFAULT_FOCAL_POINT, DEFAULT_UP);
-    setResolution(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-    setFovy(DEFAULT_FOVY);
+vector<vec2> Camera::getSample() {
+    return Sampler::sample2D(samplingAmount, samplingMethod, weightingMethod);
 }
 
-Camera::Camera(vec3 position, vec3 focalPoint) {
-    lookAt(position, focalPoint, DEFAULT_UP);
-    setResolution(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-    setFovy(DEFAULT_FOVY);
-}
+Camera::Camera() : Camera(DEFAULT_POSITION, DEFAULT_FOCAL_POINT) {}
+
+Camera::Camera(vec3 position, vec3 focalPoint) : Camera(position, focalPoint, DEFAULT_UP) {}
 
 Camera::Camera(vec3 position, vec3 focalPoint, vec3 up) {
+    
+    // Set up basic parameters
     lookAt(position, focalPoint, up);
     setResolution(DEFAULT_WIDTH, DEFAULT_HEIGHT);
     setFovy(DEFAULT_FOVY);
+    
+    // Setup sampling parameters
+    disableSampling();
+    setSamplingMethod(Sampler::RANDOM_SAMPLE);
+    setWeightingMethod(Sampler::NO_WEIGHT);
+    setSamplingAmount(1);
 }
 
 void Camera::lookAt(vec3 position, vec3 focalPoint) {
@@ -129,21 +133,37 @@ Image Camera::render(Scene & scene) {
     float alphaMult = betaMult * width / height;
     float halfWidth = width / 2.0f;
     float halfHeight = height / 2.0f;
+    float a = alphaMult / halfWidth;
+    float b = betaMult / halfHeight;
     
     // Iterate through all the rays
     #pragma omp parallel for collapse(2)
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
             
-            // Then calculate alpha and beta then direction of ray
-            float alpha = alphaMult * (halfWidth - i + 0.5f) / halfWidth;
-            float beta = betaMult * (j - halfHeight + 0.5f) / halfHeight;
-            vec3 dir = normalize(alpha * u + beta * v + w);
-            
-            Ray ray = Ray(position, dir);
-            
-            // Set the related pixel color
-            image.setPixel(i, j, scene.getRayColor(ray));
+            if (sampling) {
+                
+                vector<vec2> samples = getSample();
+                Color base = Color();
+                for (int i = 0; i < samples.size(); i++) {
+                    float alpha = a * (halfWidth - i + samples[i].x);
+                    float beta = b * (j - halfHeight + samples[i].y);
+                    vec3 dir = normalize(alpha * u + beta * v + w);
+                    Ray ray = Ray(position, dir);
+                    base += scene.getRayColor(ray);
+                }
+                base /= samplingAmount;
+                image.setPixel(i, j, base);
+            }
+            else {
+                
+                // Generate the only ray
+                float alpha = a * (halfWidth - i + 0.5f);
+                float beta = b * (j - halfHeight + 0.5f);
+                vec3 dir = normalize(alpha * u + beta * v + w);
+                Ray ray = Ray(position, dir);
+                image.setPixel(i, j, scene.getRayColor(ray));
+            }
         }
     }
     

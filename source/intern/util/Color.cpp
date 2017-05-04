@@ -107,6 +107,17 @@ Color & Color::operator*=(float scale) {
     return *this;
 }
 
+Color Color::operator/(int count) {
+    return Color(r / count, g / count, b / count);
+}
+
+Color & Color::operator/=(int count) {
+    r /= count;
+    g /= count;
+    b /= count;
+    return *this;
+}
+
 Color::operator string() {
     return "rgb(" + to_string(getIntR()) + ", " +
                     to_string(getIntG()) + ", " +

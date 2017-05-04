@@ -6,6 +6,9 @@
 #include "util/Color.h"
 #include "util/Transform.h"
 #include "util/Ray.h"
+#include "util/Sampler.h"
+
+#include <vector>
 
 using namespace std;
 
@@ -39,6 +42,8 @@ protected:
     float focalDistance; // In meter
     float aperture; //
     float shutterSpeed; // In second
+    
+    vector<vec2> getSample();
     
 public:
     
