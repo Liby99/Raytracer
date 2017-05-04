@@ -59,6 +59,10 @@ vector<float> Sampler::jitter1D(int amount) {
     return result;
 }
 
+vector<vec2> Sampler::sample2D(int amount) {
+    return random2D(amount);
+}
+
 vector<vec2> Sampler::sample2D(int amount, int sampleMethod) {
     switch (sampleMethod) {
         case RANDOM_SAMPLE: return random2D(amount);

@@ -1,9 +1,7 @@
 #include "util/Ray.h"
 #include "scene/Scene.h"
 
-const float Ray::INCREMENT = 0.001;
-
-int Ray::maxDepth = 3;
+const float Ray::INCREMENT = 0.0001;
 
 Ray::Ray() {
     setDepth(0);
@@ -75,10 +73,6 @@ vec3 Ray::getPoint(float t) {
     return origin + t * direction;
 }
 
-bool Ray::canRecurse() {
-    return depth < maxDepth;
-}
-
 Ray Ray::transform(mat4 transf) {
     vec4 o = transf * vec4(origin, 1);
     vec3 no = vec3(o) / o.w;
@@ -88,12 +82,4 @@ Ray Ray::transform(mat4 transf) {
 
 Ray Ray::inverseTransform(mat4 transf) {
     return transform(inverse(transf));
-}
-
-int Ray::getMaxDepth() {
-    return Ray::maxDepth;
-}
-
-void Ray::setMaxDepth(int maxDepth) {
-    Ray::maxDepth = maxDepth;
 }

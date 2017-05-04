@@ -39,6 +39,7 @@ public:
     // vector<float> gaussianJitter1D(int amount);
     // vector<float> shirleyJitter1D(int amount);
     
+    static vector<vec2> sample2D(int amount);
     static vector<vec2> sample2D(int amount, int sampleMethod);
     static vector<vec2> sample2D(int amount, int sampleMethod, int weightMethod);
     

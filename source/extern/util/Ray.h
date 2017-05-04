@@ -16,9 +16,6 @@ protected:
     bool inside;
     
 public:
-
-    // Static Max Depth Constraint
-    static int maxDepth;
     
     // Constructors
     Ray();
@@ -41,15 +38,9 @@ public:
     void increment();
     void increment(vec3 direction);
     
-    virtual bool canRecurse();
-    
     // Transform
     Ray transform(mat4 transf);
     Ray inverseTransform(mat4 transf);
-    
-    // Static getter and setter
-    static int getMaxDepth();
-    static void setMaxDepth(int maxDepth);
 };
 
 #endif
