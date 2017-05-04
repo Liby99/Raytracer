@@ -4,7 +4,7 @@
 #include "material/Material.h"
 #include "util/Sampler.h"
 
-class Lambert {
+class Lambert : public Material {
 private:
     
     Color color;
@@ -19,6 +19,7 @@ public:
     Color getColor();
     
     // Virtual methods
+    virtual Color computeReflection(Intersection & i, Ray & out);
     virtual vector<pair<Ray, Color>> reflection(Intersection & i, int amount);
     virtual Color emission();
 };

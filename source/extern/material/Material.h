@@ -16,6 +16,7 @@ public:
     Material();
     
     // Virtual methods
+    virtual Color computeReflection(Intersection & i, Ray & out);
     virtual vector<pair<Ray, Color>> reflection(Intersection & i, int amount);
     virtual Color emission();
 };
