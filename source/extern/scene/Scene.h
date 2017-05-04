@@ -1,6 +1,8 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+#include <type_traits>
+
 #include "util/Color.h"
 #include "util/Ray.h"
 #include "util/Intersection.h"
@@ -8,11 +10,16 @@
 #include "material/Material.h"
 #include "light/Light.h"
 
+using namespace std;
+
+class RenderEngine;
+
 class Scene {
 protected:
     
     // Global Variables
     Color background;
+    RenderEngine * engine;
     vector<Object *> objects;
     vector<Light *> lights;
     
@@ -20,6 +27,8 @@ public:
     
     // Constructor and Destructors
     Scene();
+    
+    void setRenderEngine(RenderEngine & engine);
     
     // Background
     Color getBackgroundColor();
@@ -37,7 +46,6 @@ public:
     
     // Intersection
     virtual bool getIntersection(Ray & ray, Intersection & intersection);
-    virtual Color getIntersectionColor(Intersection & intersection);
     virtual Color getRayColor(Ray & ray);
 };
 

@@ -1,7 +1,11 @@
 #include "scene/Scene.h"
+#include "engine/RenderEngine.h"
 
-Scene::Scene() {
-    
+Scene::Scene() {}
+
+void Scene::setRenderEngine(RenderEngine & engine) {
+    engine.setScene(*this);
+    this->engine = &engine;
 }
 
 Color Scene::getBackgroundColor() {
@@ -47,20 +51,10 @@ bool Scene::getIntersection(Ray & ray, Intersection & intersection) {
     return hit;
 }
 
-Color Scene::getIntersectionColor(Intersection & intersection) {
-    Color color;
-    Object & obj = intersection.getObject();
-    #pragma omp parallel for
-    for (int i = 0; i < obj.materialAmount(); i++) {
-        color += obj.getMaterial(i).shade(*this, intersection);
-    }
-    return color;
-}
-
 Color Scene::getRayColor(Ray & ray) {
     Intersection intersection = Intersection(ray);
     if (getIntersection(ray, intersection)) {
-        return getIntersectionColor(intersection);
+        return engine->getColor(intersection);
     }
     else {
         return background;
