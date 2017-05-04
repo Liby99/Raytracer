@@ -7,6 +7,12 @@ const float Color::DEFAULT_R = 0;
 const float Color::DEFAULT_G = 0;
 const float Color::DEFAULT_B = 0;
 
+const Color Color::WHITE = Color(1, 1, 1);
+const Color Color::BLACK = Color();
+const Color Color::RED = Color(1, 0, 0);
+const Color Color::GREEN = Color(0, 1, 0);
+const Color Color::BLUE = Color(0, 0, 1);
+
 float bound(float f) {
     return (f <= 0) ? 0 : (f >= 1) ? 1 : f;
 }

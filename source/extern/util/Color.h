@@ -20,7 +20,14 @@ private:
     float r;
     float g;
     float b;
+    
 public:
+    
+    const static Color WHITE;
+    const static Color BLACK;
+    const static Color RED;
+    const static Color GREEN;
+    const static Color BLUE;
     
     // Constructors
     Color();
