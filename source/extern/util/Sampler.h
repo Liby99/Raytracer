@@ -41,6 +41,9 @@ public:
     
     static vector<vec2> sample2D(int amount, int sampleMethod);
     static vector<vec2> sample2D(int amount, int sampleMethod, int weightMethod);
+    
+    static vec2 random2D();
+    
     static vector<vec2> random2D(int amount);
     static vector<vec2> gaussianRandom2D(int amount);
     static vector<vec2> shirleyRandom2D(int amount);

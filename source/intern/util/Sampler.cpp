@@ -89,13 +89,17 @@ vector<vec2> Sampler::sample2D(int amount, int sampleMethod, int weightMethod) {
     }
 }
 
+vec2 Sampler::random2D() {
+    uint64_t r = Random::next();
+    uint32_t a = r >> 32;
+    uint32_t b = r << 32 >> 32;
+    return vec2(random(a), random(b));
+}
+
 vector<vec2> Sampler::random2D(int amount) {
     vector<vec2> result;
     for (int i = 0; i < amount; i++) {
-        uint64_t r = Random::next();
-        uint32_t a = r >> 32;
-        uint32_t b = r << 32 >> 32;
-        result.push_back(vec2(random(a), random(b)));
+        result.push_back(random2D());
     }
     return result;
 }
@@ -114,10 +118,8 @@ vector<vec2> Sampler::jitter2D(int amount) {
     float interval = 1.0f / side;
     for (int x = 0; x < side; x++) {
         for (int y = 0; y < side; y++) {
-            uint64_t r = Random::next();
-            uint32_t a = r >> 32;
-            uint32_t b = r << 32 >> 32;
-            result.push_back(vec2(interval * (x + random(a)), interval * (y + random(b))));
+            vec2 r = random2D();
+            result.push_back(vec2(interval * (x + r.x), interval * (y + r.y)));
         }
     }
     return result;
