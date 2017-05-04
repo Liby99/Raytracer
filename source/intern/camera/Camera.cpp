@@ -152,7 +152,7 @@ Image Camera::render(Scene & scene) {
                     Ray ray = Ray(position, dir);
                     base += scene.getRayColor(ray);
                 }
-                base /= samplingAmount;
+                base /= samples.size();
                 image.setPixel(i, j, base);
             }
             else {
