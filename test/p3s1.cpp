@@ -6,11 +6,12 @@
 #include "object/InstanceObject.h"
 #include "object/BoxTreeObject.h"
 #include "material/Lambert.h"
+#include "material/Metal.h"
 #include "light/DirectionalLight.h"
 #include "image/Bitmap.h"
 
-int BOUNCE = 5;
-int SAMPLE_AMOUNT = 25;
+int BOUNCE = 3;
+int SAMPLE_AMOUNT = 4;
 
 int main() {
     
@@ -22,8 +23,8 @@ int main() {
     
     Lambert groundMtl = Lambert(Color(0.25f, 0.25f, 0.25f));
     Lambert white = Lambert(Color(0.7f, 0.7f, 0.7f));
-    Lambert red = Lambert(Color(0.7f,0.1f,0.1f));
-    // Metal metal = Metal(Color(0.95f,0.64f,0.54f));
+    Lambert red = Lambert(Color(0.7f, 0.1f, 0.1f));
+    Metal metal = Metal(Color(0.95f, 0.64f, 0.54f));
     
     Cube ground = Cube(2, 0.11, 2);
     ground.setMaterial(groundMtl);
@@ -32,7 +33,7 @@ int main() {
     BoxTreeObject dragon = BoxTreeObject("res/dragon.ply");
     
     InstanceObject * insts[4];
-    Material * mtls[4] = {&white, &white, &red, &white};
+    Material * mtls[4] = {&white, &metal, &red, &white};
     for(int i = 0; i < 4; i++) {
         insts[i] = new InstanceObject(dragon);
         insts[i]->translateZ(0.3f * (float(i) / float(3) - 0.5f));
@@ -66,11 +67,17 @@ int main() {
         cout << "] " << int(progress * 100.0) << "%, (" << time(0) - curr << "s)\r";
         cout.flush();
     });
-
+    
     // Render image
     Image image = cam.render(scn);
     Bitmap::saveImage(image, "p3s1.bmp");
     
     cout << endl << "Render Time Elapsed: " << time(0) - curr << "s" << endl;
+    
+    // Delete all the dragons
+    for (int i = 0; i < 4; i++) {
+        delete insts[i];
+    }
+    
     return 0;
 }
