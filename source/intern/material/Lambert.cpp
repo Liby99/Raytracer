@@ -15,7 +15,7 @@ Color Lambert::getColor() {
 }
 
 Color Lambert::computeReflection(Intersection & i, Ray & out) {
-    return color / pi;
+    return color;
 }
 
 vector<pair<Ray, Color>> Lambert::reflection(Intersection & intersection, int amount) {
@@ -26,7 +26,8 @@ vector<pair<Ray, Color>> Lambert::reflection(Intersection & intersection, int am
         float v = sqrt(1 - r[i].y);
         vec3 dir = vec3(v * cos(u), sqrt(r[i].y), v * sin(u));
         Ray ray = Ray(intersection.getPosition(), dir, intersection.getRay().getDepth() + 1);
-        result.push_back(make_pair(ray, color / pi));
+        ray.increment();
+        result.push_back(make_pair(ray, color));
     }
     return result;
 }
