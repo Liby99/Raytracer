@@ -23,14 +23,16 @@ void PathTracer::setMaxDepth(int maxDepth) {
 Color PathTracer::getColor(Intersection & intersection) {
     
     Color color = Color::BLACK;
-    
     if (intersection.getObject().hasMaterial()) {
         
+        // Cache the material and normal
         Material & mtl = intersection.getObject().getMaterial();
         vec3 normal = intersection.getNormal();
         
+        // Calculate the Emission
         color += mtl.emission();
         
+        // Calculate the Reflection
         if (intersection.getRay().getDepth() < maxDepth) {
             vector<pair<Ray, Color>> reflections = mtl.reflection(intersection, 1);
             if (reflections.size() > 0) {
@@ -38,14 +40,22 @@ Color PathTracer::getColor(Intersection & intersection) {
             }
         }
         
-        int lightIndex = Sampler::random() * scene->lightAmount();
-        Light & light = scene->getLight(lightIndex);
-        vector<vec3> dirs = light.getToLightDirection(intersection, 1);
-        if (dirs.size() > 0) {
-            vec3 dir = dirs[0];
+        // Calculate the Reflection to Light
+        if (scene->hasLight()) {
+            
+            // First random a light from all the lights in the scene
+            int lightIndex = rand() % scene->lightAmount();
+            Light & light = scene->getLight(lightIndex);
+            
+            // Get the direction of it and generate a ray towards it
+            dir = light.getToLightDirection(intersection);
             Ray toLight = Ray(intersection.getPosition(), dir);
+            
+            // Calculate the brightness of the intersection by the light
             float brightness = light.getBrightness(*scene, intersection, toLight);
             if (brightness > 0.0f) {
+                
+                // Then calculate the reflection color to that light
                 Color lc = light.getColor() * brightness;
                 float cosTheta = max(dot(dir, normal), 0.0f);
                 Color ob = mtl.computeReflection(intersection, toLight) * cosTheta;
@@ -53,6 +63,5 @@ Color PathTracer::getColor(Intersection & intersection) {
             }
         }
     }
-    
     return color;
 }

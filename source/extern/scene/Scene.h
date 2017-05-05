@@ -33,11 +33,13 @@ public:
     void setBackgroundColor(Color color);
     
     // Light related getter and setter
+    bool hasLight();
     unsigned int lightAmount();
     Light & getLight(int i);
     virtual void addLight(Light & light);
     
     // Object related getter and setter
+    bool hasObject();
     unsigned int objectAmount();
     Object & getObject(int i);
     virtual void addObject(Object & object);

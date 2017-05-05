@@ -16,6 +16,10 @@ void Scene::setBackgroundColor(Color color) {
     this->background = color;
 }
 
+bool Scene::hasLight() {
+    return lights.size() > 0;
+}
+
 unsigned int Scene::lightAmount() {
     return lights.size();
 }
@@ -26,6 +30,10 @@ Light & Scene::getLight(int i) {
 
 void Scene::addLight(Light & light) {
     lights.push_back(&light);
+}
+
+bool Scene::hasObject() {
+    return objects.size() > 0;
 }
 
 unsigned int Scene::objectAmount() {
