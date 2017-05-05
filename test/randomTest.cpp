@@ -1,4 +1,5 @@
 #include "util/Random.h"
+#include "util/Sampler.h"
 
 #include <iostream>
 
@@ -31,4 +32,8 @@ int main() {
     cout << "h: " << h << endl;
     cout << "i: " << i << endl;
     cout << "j: " << j << endl;
+    
+    for (int i = 0; i < 100; i++) {
+        cout << Sampler::random() << endl;
+    }
 }
