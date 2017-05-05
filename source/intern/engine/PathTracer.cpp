@@ -48,7 +48,7 @@ Color PathTracer::getColor(Intersection & intersection) {
             Light & light = scene->getLight(lightIndex);
             
             // Get the direction of it and generate a ray towards it
-            dir = light.getToLightDirection(intersection);
+            vec3 dir = light.getToLightDirection(intersection);
             Ray toLight = Ray(intersection.getPosition(), dir);
             
             // Calculate the brightness of the intersection by the light
