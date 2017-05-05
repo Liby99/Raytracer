@@ -9,6 +9,7 @@
 #include "util/Sampler.h"
 
 #include <vector>
+#include <functional>
 
 using namespace std;
 
@@ -43,6 +44,9 @@ protected:
     float aperture; //
     float shutterSpeed; // In second
     
+    bool hasOnRenderCallback;
+    function<void(int, int, Color, float)> onRenderCallback;
+    
     vector<vec2> getSample();
     
 public:
@@ -76,6 +80,8 @@ public:
     void setWeightingMethod(int method);
     int getSamplingAmount();
     void setSamplingAmount(int amount);
+    
+    void onRender(function<void(int, int, Color, float)> func);
     
     // Render Functions
     virtual Image render(Scene & scene);

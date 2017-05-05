@@ -24,7 +24,7 @@ Camera::Camera(vec3 position, vec3 focalPoint, vec3 up) {
     
     // Setup sampling parameters
     disableSampling();
-    setSamplingMethod(Sampler::RANDOM_SAMPLE);
+    setSamplingMethod(Sampler::UNIFORM_SAMPLE);
     setWeightingMethod(Sampler::NO_WEIGHT);
     setSamplingAmount(1);
 }
@@ -118,6 +118,11 @@ void Camera::setSamplingAmount(int amount) {
     this->samplingAmount = amount;
 }
 
+void Camera::onRender(function<void(int, int, Color, float)> func) {
+    hasOnRenderCallback = true;
+    onRenderCallback = func;
+}
+
 Image Camera::render(Scene & scene) {
     
     // Setup image buffer
@@ -136,24 +141,31 @@ Image Camera::render(Scene & scene) {
     float a = alphaMult / halfWidth;
     float b = betaMult / halfHeight;
     
+    unsigned int total = width * height;
+    unsigned int step = 0;
+    
     // Iterate through all the rays
     #pragma omp parallel for collapse(2)
-    for (int i = 0; i < width; i++) {
-        for (int j = 0; j < height; j++) {
+    for (int j = 0; j < height; j++) {
+        for (int i = 0; i < width; i++) {
+            
+            Color color;
             
             if (sampling) {
                 
                 vector<vec2> samples = getSample();
                 Color base = Color();
-                for (int i = 0; i < samples.size(); i++) {
-                    float alpha = a * (halfWidth - i + samples[i].x);
-                    float beta = b * (j - halfHeight + samples[i].y);
+                
+                #pragma omp parallel for
+                for (int k = 0; k < samples.size(); k++) {
+                    float alpha = a * (halfWidth - i + samples[k].x);
+                    float beta = b * (j - halfHeight + samples[k].y);
                     vec3 dir = normalize(alpha * u + beta * v + w);
                     Ray ray = Ray(position, dir);
                     base += scene.getRayColor(ray);
                 }
                 base /= samples.size();
-                image.setPixel(i, j, base);
+                color = base;
             }
             else {
                 
@@ -162,8 +174,16 @@ Image Camera::render(Scene & scene) {
                 float beta = b * (j - halfHeight + 0.5f);
                 vec3 dir = normalize(alpha * u + beta * v + w);
                 Ray ray = Ray(position, dir);
-                image.setPixel(i, j, scene.getRayColor(ray));
+                color = scene.getRayColor(ray);
             }
+            
+            image.setPixel(i, j, color);
+            
+            #pragma omp atomic
+            step++;
+            
+            #pragma omp critical
+            onRenderCallback(i, j, color, (float) step / total);
         }
     }
     
