@@ -182,8 +182,10 @@ Image Camera::render(Scene & scene) {
             #pragma omp atomic
             step++;
             
-            #pragma omp critical
-            onRenderCallback(i, j, color, (float) step / total);
+            if (hasOnRenderCallback) {
+                #pragma omp critical
+                onRenderCallback(i, j, color, (float) step / total);
+            }
         }
     }
     
