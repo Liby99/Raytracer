@@ -24,7 +24,10 @@ vector<pair<Ray, Color>> Lambert::reflection(Intersection & intersection, int am
     for (int i = 0; i < r.size(); i++) {
         float u = 2 * pi * r[i].x;
         float v = sqrt(1 - r[i].y);
-        vec3 dir = vec3(v * cos(u), sqrt(r[i].y), v * sin(u));
+        vec3 norm = intersection.getNormal();
+        vec3 udir = normalize(cross(norm, norm + vec3(0.2f, 0.7f, 0.1f)));
+        vec3 vdir = normalize(cross(norm, udir));
+        vec3 dir = udir * v * cos(u) + norm * sqrt(r[i].y) + vdir * v * sin(u);
         Ray ray = Ray(intersection.getPosition(), dir, intersection.getRay().getDepth() + 1);
         ray.increment();
         result.push_back(make_pair(ray, color));
