@@ -24,8 +24,9 @@ private:
     
 public:
     
-    const static int RANDOM_SAMPLE = 0;
-    const static int JITTER_SAMPLE = 1;
+    const static int UNIFORM_SAMPLE = 0;
+    const static int RANDOM_SAMPLE = 1;
+    const static int JITTER_SAMPLE = 2;
     
     const static int NO_WEIGHT = 0;
     const static int GAUSSIAN_WEIGHT = 1;
@@ -43,11 +44,15 @@ public:
     static vector<vec2> sample2D(int amount, int sampleMethod);
     static vector<vec2> sample2D(int amount, int sampleMethod, int weightMethod);
     
-    static vec2 random2D();
+    static vector<vec2> uniform2D(int amount);
+    static vector<vec2> gaussianUniform2D(int amount);
+    static vector<vec2> shirleyUniform2D(int amount);
     
+    static vec2 random2D();
     static vector<vec2> random2D(int amount);
     static vector<vec2> gaussianRandom2D(int amount);
     static vector<vec2> shirleyRandom2D(int amount);
+    
     static vector<vec2> jitter2D(int amount);
     static vector<vec2> gaussianJitter2D(int amount);
     static vector<vec2> shirleyJitter2D(int amount);

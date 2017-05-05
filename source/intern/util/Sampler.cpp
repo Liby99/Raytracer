@@ -39,7 +39,7 @@ float Sampler::random() {
 }
 
 float Sampler::random(uint32_t r) {
-    return (float) r / INT_MAX;
+    return (float) r / UINT_MAX;
 }
 
 vector<float> Sampler::random1D(int amount) {
@@ -60,11 +60,12 @@ vector<float> Sampler::jitter1D(int amount) {
 }
 
 vector<vec2> Sampler::sample2D(int amount) {
-    return random2D(amount);
+    return uniform2D(amount);
 }
 
 vector<vec2> Sampler::sample2D(int amount, int sampleMethod) {
     switch (sampleMethod) {
+        case UNIFORM_SAMPLE: return uniform2D(amount);
         case RANDOM_SAMPLE: return random2D(amount);
         case JITTER_SAMPLE: return jitter2D(amount);
         default: throw std::invalid_argument("Non-Existing Sampling Method");
@@ -73,6 +74,14 @@ vector<vec2> Sampler::sample2D(int amount, int sampleMethod) {
 
 vector<vec2> Sampler::sample2D(int amount, int sampleMethod, int weightMethod) {
     switch (sampleMethod) {
+        case UNIFORM_SAMPLE:
+            switch (weightMethod) {
+                case NO_WEIGHT: return uniform2D(amount);
+                case GAUSSIAN_WEIGHT: return gaussianUniform2D(amount);
+                case SHIRLEY_WEIGHT: return shirleyUniform2D(amount);
+                default: throw std::invalid_argument("Non-Existing Weighting Method");
+            }
+            break;
         case RANDOM_SAMPLE:
             switch (weightMethod) {
                 case NO_WEIGHT: return random2D(amount);
@@ -91,6 +100,26 @@ vector<vec2> Sampler::sample2D(int amount, int sampleMethod, int weightMethod) {
             break;
         default: throw std::invalid_argument("Non-Existing Sampling Method");
     }
+}
+
+vector<vec2> Sampler::uniform2D(int amount) {
+    vector<vec2> result;
+    int side = ceil(sqrt(amount));
+    float interval = 1.0f / side;
+    for (int x = 0; x < side; x++) {
+        for (int y = 0; y < side; y++) {
+            result.push_back(vec2(interval * (x + 0.5f), interval * (y + 0.5f)));
+        }
+    }
+    return result;
+}
+
+vector<vec2> Sampler::gaussianUniform2D(int amount) {
+    return gaussianWeight(uniform2D(amount));
+}
+
+vector<vec2> Sampler::shirleyUniform2D(int amount) {
+    return shirleyWeight(uniform2D(amount));
 }
 
 vec2 Sampler::random2D() {
@@ -118,7 +147,7 @@ vector<vec2> Sampler::shirleyRandom2D(int amount) {
 
 vector<vec2> Sampler::jitter2D(int amount) {
     vector<vec2> result;
-    int side = sqrt(amount);
+    int side = ceil(sqrt(amount));
     float interval = 1.0f / side;
     for (int x = 0; x < side; x++) {
         for (int y = 0; y < side; y++) {

@@ -15,16 +15,16 @@ Color Lambert::getColor() {
 }
 
 Color Lambert::computeReflection(Intersection & i, Ray & out) {
-    return color;
+    return color / pi;
 }
 
 vector<pair<Ray, Color>> Lambert::reflection(Intersection & intersection, int amount) {
     vector<pair<Ray, Color>> result;
-    for (int i = 0; i < amount; i++) {
-        vec2 r = Sampler::random2D();
-        float u = 2 * pi * r.x;
-        float v = sqrt(1 - r.y);
-        vec3 dir = vec3(v * cos(u), sqrt(r.y), v * sin(u));
+    vector<vec2> r = Sampler::jitter2D(amount);
+    for (int i = 0; i < r.size(); i++) {
+        float u = 2 * pi * r[i].x;
+        float v = sqrt(1 - r[i].y);
+        vec3 dir = vec3(v * cos(u), sqrt(r[i].y), v * sin(u));
         Ray ray = Ray(intersection.getPosition(), dir, intersection.getRay().getDepth() + 1);
         result.push_back(make_pair(ray, color / pi));
     }

@@ -1,8 +1,6 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include <type_traits>
-
 #include "util/Color.h"
 #include "util/Ray.h"
 #include "util/Intersection.h"
