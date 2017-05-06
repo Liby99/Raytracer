@@ -75,7 +75,7 @@ void BoundingBox::extend(vec3 v) {
 }
 
 void BoundingBox::extend(Object & object) {
-    extend(object.getBoundingBox());
+    extend(object.getBoundingBox(0));
 }
 
 void BoundingBox::extend(BoundingBox box) {
@@ -127,7 +127,7 @@ bool BoundingBox::intersect(Ray & ray, float & t) {
 }
 
 bool BoundingBox::intersect(Object & object) {
-    return intersect(object.getBoundingBox());
+    return intersect(object.getBoundingBox(0));
 }
 
 bool BoundingBox::intersect(BoundingBox box) {

@@ -100,6 +100,7 @@ public:
     void onRender(function<void(int, int, Color, float)> func);
     
     // Render Functions
+    virtual Image render(Scene & scene);
     virtual Image render(Scene & scene, float t);
 };
 

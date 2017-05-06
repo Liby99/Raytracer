@@ -1,4 +1,5 @@
 #include "animation/Animatable.h"
+#include "util/Math.h"
 
 template<typename T>
 Animatable<T>::Animatable() {}
@@ -99,3 +100,9 @@ T Animatable<T>::get(float t) {
         }
     }
 }
+
+template class Animatable<int>;
+template class Animatable<float>;
+template class Animatable<vec2>;
+template class Animatable<vec3>;
+template class Animatable<vec4>;

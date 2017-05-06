@@ -40,11 +40,11 @@ void Light::setCastShadow(bool castShadow) {
     this->castShadow = castShadow;
 }
 
-float Light::getBrightness(Scene & scene, Intersection & intersection) {
+float Light::getBrightness(Scene & scene, Intersection & intersection, float t) {
     return 0;
 }
 
-float Light::getBrightness(Scene & scene, Intersection & intersection, Ray & ray) {
+float Light::getBrightness(Scene & scene, Intersection & intersection, Ray & ray, float t) {
     return 0;
 }
 

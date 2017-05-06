@@ -40,7 +40,7 @@ void PointLight::setFallOff(vec3 fallOff) {
     this->fallOff = fallOff;
 }
 
-float PointLight::getBrightness(Scene & scene, Intersection & intersection) {
+float PointLight::getBrightness(Scene & scene, Intersection & intersection, float t) {
     
     // Setup basic parameters
     vec3 diff = position - intersection.getPosition();
@@ -54,7 +54,7 @@ float PointLight::getBrightness(Scene & scene, Intersection & intersection) {
         Intersection barrier = Intersection(ray);
         
         // Check shadow
-        if (scene.getIntersection(ray, barrier) && barrier.getDistanceToOrigin() < dist) {
+        if (scene.getIntersection(ray, barrier, t) && barrier.getDistanceToOrigin() < dist) {
             return 0;
         }
     }
@@ -63,8 +63,8 @@ float PointLight::getBrightness(Scene & scene, Intersection & intersection) {
     return calcBrightness(dist);
 }
 
-float PointLight::getBrightness(Scene & scene, Intersection & intersection, Ray & ray) {
-    return getBrightness(scene, intersection);
+float PointLight::getBrightness(Scene & scene, Intersection & intersection, Ray & ray, float t) {
+    return getBrightness(scene, intersection, t);
 }
 
 vec3 PointLight::getToLightDirection(Intersection & intersection) {

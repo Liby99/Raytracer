@@ -32,8 +32,8 @@ public:
     void setAngle(float angle);
     
     // Illuminate
-    virtual float getBrightness(Scene & scene, Intersection & intersection);
-    virtual float getBrightness(Scene & scene, Intersection & intersection, Ray & ray);
+    virtual float getBrightness(Scene & scene, Intersection & intersection, float t);
+    virtual float getBrightness(Scene & scene, Intersection & intersection, Ray & ray, float t);
     virtual vec3 getToLightDirection(Intersection & intersection);
     virtual vector<vec3> getToLightDirection(Intersection & intersection, int sampleAmount);
 };

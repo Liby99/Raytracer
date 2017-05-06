@@ -173,6 +173,10 @@ void Camera::onRender(function<void(int, int, Color, float)> func) {
     onRenderCallback = func;
 }
 
+Image Camera::render(Scene & scene) {
+    return render(scene, 0);
+}
+
 Image Camera::render(Scene & scene, float t) {
     
     // Setup image buffer
