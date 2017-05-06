@@ -11,7 +11,7 @@
 #include "image/Bitmap.h"
 
 int BOUNCE = 10;
-int SAMPLE_AMOUNT = 50;
+int SAMPLE_AMOUNT = 100;
 
 int main() {
     
@@ -82,7 +82,7 @@ int main() {
     
     // Render image
     Image image = cam.render(scn, 0.4);
-    Bitmap::saveImage(image, "p3s1.bmp");
+    Bitmap::saveImage(image, "p3s1_ec.bmp");
     
     cout << endl << "Render Time Elapsed: " << time(0) - curr << "s" << endl;
     
