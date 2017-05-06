@@ -129,6 +129,13 @@ vec2 Sampler::random2D() {
     return vec2(random(a), random(b));
 }
 
+vec2 Sampler::randomCircle() {
+    vec2 s = random2D();
+    float a = s.x * 2 * pi;
+    float r = sqrt(s.y);
+    return vec2(r * cos(a), r * sin(a));
+}
+
 vector<vec2> Sampler::random2D(int amount) {
     vector<vec2> result;
     for (int i = 0; i < amount; i++) {

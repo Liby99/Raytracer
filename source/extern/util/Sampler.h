@@ -49,6 +49,7 @@ public:
     static vector<vec2> shirleyUniform2D(int amount);
     
     static vec2 random2D();
+    static vec2 randomCircle();
     static vector<vec2> random2D(int amount);
     static vector<vec2> gaussianRandom2D(int amount);
     static vector<vec2> shirleyRandom2D(int amount);

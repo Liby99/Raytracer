@@ -27,6 +27,12 @@ Camera::Camera(vec3 position, vec3 focalPoint, vec3 up) {
     setSamplingMethod(Sampler::UNIFORM_SAMPLE);
     setWeightingMethod(Sampler::NO_WEIGHT);
     setSamplingAmount(1);
+    
+    // Depth of field related parameters
+    disableDepthOfFleld();
+    setAperture(0.01);
+    setFocalDistance(5);
+    setShutterSpeed(1.0f / 60.0f);
 }
 
 void Camera::lookAt(vec3 position, vec3 focalPoint) {
@@ -87,11 +93,15 @@ bool Camera::isSampling() {
 }
 
 void Camera::enableSampling() {
-    sampling = true;
+    setSampling(true);
 }
 
 void Camera::disableSampling() {
-    sampling = false;
+    setSampling(false);
+}
+
+void Camera::setSampling(bool sampling) {
+    this->sampling = sampling;
 }
 
 int Camera::getSamplingMethod() {
@@ -118,6 +128,46 @@ void Camera::setSamplingAmount(int amount) {
     this->samplingAmount = amount;
 }
 
+bool Camera::hasDepthOfField() {
+    return depthOfField;
+}
+
+void Camera::setDepthOfField(bool depthOfField) {
+    this->depthOfField = depthOfField;
+}
+
+void Camera::enableDepthOfField() {
+    setDepthOfField(true);
+}
+
+void Camera::disableDepthOfFleld() {
+    setDepthOfField(false);
+}
+
+float Camera::getFocalDistance() {
+    return focalDistance;
+}
+
+void Camera::setFocalDistance(float focalDistance) {
+    this->focalDistance = focalDistance;
+}
+
+float Camera::getAperture() {
+    return aperture;
+}
+
+void Camera::setAperture(float aperture) {
+    this->aperture = aperture;
+}
+
+float Camera::getShutterSpeed() {
+    return shutterSpeed;
+}
+
+void Camera::setShutterSpeed(float shutterSpeed) {
+    this->shutterSpeed = shutterSpeed;
+}
+
 void Camera::onRender(function<void(int, int, Color, float)> func) {
     hasOnRenderCallback = true;
     onRenderCallback = func;
@@ -141,6 +191,7 @@ Image Camera::render(Scene & scene) {
     float a = alphaMult / halfWidth;
     float b = betaMult / halfHeight;
     
+    // Callback related progress parameters
     unsigned int total = width * height;
     unsigned int step = 0;
     
@@ -149,39 +200,50 @@ Image Camera::render(Scene & scene) {
     for (int j = 0; j < height; j++) {
         for (int i = 0; i < width; i++) {
             
+            // Initiate the color and samples
             Color color;
-            
+            vector<vec2> samples;
             if (sampling) {
-                
-                vector<vec2> samples = getSample();
-                Color base = Color();
-                
-                #pragma omp parallel for
-                for (int k = 0; k < samples.size(); k++) {
-                    float alpha = a * (halfWidth - i + samples[k].x);
-                    float beta = b * (j - halfHeight + samples[k].y);
-                    vec3 dir = normalize(alpha * u + beta * v + w);
-                    Ray ray = Ray(position, dir);
-                    base += scene.getRayColor(ray);
-                }
-                base /= samples.size();
-                color = base;
+                samples = getSample();
             }
             else {
-                
-                // Generate the only ray
-                float alpha = a * (halfWidth - i + 0.5f);
-                float beta = b * (j - halfHeight + 0.5f);
-                vec3 dir = normalize(alpha * u + beta * v + w);
-                Ray ray = Ray(position, dir);
-                color = scene.getRayColor(ray);
+                samples.push_back(vec2(0.5, 0.5));
             }
             
+            #pragma omp parallel for
+            for (int k = 0; k < samples.size(); k++) {
+                
+                // First calculate the alpha and
+                float alpha = a * (halfWidth - i + samples[k].x);
+                float beta = b * (j - halfHeight + samples[k].y);
+                
+                // Initiate ray vectors
+                vec3 start = position;
+                vec3 dir = normalize(alpha * u + beta * v + w);
+                
+                // Calculate the depth of field related parameters
+                if (depthOfField) {
+                    
+                    // Randomize sampling point on aperture
+                    vec2 ap = Sampler::randomCircle() * aperture;
+                    start += u * ap.x + v * ap.y;
+                    
+                    // Recalculate the direction
+                    vec3 dest = position + focalDistance * dir;
+                    dir = normalize(dest - start);
+                }
+                
+                Ray ray = Ray(start, dir);
+                color += scene.getRayColor(ray);
+            }
+            
+            // Normalize the color
+            color /= samples.size();
             image.setPixel(i, j, color);
             
+            // Try callback
             #pragma omp atomic
             step++;
-            
             if (hasOnRenderCallback) {
                 #pragma omp critical
                 onRenderCallback(i, j, color, (float) step / total);

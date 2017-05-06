@@ -74,12 +74,25 @@ public:
     bool isSampling();
     void enableSampling();
     void disableSampling();
+    void setSampling(bool sampling);
     int getSamplingMethod();
     int getWeightingMethod();
     void setSamplingMethod(int method);
     void setWeightingMethod(int method);
     int getSamplingAmount();
     void setSamplingAmount(int amount);
+    
+    // Depth of field related getter and setters
+    bool hasDepthOfField();
+    void setDepthOfField(bool depthOfField);
+    void enableDepthOfField();
+    void disableDepthOfFleld();
+    float getFocalDistance();
+    void setFocalDistance(float focalDistance);
+    float getAperture();
+    void setAperture(float aperture);
+    float getShutterSpeed();
+    void setShutterSpeed(float shutterSpeed);
     
     void onRender(function<void(int, int, Color, float)> func);
     
