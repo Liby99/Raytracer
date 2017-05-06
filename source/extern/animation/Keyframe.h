@@ -12,7 +12,8 @@ public:
     void setValue(T value);
     int getFrame();
     T getValue();
-    bool operator<(Keyframe k);
+    bool operator<(Keyframe<T> k);
+    bool operator==(Keyframe<T> k);
 };
 
 #endif
