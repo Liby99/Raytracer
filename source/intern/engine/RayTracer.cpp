@@ -57,7 +57,7 @@ void RayTracer::setWeightingMethod(int weightingMethod) {
     this->weightingMethod = weightingMethod;
 }
 
-Color RayTracer::getColor(Intersection & intersection) {
+Color RayTracer::getColor(Intersection & intersection, float t) {
     
     // Prepare the variables
     Color color = Color::BLACK;
@@ -75,7 +75,7 @@ Color RayTracer::getColor(Intersection & intersection) {
         if (intersection.getRay().getDepth() < maxDepth) {
             vector<pair<Ray, Color>> reflections = mtl.reflection(intersection, sampleAmount);
             for (int i = 0; i < reflections.size(); i++) {
-                color += scene->getRayColor(reflections[i].first) * reflections[i].second;
+                color += scene->getRayColor(reflections[i].first, t) * reflections[i].second;
             }
         }
         

@@ -1,7 +1,7 @@
 #include "animation/Keyframe.h"
 
 template<typename T>
-Keyframe::Keyframe(int frame, T value) {
+Keyframe<T>::Keyframe(int frame, T value) {
     setFrame(frame);
     setValue(value);
 }

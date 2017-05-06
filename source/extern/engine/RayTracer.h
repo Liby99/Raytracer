@@ -45,7 +45,7 @@ public:
     void setWeightingMethod(int weightingMethod);
     
     //
-    virtual Color getColor(Intersection & intersection);
+    virtual Color getColor(Intersection & intersection, float t);
 };
 
 #endif

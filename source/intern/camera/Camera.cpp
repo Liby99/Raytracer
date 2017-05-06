@@ -173,7 +173,7 @@ void Camera::onRender(function<void(int, int, Color, float)> func) {
     onRenderCallback = func;
 }
 
-Image Camera::render(Scene & scene) {
+Image Camera::render(Scene & scene, float t) {
     
     // Setup image buffer
     Image image(width, height);
@@ -231,10 +231,13 @@ Image Camera::render(Scene & scene) {
                     // Recalculate the direction
                     vec3 dest = position + focalDistance * dir;
                     dir = normalize(dest - start);
+                    
+                    // Time sampling
+                    t += shutterSpeed * Sampler::random();
                 }
                 
                 Ray ray = Ray(start, dir);
-                color += scene.getRayColor(ray);
+                color += scene.getRayColor(ray, t);
             }
             
             // Normalize the color

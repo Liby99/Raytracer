@@ -14,6 +14,6 @@ Scene & RenderEngine::getScene() {
     return *scene;
 }
 
-Color RenderEngine::getColor(Intersection & intersection) {
+Color RenderEngine::getColor(Intersection & intersection, float t) {
     return Color();
 }
