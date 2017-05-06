@@ -54,6 +54,9 @@ int main() {
     cam.setSamplingMethod(Sampler::JITTER_SAMPLE);
     cam.setWeightingMethod(Sampler::SHIRLEY_WEIGHT);
     
+    cam.enableDepthOfField();
+    cam.setFocalDistance(0.5f);
+    
     time_t curr = time(0);
     cam.onRender([curr](int i, int j, Color c, float progress) {
         int barWidth = 80;
