@@ -66,11 +66,13 @@ public:
     vec3 getFocalPoint();
     vec3 getUp();
     
+    // Basic property setters
     void setResolution(int width, int height);
     void setWidth(int width);
     void setHeight(int height);
     void setFovy(float fovy);
     
+    // Sampling getter and setters
     bool isSampling();
     void enableSampling();
     void disableSampling();
@@ -94,6 +96,7 @@ public:
     float getShutterSpeed();
     void setShutterSpeed(float shutterSpeed);
     
+    // Render Listener Setter
     void onRender(function<void(int, int, Color, float)> func);
     
     // Render Functions

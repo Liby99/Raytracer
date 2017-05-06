@@ -48,21 +48,21 @@ void Scene::addObject(Object & object) {
     objects.push_back(&object);
 }
 
-bool Scene::getIntersection(Ray & ray, Intersection & intersection) {
+bool Scene::getIntersection(Ray & ray, Intersection & intersection, float t) {
     bool hit = false;
     #pragma omp parallel for
     for (int i = 0; i < objects.size(); i++) {
-        if (objects[i]->intersect(ray, intersection)) {
+        if (objects[i]->intersect(ray, intersection, t)) {
             hit = true;
         }
     }
     return hit;
 }
 
-Color Scene::getRayColor(Ray & ray) {
+Color Scene::getRayColor(Ray & ray, float t) {
     Intersection intersection = Intersection(ray);
-    if (getIntersection(ray, intersection)) {
-        return engine->getColor(intersection);
+    if (getIntersection(ray, intersection, t)) {
+        return engine->getColor(intersection, t);
     }
     else {
         return background;
