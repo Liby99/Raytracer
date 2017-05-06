@@ -8,6 +8,10 @@ private:
     T value;
 public:
     Keyframe(int frame, T value);
+    void setFrame(int frame);
+    void setValue(T value);
+    int getFrame();
+    T getValue();
     bool operator<(Keyframe k);
 };
 
