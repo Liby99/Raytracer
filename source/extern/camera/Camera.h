@@ -42,7 +42,9 @@ protected:
     bool depthOfField; // Whether we calculate the depth of field
     float focalDistance; // In meter
     float aperture; //
-    float shutterSpeed; // In second
+    
+    bool motionBlur;
+    float shutterSpeed; // In frame
     
     bool hasOnRenderCallback;
     function<void(int, int, Color, float)> onRenderCallback;
@@ -66,11 +68,13 @@ public:
     vec3 getFocalPoint();
     vec3 getUp();
     
+    // Basic property setters
     void setResolution(int width, int height);
     void setWidth(int width);
     void setHeight(int height);
     void setFovy(float fovy);
     
+    // Sampling getter and setters
     bool isSampling();
     void enableSampling();
     void disableSampling();
@@ -91,13 +95,21 @@ public:
     void setFocalDistance(float focalDistance);
     float getAperture();
     void setAperture(float aperture);
+    
+    // Motion Blur related getter and setters
+    bool hasMotionBlur();
+    void setMotionBlur(bool motionBlur);
+    void enableMotionBlur();
+    void disableMotionBlur();
     float getShutterSpeed();
     void setShutterSpeed(float shutterSpeed);
     
+    // Render Listener Setter
     void onRender(function<void(int, int, Color, float)> func);
     
     // Render Functions
     virtual Image render(Scene & scene);
+    virtual Image render(Scene & scene, float frame);
 };
 
 #endif

@@ -1,6 +1,7 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
+#include "animation/Animatable.h"
 #include "util/Transform.h"
 #include "util/Ray.h"
 #include "util/Intersection.h"
@@ -22,9 +23,9 @@ protected:
     
     // Transform properties
     bool transformed;
-    vec3 position;
-    vec3 scaler;
-    vec3 rotation;
+    Animatable<vec3> position;
+    Animatable<vec3> scaler;
+    Animatable<vec3> rotation;
     
     // Virtual Functions
     virtual bool updateIntersect(Ray & ray, Intersection & intersection);
@@ -45,9 +46,9 @@ public:
     void setBoundable(bool boundable);
     
     // Basic Getter
-    vec3 getRotation();
-    vec3 getScale();
-    vec3 getPosition();
+    vec3 getRotation(float t);
+    vec3 getScale(float t);
+    vec3 getPosition(float t);
     
     // Rotate Transformation
     void setRotate(vec3 rotation);
@@ -55,6 +56,10 @@ public:
     void rotateX(float degX);
     void rotateY(float degY);
     void rotateZ(float degZ);
+    void rotate(vec3 rotation, int t);
+    void rotateX(float degX, int t);
+    void rotateY(float degY, int t);
+    void rotateZ(float degZ, int t);
     
     // Translate Transformation
     void setTranslate(vec3 rotation);
@@ -62,6 +67,10 @@ public:
     void translateX(float x);
     void translateY(float y);
     void translateZ(float z);
+    void translate(vec3 position, int t);
+    void translateX(float x, int t);
+    void translateY(float y, int t);
+    void translateZ(float z, int t);
     
     // Scale Transformation
     void setScale(vec3 scaler);
@@ -69,14 +78,18 @@ public:
     void scaleX(float scaleX);
     void scaleY(float scaleY);
     void scaleZ(float scaleZ);
+    void scale(vec3 scaler, int t);
+    void scaleX(float scaleX, int t);
+    void scaleY(float scaleY, int t);
+    void scaleZ(float scaleZ, int t);
     
     // Get transformation helper method
-    mat4 getTransformMatrix();
+    mat4 getTransformMatrix(float t);
     
-    BoundingBox getBoundingBox();
+    BoundingBox getBoundingBox(float t);
     
     // Virtaul intersect method
-    bool intersect(Ray & ray, Intersection & intersection);
+    bool intersect(Ray & ray, Intersection & intersection, float t);
 };
 
 #endif

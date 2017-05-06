@@ -27,6 +27,7 @@ bool BoxTreeObject::updateIntersect(Ray & ray, Intersection & intersection) {
 BoxTreeObject::BoxTreeObject() : MeshObject() {}
 
 BoxTreeObject::BoxTreeObject(const char * filename) : MeshObject(filename) {
+    root = nullptr;
     constructTree();
 }
 

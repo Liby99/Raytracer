@@ -26,7 +26,7 @@ public:
     void setMaxDepth(int maxDepth);
     
     //
-    virtual Color getColor(Intersection & intersection);
+    virtual Color getColor(Intersection & intersection, float t);
 };
 
 #endif

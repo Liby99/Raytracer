@@ -12,7 +12,7 @@ void MeshObject::getCorner(vec3 minCorner, vec3 maxCorner) {
 bool MeshObject::updateIntersect(Ray & ray, Intersection & intersection) {
     bool hit = false;
     for (int i = 0; i < triangles.size(); i++) {
-        if (triangles[i]->intersect(ray, intersection)) {
+        if (triangles[i]->intersect(ray, intersection, 0)) {
             hit = true;
         }
     }

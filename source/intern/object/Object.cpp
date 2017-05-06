@@ -39,103 +39,214 @@ void Object::setMaterial(Material & material) {
     this->material = &material;
 }
 
-vec3 Object::getRotation() {
-    return rotation;
+vec3 Object::getRotation(float t) {
+    return rotation.get(t);
 }
 
-vec3 Object::getScale() {
-    return scaler;
+vec3 Object::getScale(float t) {
+    return scaler.get(t);
 }
 
-vec3 Object::getPosition() {
-    return position;
+vec3 Object::getPosition(float t) {
+    return position.get(t);
 }
 
 void Object::setRotate(vec3 rotation) {
-    this->rotation = rotation;
+    this->rotation.set(rotation);
     transformed = true;
 }
 
 void Object::rotate(vec3 rotation) {
-    this->rotation += rotation;
+    this->rotation.set([rotation] (vec3 & value) {
+        value += rotation;
+    });
     transformed = true;
 }
 
 void Object::rotateX(float degX) {
-    rotation.x += degX;
+    this->rotation.set([degX] (vec3 & value) {
+        value.x += degX;
+    });
     transformed = true;
 }
 
 void Object::rotateY(float degY) {
-    rotation.y += degY;
+    this->rotation.set([degY] (vec3 & value) {
+        value.y += degY;
+    });
     transformed = true;
 }
 
 void Object::rotateZ(float degZ) {
-    rotation.z += degZ;
+    this->rotation.set([degZ] (vec3 & value) {
+        value.z += degZ;
+    });
+    transformed = true;
+}
+
+void Object::rotate(vec3 rotation, int t) {
+    this->rotation.set(t, [rotation] (vec3 & value) {
+        value += rotation;
+    });
+    transformed = true;
+}
+
+void Object::rotateX(float degX, int t) {
+    this->rotation.set(t, [degX] (vec3 & value) {
+        value.x += degX;
+    });
+    transformed = true;
+}
+
+void Object::rotateY(float degY, int t) {
+    this->rotation.set(t, [degY] (vec3 & value) {
+        value.y += degY;
+    });
+    transformed = true;
+}
+
+void Object::rotateZ(float degZ, int t) {
+    this->rotation.set(t, [degZ] (vec3 & value) {
+        value.z += degZ;
+    });
     transformed = true;
 }
 
 void Object::setTranslate(vec3 translate) {
-    this->position = translate;
+    this->position.set(translate);
     transformed = true;
 }
 
 void Object::translate(vec3 translate) {
-    this->position += translate;
+    this->position.set([translate] (vec3 & value) {
+        value += translate;
+    });
     transformed = true;
 }
 
 void Object::translateX(float x) {
-    position.x += x;
+    this->position.set([x] (vec3 & value) {
+        value.x += x;
+    });
     transformed = true;
 }
 
 void Object::translateY(float y) {
-    position.y += y;
+    this->position.set([y] (vec3 & value) {
+        value.y += y;
+    });
     transformed = true;
 }
 
 void Object::translateZ(float z) {
-    position.z += z;
+    this->position.set([z] (vec3 & value) {
+        value.z += z;
+    });
+    transformed = true;
+}
+
+void Object::translate(vec3 translate, int t) {
+    this->position.set(t, [translate] (vec3 & value) {
+        value += translate;
+    });
+    transformed = true;
+}
+
+void Object::translateX(float x, int t) {
+    this->position.set(t, [x] (vec3 & value) {
+        value.x += x;
+    });
+    transformed = true;
+}
+
+void Object::translateY(float y, int t) {
+    this->position.set(t, [y] (vec3 & value) {
+        value.y += y;
+    });
+    transformed = true;
+}
+
+void Object::translateZ(float z, int t) {
+    this->position.set(t, [z] (vec3 & value) {
+        value.z += z;
+    });
     transformed = true;
 }
 
 void Object::setScale(vec3 scaler) {
-    this->scaler = scaler;
+    this->scaler.set(scaler);
     transformed = true;
 }
 
 void Object::scale(vec3 scaler) {
-    this->scaler *= scaler;
+    this->scaler.set([scaler] (vec3 & value) {
+        value *= scaler;
+    });
     transformed = true;
 }
 
 void Object::scaleX(float scaleX) {
-    scaler.x *= scaleX;
+    this->scaler.set([scaleX] (vec3 & value) {
+        value.x *= scaleX;
+    });
     transformed = true;
 }
 
 void Object::scaleY(float scaleY) {
-    scaler.y *= scaleY;
+    this->scaler.set([scaleY] (vec3 & value) {
+        value.y *= scaleY;
+    });
     transformed = true;
 }
 
 void Object::scaleZ(float scaleZ) {
-    scaler.z *= scaleZ;
+    this->scaler.set([scaleZ] (vec3 & value) {
+        value.z *= scaleZ;
+    });
     transformed = true;
 }
 
-mat4 Object::getTransformMatrix() {
-    mat4 scale = Transform::scale(scaler.x, scaler.y, scaler.z);
-    mat4 translate = Transform::translate(position.x, position.y, position.z);
-    mat4 rotationX = Transform::rotate(rotation.x, vec3(1, 0, 0));
-    mat4 rotationY = Transform::rotate(rotation.y, vec3(0, 1, 0));
-    mat4 rotationZ = Transform::rotate(rotation.z, vec3(0, 0, 1));
+void Object::scale(vec3 scaler, int t) {
+    this->scaler.set(t, [scaler] (vec3 & value) {
+        value *= scaler;
+    });
+    transformed = true;
+}
+
+void Object::scaleX(float scaleX, int t) {
+    this->scaler.set(t, [scaleX] (vec3 & value) {
+        value.x *= scaleX;
+    });
+    transformed = true;
+}
+
+void Object::scaleY(float scaleY, int t) {
+    this->scaler.set(t, [scaleY] (vec3 & value) {
+        value.y *= scaleY;
+    });
+    transformed = true;
+}
+
+void Object::scaleZ(float scaleZ, int t) {
+    this->scaler.set(t, [scaleZ] (vec3 & value) {
+        value.z *= scaleZ;
+    });
+    transformed = true;
+}
+
+mat4 Object::getTransformMatrix(float t) {
+    vec3 sc = this->scaler.get(t);
+    vec3 tr = this->position.get(t);
+    vec3 ro = this->rotation.get(t);
+    mat4 scale = Transform::scale(sc.x, sc.y, sc.z);
+    mat4 translate = Transform::translate(tr.x, tr.y, tr.z);
+    mat4 rotationX = Transform::rotate(ro.x, vec3(1, 0, 0));
+    mat4 rotationY = Transform::rotate(ro.y, vec3(0, 1, 0));
+    mat4 rotationZ = Transform::rotate(ro.z, vec3(0, 0, 1));
     return translate * rotationZ * rotationY * rotationX * scale;
 }
 
-BoundingBox Object::getBoundingBox() {
+BoundingBox Object::getBoundingBox(float t) {
     
     // Get all the vertices (approximatly 8) to find the bounding box
     vector<vec3> vertices = getBoundingVertices();
@@ -153,7 +264,7 @@ BoundingBox Object::getBoundingBox() {
         if (transformed) {
         
             // First cache the matrix
-            mat4 m = getTransformMatrix();
+            mat4 m = getTransformMatrix(t);
             
             // Iterate through
             for (int i = 0; i < vertices.size(); i++) {
@@ -176,10 +287,10 @@ BoundingBox Object::getBoundingBox() {
     }
 }
 
-bool Object::intersect(Ray & ray, Intersection & intersection) {
-    Ray transfRay = ray.inverseTransform(getTransformMatrix());
+bool Object::intersect(Ray & ray, Intersection & intersection, float t) {
+    Ray transfRay = ray.inverseTransform(getTransformMatrix(t));
     if (updateIntersect(transfRay, intersection)) {
-        intersection.transform(getTransformMatrix());
+        intersection.transform(getTransformMatrix(t));
         intersection.setObject(*this);
         return true;
     }

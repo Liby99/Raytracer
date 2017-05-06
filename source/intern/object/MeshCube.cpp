@@ -42,7 +42,7 @@ void MeshCube::reconstruct() {
 }
 
 bool MeshCube::updateIntersect(Ray & ray, Intersection & intersection) {
-    return mesh.intersect(ray, intersection);
+    return mesh.intersect(ray, intersection, 0);
 }
 
 vector<vec3> MeshCube::getBoundingVertices() {

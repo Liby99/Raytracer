@@ -1,4 +1,5 @@
 #include "animation/Keyframe.h"
+#include "util/Math.h"
 
 template<typename T>
 Keyframe<T>::Keyframe(int frame, T value) {
@@ -22,7 +23,7 @@ int Keyframe<T>::getFrame() {
 }
 
 template<typename T>
-T Keyframe<T>::getValue() {
+T & Keyframe<T>::getValue() {
     return value;
 }
 
@@ -35,3 +36,9 @@ template<typename T>
 bool Keyframe<T>::operator==(Keyframe<T> k) {
     return frame == k.frame;
 }
+
+template class Keyframe<int>;
+template class Keyframe<float>;
+template class Keyframe<vec2>;
+template class Keyframe<vec3>;
+template class Keyframe<vec4>;

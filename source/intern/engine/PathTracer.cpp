@@ -20,7 +20,7 @@ void PathTracer::setMaxDepth(int maxDepth) {
     this->maxDepth = maxDepth;
 }
 
-Color PathTracer::getColor(Intersection & intersection) {
+Color PathTracer::getColor(Intersection & intersection, float t) {
     
     Color color = Color::BLACK;
     if (intersection.getObject().hasMaterial()) {
@@ -36,7 +36,7 @@ Color PathTracer::getColor(Intersection & intersection) {
         if (intersection.getRay().getDepth() < maxDepth) {
             vector<pair<Ray, Color>> reflections = mtl.reflection(intersection, 1);
             if (reflections.size() > 0) {
-                color += scene->getRayColor(reflections[0].first) * reflections[0].second;
+                color += scene->getRayColor(reflections[0].first, t) * reflections[0].second;
             }
         }
         
@@ -52,7 +52,7 @@ Color PathTracer::getColor(Intersection & intersection) {
             Ray toLight = Ray(intersection.getPosition(), dir);
             
             // Calculate the brightness of the intersection by the light
-            float brightness = light.getBrightness(*scene, intersection, toLight);
+            float brightness = light.getBrightness(*scene, intersection, toLight, t);
             if (brightness > 0.0f) {
                 
                 // Then calculate the reflection color to that light

@@ -30,22 +30,22 @@ void SpotLight::setAngle(float angle) {
     this->angle = angle;
 }
 
-float SpotLight::getBrightness(Scene & scene, Intersection & intersection) {
+float SpotLight::getBrightness(Scene & scene, Intersection & intersection, float t) {
     
     vec3 itsDir = normalize(intersection.getPosition() - position);
     vec3 lgtDir = normalize(target - position);
     float deg = glm::degrees(glm::acos(dot(itsDir, lgtDir)));
     
     if (deg > 0 && deg < angle / 2) {
-        return PointLight::getBrightness(scene, intersection);
+        return PointLight::getBrightness(scene, intersection, t);
     }
     else {
         return 0;
     }
 }
 
-float SpotLight::getBrightness(Scene & scene, Intersection & intersection, Ray & ray) {
-    return getBrightness(scene, intersection);
+float SpotLight::getBrightness(Scene & scene, Intersection & intersection, Ray & ray, float t) {
+    return getBrightness(scene, intersection, t);
 }
 
 vec3 SpotLight::getToLightDirection(Intersection & intersection) {

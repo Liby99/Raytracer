@@ -4,6 +4,10 @@
 #include "animation/Keyframe.h"
 
 #include <map>
+<<<<<<< HEAD
+=======
+#include <functional>
+>>>>>>> animation
 
 using namespace std;
 
@@ -15,7 +19,11 @@ private:
     int startFrame;
     int endFrame;
     T value;
+<<<<<<< HEAD
     map<int, Keyframe<T> *> keys;
+=======
+    map<float, Keyframe<T> *> keys;
+>>>>>>> animation
     
 public:
     
@@ -30,7 +38,14 @@ public:
     bool removeKeyframe(int frame);
     
     //
+<<<<<<< HEAD
     bool set(T value);
+=======
+    void set(T value);
+    void set(function<void(T &)> lambda);
+    void set(int frame, T value);
+    void set(int frame, function<void(T &)> lambda);
+>>>>>>> animation
     T get(float frame);
 };
 

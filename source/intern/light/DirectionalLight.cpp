@@ -23,7 +23,7 @@ void DirectionalLight::setDirection(vec3 direction) {
     this->direction = normalize(direction);
 }
 
-float DirectionalLight::getBrightness(Scene & scene, Intersection & intersection) {
+float DirectionalLight::getBrightness(Scene & scene, Intersection & intersection, float t) {
     
     // Chcek cast shadow
     if (castShadow) {
@@ -33,7 +33,7 @@ float DirectionalLight::getBrightness(Scene & scene, Intersection & intersection
         Intersection barrier = Intersection(ray);
         
         // Check shadow
-        if (scene.getIntersection(ray, barrier)) {
+        if (scene.getIntersection(ray, barrier, t)) {
             return 0;
         }
     }
@@ -42,8 +42,8 @@ float DirectionalLight::getBrightness(Scene & scene, Intersection & intersection
     return intensity;
 }
 
-float DirectionalLight::getBrightness(Scene & scene, Intersection & intersection, Ray & ray) {
-    return getBrightness(scene, intersection);
+float DirectionalLight::getBrightness(Scene & scene, Intersection & intersection, Ray & ray, float t) {
+    return getBrightness(scene, intersection, t);
 }
 
 vec3 DirectionalLight::getToLightDirection(Intersection & intersection) {

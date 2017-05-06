@@ -12,7 +12,7 @@ public:
     RenderEngine(Scene & scene);
     void setScene(Scene & scene);
     Scene & getScene();
-    virtual Color getColor(Intersection & intersection);
+    virtual Color getColor(Intersection & intersection, float t);
 };
 
 #endif

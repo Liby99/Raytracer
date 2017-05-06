@@ -11,7 +11,7 @@
 #include "image/Bitmap.h"
 
 int BOUNCE = 10;
-int SAMPLE_AMOUNT = 25;
+int SAMPLE_AMOUNT = 50;
 
 int main() {
     
@@ -38,6 +38,12 @@ int main() {
         insts[i] = new InstanceObject(dragon);
         insts[i]->translateZ(0.3f * (float(i) / float(3) - 0.5f));
         insts[i]->setMaterial(*mtls[i]);
+        
+        // Animation
+        insts[i]->translateX(-(i / 8.0f), 0);
+        insts[i]->translateX(i / 4.0f, 1);
+        // Animation
+        
         scn.addObject(*insts[i]);
     }
     
@@ -57,6 +63,9 @@ int main() {
     cam.enableDepthOfField();
     cam.setFocalDistance(0.5f);
     
+    cam.enableMotionBlur();
+    cam.setShutterSpeed(0.2);
+    
     time_t curr = time(0);
     cam.onRender([curr](int i, int j, Color c, float progress) {
         int barWidth = 80;
@@ -72,7 +81,7 @@ int main() {
     });
     
     // Render image
-    Image image = cam.render(scn);
+    Image image = cam.render(scn, 0.4);
     Bitmap::saveImage(image, "p3s1.bmp");
     
     cout << endl << "Render Time Elapsed: " << time(0) - curr << "s" << endl;
