@@ -98,7 +98,7 @@ Color RayTracer::getColor(Intersection & intersection, float t) {
                     
                     // Get the brightness from that direction
                     Ray toLight = Ray(intersection.getPosition(), dirs[j]);
-                    float brightness = light.getBrightness(*scene, intersection, toLight);
+                    float brightness = light.getBrightness(*scene, intersection, toLight, t);
                     if (brightness > 0.0f) {
                         
                         // If brightness is greater than 0, then calculate the reflectance on that

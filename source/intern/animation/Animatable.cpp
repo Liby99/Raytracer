@@ -1,6 +1,8 @@
 #include "animation/Animatable.h"
 #include "util/Math.h"
 
+using namespace std;
+
 template<typename T>
 Animatable<T>::Animatable() {}
 
@@ -78,6 +80,16 @@ T Animatable<T>::get(float t) {
         return value;
     }
     else {
+        
+        // First check if the keyframe exists
+        if (t == floor(t)) {
+            auto it = keys.find(t);
+            if (it != keys.end()) {
+                return it->second->getValue();
+            }
+        }
+        
+        // Then
         auto lit = keys.lower_bound(t);
         if (lit == keys.begin()) {
             return value;

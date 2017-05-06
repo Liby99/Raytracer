@@ -32,7 +32,7 @@ Camera::Camera(vec3 position, vec3 focalPoint, vec3 up) {
     disableDepthOfFleld();
     setAperture(0.01);
     setFocalDistance(5);
-    setShutterSpeed(1.0f / 60.0f);
+    setShutterSpeed(0.0001);
 }
 
 void Camera::lookAt(vec3 position, vec3 focalPoint) {
@@ -160,6 +160,22 @@ void Camera::setAperture(float aperture) {
     this->aperture = aperture;
 }
 
+bool Camera::hasMotionBlur() {
+    return motionBlur;
+}
+
+void Camera::setMotionBlur(bool motionBlur) {
+    this->motionBlur = motionBlur;
+}
+
+void Camera::enableMotionBlur() {
+    setMotionBlur(true);
+}
+
+void Camera::disableMotionBlur() {
+    setMotionBlur(false);
+}
+
 float Camera::getShutterSpeed() {
     return shutterSpeed;
 }
@@ -177,7 +193,7 @@ Image Camera::render(Scene & scene) {
     return render(scene, 0);
 }
 
-Image Camera::render(Scene & scene, float t) {
+Image Camera::render(Scene & scene, float frame) {
     
     // Setup image buffer
     Image image(width, height);
@@ -220,6 +236,7 @@ Image Camera::render(Scene & scene, float t) {
                 // First calculate the alpha and
                 float alpha = a * (halfWidth - i + samples[k].x);
                 float beta = b * (j - halfHeight + samples[k].y);
+                float t = frame;
                 
                 // Initiate ray vectors
                 vec3 start = position;
@@ -235,11 +252,14 @@ Image Camera::render(Scene & scene, float t) {
                     // Recalculate the direction
                     vec3 dest = position + focalDistance * dir;
                     dir = normalize(dest - start);
-                    
-                    // Time sampling
+                }
+                
+                // Calulate the motion blur time sample
+                if (motionBlur) {
                     t += shutterSpeed * Sampler::random();
                 }
                 
+                // Shoot out the ray and get the color from scene
                 Ray ray = Ray(start, dir);
                 color += scene.getRayColor(ray, t);
             }

@@ -16,7 +16,7 @@ private:
     int startFrame;
     int endFrame;
     T value;
-    map<int, Keyframe<T> *> keys;
+    map<float, Keyframe<T> *> keys;
     
 public:
     

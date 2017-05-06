@@ -52,7 +52,7 @@ Color PathTracer::getColor(Intersection & intersection, float t) {
             Ray toLight = Ray(intersection.getPosition(), dir);
             
             // Calculate the brightness of the intersection by the light
-            float brightness = light.getBrightness(*scene, intersection, toLight);
+            float brightness = light.getBrightness(*scene, intersection, toLight, t);
             if (brightness > 0.0f) {
                 
                 // Then calculate the reflection color to that light
