@@ -12,10 +12,10 @@ template <typename T>
 class Animatable {
 private:
     
-    //
-    int startFrame;
-    int endFrame;
+    // Default value if there's no keyframe
     T value;
+    
+    // Frame (in float) and keyframe mapping
     map<float, Keyframe<T> *> keys;
     
 public:
