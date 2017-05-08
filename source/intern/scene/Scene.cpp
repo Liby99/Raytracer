@@ -30,6 +30,9 @@ Light & Scene::getLight(int i) {
 
 void Scene::addLight(Light & light) {
     lights.push_back(&light);
+    if (Object * o = dynamic_cast<Object *>(&light)) {
+        addObject(*o);
+    }
 }
 
 bool Scene::hasObject() {

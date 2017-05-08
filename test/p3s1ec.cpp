@@ -40,7 +40,7 @@ int main() {
         insts[i]->setMaterial(*mtls[i]);
         
         // Animation
-        insts[i]->translateX(-(i / 8.0f), 0);
+        insts[i]->translateX(-i / 8.0f, 0);
         insts[i]->translateX(i / 4.0f, 1);
         // Animation
         

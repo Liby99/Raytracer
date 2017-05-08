@@ -17,7 +17,7 @@ protected:
     vec3 fallOff;
     
     // Helper method for getting brightness
-    float calcBrightness(float distance) ;
+    float calcBrightness(float distance);
     
 public:
     
@@ -35,10 +35,8 @@ public:
     void setFallOff(vec3 fallOff);
     
     // Inherited brightness and tolight
-    virtual float getBrightness(Scene & scene, Intersection & intersection, float t);
     virtual float getBrightness(Scene & scene, Intersection & intersection, Ray & ray, float t);
-    virtual vec3 getToLightDirection(Intersection & intersection);
-    virtual vector<vec3> getToLightDirection(Intersection & intersection, int sampleAmount);
+    virtual vector<vec3> getToLightDirection(Intersection & intersection, int sampleAmount, float t);
 };
 
 #endif

@@ -41,10 +41,6 @@ public:
     Material & getMaterial();
     void setMaterial(Material & material);
     
-    // Boundable setting
-    bool isBoundable();
-    void setBoundable(bool boundable);
-    
     // Basic Getter
     vec3 getRotation(float t);
     vec3 getScale(float t);

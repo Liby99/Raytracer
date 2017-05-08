@@ -11,5 +11,5 @@ vector<pair<Ray, Color>> Material::reflection(Intersection & i, int amount) {
 }
 
 Color Material::emission() {
-    return Color();
+    return Color::BLACK;
 }

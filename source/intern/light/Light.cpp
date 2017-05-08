@@ -1,5 +1,8 @@
 #include "light/Light.h"
 
+#include <iostream>
+using namespace std;
+
 const Color Light::DEFAULT_COLOR = Color::WHITE;
 const float Light::DEFAULT_INTENSITY = 1;
 const bool Light::DEFAULT_CAST_SHADOW = false;
@@ -40,18 +43,10 @@ void Light::setCastShadow(bool castShadow) {
     this->castShadow = castShadow;
 }
 
-float Light::getBrightness(Scene & scene, Intersection & intersection, float t) {
-    return 0;
-}
-
 float Light::getBrightness(Scene & scene, Intersection & intersection, Ray & ray, float t) {
     return 0;
 }
 
-vec3 Light::getToLightDirection(Intersection & intersection) {
-    return vec3(0, 0, 0);
-}
-
-vector<vec3> Light::getToLightDirection(Intersection & intersection, int sampleAmount) {
+vector<vec3> Light::getToLightDirection(Intersection & intersection, int sampleAmount, float t) {
     return vector<vec3>();
 }

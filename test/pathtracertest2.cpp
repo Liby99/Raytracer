@@ -5,7 +5,7 @@
 #include "material/Lambert.h"
 #include "object/Cube.h"
 #include "object/InstanceObject.h"
-#include "light/PointLight.h"
+#include "light/AreaLight.h"
 #include "light/DirectionalLight.h"
 #include "object/Plane.h"
 #include "image/Bitmap.h"
@@ -60,10 +60,13 @@ int main() {
     scn.addObject(flr);
     scn.addObject(cel);
 
-    PointLight lgt;
-    lgt.setColor(Color::WHITE);
-    lgt.setIntensity(5);
-    lgt.setPosition(vec3(0, 2.3, 0));
+    AreaLight lgt;
+    lgt.setWidth(0.5);
+    lgt.setHeight(0.5);
+    // lgt.setColor(Color::WHITE);
+    lgt.setIntensity(2);
+    lgt.translateY(2.3);
+    // lgt.setPosition(vec3(0, 2.3, 0));
     lgt.setCastShadow(true);
     scn.addLight(lgt);
 
@@ -74,9 +77,9 @@ int main() {
     cam.setFovy(75.0f);
     
     cam.enableSampling();
-    cam.setSamplingAmount(1);
-    cam.setSamplingMethod(Sampler::UNIFORM_SAMPLE);
-    cam.setWeightingMethod(Sampler::NO_WEIGHT);
+    cam.setSamplingAmount(4);
+    cam.setSamplingMethod(Sampler::JITTER_SAMPLE);
+    cam.setWeightingMethod(Sampler::SHIRLEY_WEIGHT);
     
     time_t curr = time(0);
     cam.onRender([curr](int i, int j, Color c, float progress) {
@@ -91,10 +94,10 @@ int main() {
         cout << "] " << int(progress * 100.0) << "%, (" << time(0) - curr << "s)\r";
         cout.flush();
     });
-
+    
     // Render image
     Image image = cam.render(scn);
-    Bitmap::saveImage(image, "p3_test_2.bmp");
+    Bitmap::saveImage(image, "p3_test_4.bmp");
     
     cout << endl << "Total Time Elapsed: " << time(0) - curr << "s" << endl;
     return 0;

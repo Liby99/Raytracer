@@ -31,18 +31,16 @@ public:
     Light(Color c);
     
     // Color related setter getter
-    Color getColor();
-    void setColor(Color color);
-    float getIntensity();
-    void setIntensity(float intensity);
+    virtual Color getColor();
+    virtual void setColor(Color color);
+    virtual float getIntensity();
+    virtual void setIntensity(float intensity);
     bool getCastShadow();
     void setCastShadow(bool castShadow);
     
     // Illuminate
-    virtual float getBrightness(Scene & scene, Intersection & intersection, float t);
     virtual float getBrightness(Scene & scene, Intersection & intersection, Ray & ray, float t);
-    virtual vec3 getToLightDirection(Intersection & intersection);
-    virtual vector<vec3> getToLightDirection(Intersection & intersection, int sampleAmount);
+    virtual vector<vec3> getToLightDirection(Intersection & intersection, int sampleAmount, float t);
 };
 
 #endif
