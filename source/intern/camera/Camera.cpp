@@ -223,12 +223,8 @@ Image Camera::render(Scene & scene, float frame) {
             // Initiate the color and samples
             Color color;
             vector<vec2> samples;
-            if (sampling) {
-                samples = getSample();
-            }
-            else {
-                samples.push_back(vec2(0.5, 0.5));
-            }
+            if (sampling) samples = getSample();
+            else samples.push_back(vec2(0.5, 0.5));
             
             #pragma omp parallel for
             for (int k = 0; k < samples.size(); k++) {
@@ -246,7 +242,7 @@ Image Camera::render(Scene & scene, float frame) {
                 if (depthOfField) {
                     
                     // Randomize sampling point on aperture
-                    vec2 ap = Sampler::randomCircle() * aperture;
+                    vec2 ap = Sampler::randomCircle() * aperture / 2.0f;
                     start += u * ap.x + v * ap.y;
                     
                     // Recalculate the direction
