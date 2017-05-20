@@ -40,8 +40,8 @@ int main() {
         insts[i]->setMaterial(*mtls[i]);
         
         // Animation
-        insts[i]->translateX(-(i / 8.0f), 0);
-        insts[i]->translateX(i / 4.0f, 1);
+        // insts[i]->translateX(-(i / 8.0f), 0);
+        // insts[i]->translateX(i / 4.0f, 1);
         // Animation
         
         scn.addObject(*insts[i]);
@@ -61,6 +61,7 @@ int main() {
     cam.setWeightingMethod(Sampler::SHIRLEY_WEIGHT);
     
     cam.enableDepthOfField();
+    cam.setAperture(0.3);
     cam.setFocalDistance(0.5f);
     
     time_t curr = time(0);
@@ -78,7 +79,7 @@ int main() {
     });
     
     // Render image
-    Image image = cam.render(scn, 0.4);
+    Image image = cam.render(scn, 0);
     Bitmap::saveImage(image, "p3s1_ec_dof.bmp");
     
     cout << endl << "Render Time Elapsed: " << time(0) - curr << "s" << endl;
