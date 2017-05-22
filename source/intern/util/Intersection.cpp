@@ -50,8 +50,25 @@ vec3 Intersection::getNormal() {
     return normal;
 }
 
+vec3 Intersection::getTangentU() {
+    return tangentU;
+}
+
+vec3 Intersection::getTangentV() {
+    return tangentV;
+}
+
 void Intersection::setNormal(vec3 normal) {
+    
+    // First set up normal vector
     this->normal = normalize(normal);
+    
+    // Then set Tangent UV
+    tangentU = cross(vec3(0, 1, 0), normal);
+    if (length(tangentU) < 0.0001) {
+        tangentU = cross(vec3(1, 0, 0), normal);
+    }
+    tangentV = cross(normal, tangentU);
 }
 
 float Intersection::getDistanceToOrigin() {
