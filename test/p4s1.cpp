@@ -1,5 +1,12 @@
 #include "scene/Scene.h"
-#include ""
+#include "material/Ashikhmin.h"
+#include "material/Lambert.h"
+#include "object/BoxTreeObject.h"
+#include "object/InstanceObject.h"
+#include "object/Cube.h"
+#include "light/DirectionalLight.h"
+#include "camera/Camera.h"
+#include "image/Bitmap.h"
 
 int main() {
 
@@ -7,75 +14,79 @@ int main() {
     scn.setBackgroundColor(rgb(0.8f, 0.9f, 1.0f));
     
     // Materials
-    const int nummtls=4;
+    const int nummtls = 4;
     Ashikhmin mtl[nummtls];
     
     // Diffuse
-    mtl[0].SetSpecularLevel(0.0f);
-    mtl[0].SetDiffuseLevel(1.0f);
-    mtl[0].SetDiffuseColor(Color(0.7f,0.7f,0.7f));
+    mtl[0].setSpecularLevel(0.0f);
+    mtl[0].setDiffuseLevel(1.0f);
+    mtl[0].setDiffuseColor(Color(0.7f, 0.7f, 0.7f));
     
     // Roughened copper
-    mtl[1].SetDiffuseLevel(0.0f);
-    mtl[1].SetSpecularLevel(1.0f);
-    mtl[1].SetSpecularColor(Color(0.9f,0.6f,0.5f));
-    mtl[1].SetRoughness(100.0f,100.0f);
+    mtl[1].setDiffuseLevel(0.0f);
+    mtl[1].setSpecularLevel(1.0f);
+    mtl[1].setSpecularColor(Color(0.9f, 0.6f, 0.5f));
+    mtl[1].setRoughness(100.0f, 100.0f);
     
     // Anisotropic gold
-    mtl[2].SetDiffuseLevel(0.0f);
-    mtl[2].SetSpecularLevel(1.0f);
-    mtl[2].SetSpecularColor(Color(0.95f,0.7f,0.3f));
-    mtl[2].SetRoughness(1.0f,1000.0f);
+    mtl[2].setDiffuseLevel(0.0f);
+    mtl[2].setSpecularLevel(1.0f);
+    mtl[2].setSpecularColor(Color(0.95f,0.7f,0.3f));
+    mtl[2].setRoughness(1.0f, 1000.0f);
     
     // Red plastic
-    mtl[3].SetDiffuseColor(Color(1.0f,0.1f,0.1f));
-    mtl[3].SetDiffuseLevel(0.8f);
-    mtl[3].SetSpecularLevel(0.2f);
-    mtl[3].SetSpecularColor(Color(1.0f,1.0f,1.0f));
-    mtl[3].SetRoughness(1000.0f,1000.0f);
-    
-    // Load dragon mesh
-    MeshObject dragon;
-    dragon.LoadPLY("dragon.ply");
+    mtl[3].setDiffuseColor(Color(1.0f,0.1f,0.1f));
+    mtl[3].setDiffuseLevel(0.8f);
+    mtl[3].setSpecularLevel(0.2f);
+    mtl[3].setSpecularColor(Color(1.0f,1.0f,1.0f));
+    mtl[3].setRoughness(1000.0f, 1000.0f);
     
     // Create box tree
-    BoxTreeObject tree;
-    tree.Construct(dragon);
+    BoxTreeObject dragon = BoxTreeObject("res/dragon.ply");
     
     // Create dragon instances
-    glm::mat4 mtx;
-    for(int i=0; i<nummtls; i++) {
-        InstanceObject *inst=new InstanceObject(tree);
-        mtx[3]=glm::vec4(0.0f,0.0f,-0.1f*float(i),1.0f);
-        inst->SetMatrix(mtx);
-        inst->SetMaterial(&mtl[i]);
-        scn.AddObject(*inst);
+    for (int i = 0; i < nummtls; i++) {
+        InstanceObject * inst = new InstanceObject(dragon);
+        inst->translateZ(-0.1f * float(i));
+        inst->setMaterial(mtl[i]);
+        scn.addObject(*inst);
     }
     
     // Create ground
-    LambertMaterial lambert;
-    lambert.SetDiffuseColor(Color(0.3f,0.3f,0.35f));
-    MeshObject ground;
-    ground.MakeBox(2.0f,0.11f,2.0f,&lambert);
-    scn.AddObject(ground);
+    Lambert lambert;
+    lambert.setColor(Color(0.3f, 0.3f, 0.35f));
+    Cube ground = Cube(2.0f, 0.11f, 2.0f);
+    ground.setMaterial(lambert);
+    scn.addObject(ground);
     
     // Create lights
-    DirectLight sunlgt;
-    sunlgt.SetBaseColor(Color(1.0f, 1.0f, 0.9f));
-    sunlgt.SetIntensity(1.0f);
-    sunlgt.SetDirection(glm::vec3 (2.0f, -3.0f, -2.0f));
-    scn.AddLight(sunlgt);
+    DirectionalLight sunlgt = DirectionalLight(Color(1.0f, 1.0f, 0.9f), vec3(2.0f, -3.0f, -2.0f));
+    scn.addLight(sunlgt);
     
     // Create camera
     Camera cam;
-    cam.LookAt(glm::vec3(-0.5f,0.25f,-0.2f), glm::vec3(0.0f,0.15f,-0.15f));
-    cam.SetFOV(40.0f);
-    cam.SetAspect(1.33f);
-    cam.SetResolution(800,600);
-    cam.SetSuperSample(10,10);
-    cam.SetJitter(true);
-    cam.SetShirley(true);
+    cam.lookAt(vec3(-0.5f, 0.25f, -0.2f), vec3(0.0f, 0.15f, -0.15f));
+    cam.setFovy(40.0f);
+    cam.setResolution(800, 600);
+    cam.setSamplingAmount(9);
+    cam.setSamplingMethod(Sampler::JITTER_SAMPLE);
+    cam.setWeightingMethod(Sampler::SHIRLEY_WEIGHT);
+    
+    time_t curr = time(0);
+    cam.onRender([curr](int i, int j, Color c, float progress) {
+        int barWidth = 80;
+        cout << "[";
+        int pos = barWidth * progress;
+        for (int i = 0; i < barWidth; ++i) {
+            if (i < pos) std::cout << "=";
+            else if (i == pos) std::cout << ">";
+            else std::cout << " ";
+        }
+        cout << "] " << int(progress * 100.0) << "%, (" << time(0) - curr << "s)\r";
+        cout.flush();
+    });
     
     // Render image
-    cam.Render(scn);
+    Image image = cam.render(scn);
+    Bitmap::saveImage(image, "p3s1.bmp");
 }
