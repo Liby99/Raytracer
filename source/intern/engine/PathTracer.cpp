@@ -34,10 +34,10 @@ Color PathTracer::getColor(Intersection & intersection, float t) {
         
         // Calculate the Reflection
         if (intersection.getRay().getDepth() < maxDepth) {
-            vector<pair<Ray, Color>> reflections = mtl.reflection(intersection, 1);
-            if (reflections.size() > 0) {
-                reflections[0].first.increment();
-                color += scene->getRayColor(reflections[0].first, t) * reflections[0].second;
+            pair<Ray, Color> reflection = mtl.generateSample(intersection, Sampler::random2D());
+            if (reflection.second != Color::BLACK) {
+                reflection.first.increment();
+                color += scene->getRayColor(reflection.first, t) * reflection.second;
             }
         }
         

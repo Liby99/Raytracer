@@ -66,6 +66,9 @@ public:
     
     static Color parse(int c);
     
+    bool operator==(const Color & c) const;
+    bool operator!=(const Color & c) const;
+    
     friend std::ostream& operator<< (std::ostream & stream, Color & color);
 };
 

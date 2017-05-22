@@ -51,9 +51,9 @@ public:
     float getRoughnessU();
     float getRoughnessV();
     
-    Color computeReflection(Intersection & i, Ray & out);
-    vector<pair<Ray, Color>> reflection(Intersection & i, int amount);
-    Color emission();
+    virtual pair<Ray, Color> generateSample(Intersection & intersection, vec2 sample);
+    virtual Color computeReflection(Intersection & i, Ray & out);
+    virtual Color emission();
 };
 
 #endif

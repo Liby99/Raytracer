@@ -137,6 +137,14 @@ Color Color::parse(int c) {
     return Color(r, g, b);
 }
 
+bool Color::operator==(const Color & c) const {
+    return r == c.r && g == c.g && b == c.b;
+}
+
+bool Color::operator!=(const Color & c) const {
+    return r != c.r || g != c.g || b != c.b;
+}
+
 std::ostream & operator<< (std::ostream & stream, Color & color) {
     stream << (string)color;
     return stream;

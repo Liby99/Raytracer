@@ -85,24 +85,24 @@ Color Ashikhmin::computeReflection(Intersection & i, Ray & out) {
     vec3 v = i.getTangentV();
     
     vec3 h = normalize(k1 + k2);
-
+    
     float kh = dot(k2, h);
     float nk1 = dot(n, k1);
     float nk2 = dot(n, k2);
     float nh = dot(n, h);
     float hu = dot(h, u);
     float hv = dot(h, v);
-
+    
     float f = specularLevel + (1.0f - specularLevel) * pow(1.0f - kh, 5.0f);
-
-    float ps1 = sqrt((roughnessU + 1) * (roughnessV + 1)) / (8.0f * pi);
+    
+    float ps1 = sqrt((roughnessU + 1) * (roughnessV + 1)) / 8.0f;
     float ps2 = pow(nh, ((roughnessU * hu * hu + roughnessV * hv * hv) / (1.0f - nh * nh))) / (kh * fmax(nk1, nk2));
-    float ps = fmin(24.0f, ps1 * ps2 * f);
+    float ps = ps1 * ps2 * f;
     if (specularLevel == 0.0f || ps != ps) {
         ps = 0.0f;
     }
-
-    float pd1 = ((28.0f * diffuseLevel) / (23.0f * pi)) * (1.0f - specularLevel);
+    
+    float pd1 = ((28.0f * diffuseLevel) / 23.0f) * (1.0f - specularLevel);
     float pd2 = 1.0f - pow(1.0f - 0.5f * nk1, 5.0f);
     float pd3 = 1.0f - pow(1.0f - 0.5f * nk2, 5.0f);
     float pd = pd1 * pd2 * pd3;
@@ -110,67 +110,57 @@ Color Ashikhmin::computeReflection(Intersection & i, Ray & out) {
         pd = 0.0f;
     }
     
-    Color c = (specularColor * ps + diffuseColor * pd) * pi;
-    return c;
+    return specularColor * ps + diffuseColor * pd;
 }
 
-vector<pair<Ray, Color>> Ashikhmin::reflection(Intersection & intersection, int amount) {
+pair<Ray, Color> Ashikhmin::generateSample(Intersection & intersection, vec2 sample) {
     
-    vector<pair<Ray, Color>> result;
+    Ray & inray = intersection.getRay();
+    vec3 pos = intersection.getPosition();
+    vec3 normal = intersection.getNormal();
+    vec3 tangentU = intersection.getTangentU();
+    vec3 tangentV = intersection.getTangentV();
+    vec3 indir = inray.getDirection();
     
-    // Generate a series of samples
-    vector<vec2> samples = Sampler::jitter2D(amount);
-    for (int i = 0; i < samples.size(); i++) {
+    if (Sampler::random() < specularLevel) {
         
-        Ray & inray = intersection.getRay();
-        vec3 pos = intersection.getPosition();
-        vec3 normal = intersection.getNormal();
-        vec3 tangentU = intersection.getTangentU();
-        vec3 tangentV = intersection.getTangentV();
-        vec3 indir = inray.getDirection();
+        // Calculate phi
+        float phi = atan(sqrt((roughnessU + 1.0f) / (roughnessV + 1.0f)) * tan(pi * sample.x * 0.5f));
+        float quadrant = Sampler::random();
+        if (quadrant >= 0.75f) phi = 2.0f * pi - phi;
+        else if (quadrant >= 0.5f) phi = pi + phi;
+        else if (quadrant >= 0.25f) phi = pi - phi;
         
-        // Randomly pick a specular or diffuse ray
-        float random = Sampler::random();
-        vec2 sample = samples[i];
-        if (random < specularLevel) {
-            
-            // Calculate phi
-            float phi = atan(sqrt((roughnessU + 1.0f) / (roughnessV + 1.0f)) * tan(pi * sample.x * 0.5f));
-            float quadrant = Sampler::random();
-            if (quadrant >= 0.75f) phi = 2.0f * pi - phi;
-            else if (quadrant >= 0.5f) phi = pi + phi;
-            else if (quadrant >= 0.25f) phi = pi - phi;
-            
-            float cosTheta = pow(1.0f - sample.y, 1.0f / (roughnessU * pow(cos(phi), 2.0f) + roughnessV * pow(sin(phi), 2.0f) + 1.0f));
-            float sinTheta = sin(acos(cosTheta));
-            vec3 h = normalize(normal * cosTheta + tangentU * sinTheta * cos(phi) + tangentV * sinTheta * sin(phi));
-            
-            // Calculate the reflection ray
-            vec3 k1 = -indir;
-            vec3 k2 = -k1 + 2.0f * dot(k1, h) * h;
-            if (dot(k2, intersection.getNormal()) < 0.0f) {
-                continue;
-            }
-            k2 = normalize(k2);
-            
-            // Generate the result and push it back to the vector
-            Ray ray = Ray(pos, k2, inray.getDepth() + 1);
-            result.push_back(make_pair(ray, specularColor));
+        float temp = roughnessU * pow(cos(phi), 2.0f) + roughnessV * pow(sin(phi), 2.0f);
+        float cosTheta = pow(1.0f - sample.y, 1.0f / (temp + 1.0f));
+        float sinTheta = sin(acos(cosTheta));
+        vec3 h = normalize(normal * cosTheta + tangentU * sinTheta * cos(phi) + tangentV * sinTheta * sin(phi));
+        
+        // Calculate the reflection ray
+        vec3 k1 = -indir;
+        vec3 k2 = -k1 + 2.0f * dot(k1, h) * h;
+        if (dot(k2, intersection.getNormal()) < 0.0f) {
+            return make_pair(Ray(), Color::BLACK);
         }
-        else {
-            
-            float s = sample.x;
-            float t = sample.y;
-            float u = 2.0f * pi * s;
-            float v = sqrt(1.0f - t);
-            
-            vec3 dir = normalize(normal * sqrt(t) + tangentU * v * cos(u) + tangentV * v * sin(u));
-            Ray ray = Ray(pos, dir, inray.getDepth() + 1);
-            result.push_back(make_pair(ray, diffuseColor));
-        }
+        
+        // float phh = sqrt((roughnessU + 1.0f) / (roughnessV + 1.0f)) / 2.0f * pow(dot(normal, h), temp);
+        // float pk2 = phh / (4 * dot(k1, h));
+        
+        Ray ray = Ray(pos, k2, inray.getDepth() + 1);
+        return make_pair(ray, specularColor * specularLevel);
     }
-    
-    return result;
+    else {
+        
+        // Diffuse part
+        float s = sample.x;
+        float t = sample.y;
+        float u = 2.0f * pi * s;
+        float v = sqrt(1.0f - t);
+        
+        vec3 dir = normalize(normal * sqrt(t) + tangentU * v * cos(u) + tangentV * v * sin(u));
+        Ray ray = Ray(pos, dir, inray.getDepth() + 1);
+        return make_pair(ray, diffuseColor * diffuseLevel);
+    }
 }
 
 Color Ashikhmin::emission() {

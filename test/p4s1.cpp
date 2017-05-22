@@ -10,17 +10,17 @@
 #include "image/Bitmap.h"
 
 int BOUNCE = 10;
-int SAMPLE = 4;
+int SAMPLE = 100;
 
 int main(int argc, char * argv[]) {
     
-    int bounce = BOUNCE;
     int sample = SAMPLE;
+    int bounce = BOUNCE;
     if (argc >= 2) {
-        bounce = atoi(argv[1]);
+        sample = atoi(argv[1]);
     }
     if (argc >= 3) {
-        sample = atoi(argv[2]);
+        bounce = atoi(argv[2]);
     }
     
     Scene scn;
@@ -113,6 +113,8 @@ int main(int argc, char * argv[]) {
     for (int i = 0; i < 4; i++) {
         delete insts[i];
     }
+    
+    system("open p4s1.bmp");
     
     return 0;
 }
