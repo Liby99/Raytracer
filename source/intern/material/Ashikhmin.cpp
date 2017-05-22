@@ -110,7 +110,7 @@ Color Ashikhmin::computeReflection(Intersection & i, Ray & out) {
         pd = 0.0f;
     }
     
-    Color c = specularColor * ps + diffuseColor * pd;
+    Color c = (specularColor * ps + diffuseColor * pd) * pi;
     return c;
 }
 

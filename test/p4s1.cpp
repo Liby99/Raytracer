@@ -9,10 +9,22 @@
 #include "camera/Camera.h"
 #include "image/Bitmap.h"
 
-int main() {
+int BOUNCE = 10;
+int SAMPLE = 4;
 
+int main(int argc, char * argv[]) {
+    
+    int bounce = BOUNCE;
+    int sample = SAMPLE;
+    if (argc >= 2) {
+        bounce = atoi(argv[1]);
+    }
+    if (argc >= 3) {
+        sample = atoi(argv[2]);
+    }
+    
     Scene scn;
-    PathTracer pt = PathTracer();
+    PathTracer pt = PathTracer(bounce);
     scn.setRenderEngine(pt);
     scn.setBackgroundColor(rgb(0.8f, 0.9f, 1.0f));
     
@@ -73,7 +85,7 @@ int main() {
     cam.setFovy(40.0f);
     cam.setResolution(800, 600);
     cam.enableSampling();
-    cam.setSamplingAmount(4);
+    cam.setSamplingAmount(sample);
     cam.setSamplingMethod(Sampler::JITTER_SAMPLE);
     cam.setWeightingMethod(Sampler::SHIRLEY_WEIGHT);
     
