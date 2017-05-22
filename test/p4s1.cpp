@@ -1,4 +1,5 @@
 #include "scene/Scene.h"
+#include "engine/PathTracer.h"
 #include "material/Ashikhmin.h"
 #include "material/Lambert.h"
 #include "object/BoxTreeObject.h"
@@ -11,11 +12,15 @@
 int main() {
 
     Scene scn;
+    PathTracer pt = PathTracer();
+    scn.setRenderEngine(pt);
     scn.setBackgroundColor(rgb(0.8f, 0.9f, 1.0f));
     
     // Materials
-    const int nummtls = 4;
-    Ashikhmin mtl[nummtls];
+    Ashikhmin mtl[4];
+    InstanceObject * insts[4];
+    Lambert lambert;
+    lambert.setColor(Color(0.3f, 0.3f, 0.35f));
     
     // Diffuse
     mtl[0].setSpecularLevel(0.0f);
@@ -31,7 +36,7 @@ int main() {
     // Anisotropic gold
     mtl[2].setDiffuseLevel(0.0f);
     mtl[2].setSpecularLevel(1.0f);
-    mtl[2].setSpecularColor(Color(0.95f,0.7f,0.3f));
+    mtl[2].setSpecularColor(Color(0.95f, 0.7f, 0.3f));
     mtl[2].setRoughness(1.0f, 1000.0f);
     
     // Red plastic
@@ -45,22 +50,21 @@ int main() {
     BoxTreeObject dragon = BoxTreeObject("res/dragon.ply");
     
     // Create dragon instances
-    for (int i = 0; i < nummtls; i++) {
-        InstanceObject * inst = new InstanceObject(dragon);
-        inst->translateZ(-0.1f * float(i));
-        inst->setMaterial(mtl[i]);
-        scn.addObject(*inst);
+    for (int i = 0; i < 4; i++) {
+        insts[i] = new InstanceObject(dragon);
+        insts[i]->translateZ(-0.1f * float(i));
+        insts[i]->setMaterial(mtl[i]);
+        scn.addObject(*insts[i]);
     }
     
     // Create ground
-    Lambert lambert;
-    lambert.setColor(Color(0.3f, 0.3f, 0.35f));
     Cube ground = Cube(2.0f, 0.11f, 2.0f);
     ground.setMaterial(lambert);
     scn.addObject(ground);
     
     // Create lights
     DirectionalLight sunlgt = DirectionalLight(Color(1.0f, 1.0f, 0.9f), vec3(2.0f, -3.0f, -2.0f));
+    sunlgt.setCastShadow(true);
     scn.addLight(sunlgt);
     
     // Create camera
@@ -68,7 +72,8 @@ int main() {
     cam.lookAt(vec3(-0.5f, 0.25f, -0.2f), vec3(0.0f, 0.15f, -0.15f));
     cam.setFovy(40.0f);
     cam.setResolution(800, 600);
-    cam.setSamplingAmount(9);
+    cam.enableSampling();
+    cam.setSamplingAmount(4);
     cam.setSamplingMethod(Sampler::JITTER_SAMPLE);
     cam.setWeightingMethod(Sampler::SHIRLEY_WEIGHT);
     
@@ -88,5 +93,14 @@ int main() {
     
     // Render image
     Image image = cam.render(scn);
-    Bitmap::saveImage(image, "p3s1.bmp");
+    Bitmap::saveImage(image, "p4s1.bmp");
+    
+    cout << endl << "Render Time Elapsed: " << time(0) - curr << "s" << endl;
+    
+    // Delete all the dragons
+    for (int i = 0; i < 4; i++) {
+        delete insts[i];
+    }
+    
+    return 0;
 }
