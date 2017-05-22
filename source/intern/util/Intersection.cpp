@@ -71,6 +71,14 @@ void Intersection::setNormal(vec3 normal) {
     tangentV = cross(normal, tangentU);
 }
 
+void Intersection::setTangentU(vec3 u) {
+    this->tangentU = u;
+}
+
+void Intersection::setTangentV(vec3 v) {
+    this->tangentV = v;
+}
+
 float Intersection::getDistanceToOrigin() {
     vec3 diff = position - ray->getOrigin();
     return sqrt(dot(diff, diff));

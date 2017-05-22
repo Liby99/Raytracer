@@ -43,6 +43,8 @@ public:
     vec3 getTangentU();
     vec3 getTangentV();
     void setNormal(vec3 normal);
+    void setTangentU(vec3 u);
+    void setTangentV(vec3 v);
     
     float getDistanceToOrigin();
     bool needUpdate(float t);
