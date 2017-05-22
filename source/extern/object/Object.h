@@ -21,6 +21,8 @@ protected:
     // Materials
     Material * material;
     
+    BoundingBox * box;
+    
     // Transform properties
     bool transformed;
     Animatable<vec3> position;
@@ -35,6 +37,7 @@ public:
     
     // Constructor
     Object();
+    ~Object();
     
     // Material Related
     bool hasMaterial();
