@@ -14,7 +14,10 @@ vector<pair<Ray, Color>> Material::reflection(Intersection & intersection, int a
     vector<pair<Ray, Color>> result;
     vector<vec2> samples = Sampler::jitter2D(amount);
     for (int i = 0; i < samples.size(); i++) {
-        result.push_back(generateSample(intersection, samples[i]));
+        pair<Ray, Color> s = generateSample(intersection, samples[i]);
+        if (s.second != Color::BLACK) {
+            result.push_back(s);
+        }
     }
     return result;
 }
