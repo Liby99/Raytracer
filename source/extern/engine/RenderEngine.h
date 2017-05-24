@@ -10,7 +10,7 @@ protected:
 public:
     RenderEngine();
     RenderEngine(Scene & scene);
-    void setScene(Scene & scene);
+    virtual void setScene(Scene & scene);
     Scene & getScene();
     virtual Color getColor(Intersection & intersection, float t);
 };

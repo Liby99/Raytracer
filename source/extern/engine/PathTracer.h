@@ -10,6 +10,7 @@ protected:
     // Constants
     const static int DEFAULT_MAX_DEPTH = 5;
     
+    // Use Lightsource
     bool useLight;
     
     // Private variables
