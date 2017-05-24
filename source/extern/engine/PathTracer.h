@@ -10,6 +10,8 @@ protected:
     // Constants
     const static int DEFAULT_MAX_DEPTH = 5;
     
+    bool useLight;
+    
     // Private variables
     int maxDepth;
     
@@ -20,6 +22,10 @@ public:
     PathTracer(int maxDepth);
     PathTracer(Scene & scene);
     PathTracer(Scene & scene, int maxDepth);
+    
+    bool usingLight();
+    void enableLight();
+    void disableLight();
     
     //
     int getMaxDepth();
