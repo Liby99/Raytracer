@@ -8,19 +8,9 @@ Ray::Ray() {
     setInside(false);
 }
 
-Ray::Ray(vec3 origin, vec3 direction) {
-    setOrigin(origin);
-    setDirection(direction);
-    setDepth(0);
-    setInside(false);
-}
+Ray::Ray(vec3 origin, vec3 direction) : Ray(origin, direction, 0) {}
 
-Ray::Ray(vec3 origin, vec3 direction, int depth) {
-    setOrigin(origin);
-    setDirection(direction);
-    setDepth(depth);
-    setInside(false);
-}
+Ray::Ray(vec3 origin, vec3 direction, int depth) : Ray(origin, direction, depth, false) {}
 
 Ray::Ray(vec3 origin, vec3 direction, int depth, bool inside) {
     setOrigin(origin);
