@@ -37,7 +37,7 @@ int main(int argc, char * argv[]) {
     Lambert green = Lambert(rgb(0, 1, 0));
     Dielectric trans = Dielectric();
     Luminance lum = Luminance();
-    lum.setIntensity(20);
+    lum.setIntensity(5);
     
     // Setup room
     Cube flr = Cube(5, 0.1, 5);
@@ -74,12 +74,13 @@ int main(int argc, char * argv[]) {
     
     // Create dragon
     BoxTreeObject dragon = BoxTreeObject("res/dragon.ply");
+    dragon.translateY(0.5);
     dragon.scale(vec3(15, 15, 15));
     dragon.setMaterial(white);
     scn.addObject(dragon);
     
     // Create Light
-    Cube light = Cube(1, 0.1, 1);
+    Cube light = Cube(2, 0.1, 2);
     light.translateY(4.8);
     light.setMaterial(lum);
     scn.addObject(light);
