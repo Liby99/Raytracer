@@ -134,7 +134,7 @@ vec3 Cylinder::sampleSurfacePointHelper(float t) {
     if (s < 2 * capArea) {
         int sign = pow(-1, int(s / 2 * capArea));
         float r = 2 * cs.x * radius - radius;
-        float t = cs.y;
+        float t = pi * cs.y;
         result[axis] = sign * hh;
         result[(axis + 1) % 3] = r * cos(t);
         result[(axis + 2) % 3] = r * sin(t);
