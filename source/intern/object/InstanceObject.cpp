@@ -10,6 +10,10 @@ vector<vec3> InstanceObject::getBoundingVertices() {
     else return vector<vec3>();
 }
 
+vec3 InstanceObject::sampleSurfacePointHelper(float t) {
+    return object->sampleSurfacePoint(t);
+}
+
 InstanceObject::InstanceObject() : Object() {}
 
 InstanceObject::InstanceObject(Object & object) : Object() {

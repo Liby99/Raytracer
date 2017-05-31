@@ -25,6 +25,7 @@ protected:
     // Intersection
     virtual bool updateIntersect(Ray & ray, Intersection & intersection);
     virtual vector<vec3> getBoundingVertices();
+    virtual vec3 sampleSurfacePointHelper(float t);
     
 public:
     

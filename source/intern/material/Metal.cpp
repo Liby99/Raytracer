@@ -18,10 +18,7 @@ Color Metal::computeReflection(Intersection & i, Ray & out) {
     return Color::BLACK;
 }
 
-vector<pair<Ray, Color>> Metal::reflection(Intersection & intersection, int amount) {
-    
-    // Prepare the result
-    vector<pair<Ray, Color>> result;
+pair<Ray, Color> Metal::generateSample(Intersection & intersection, vec2 sample) {
     
     // Calculate the reflection direction
     vec3 norm = intersection.getNormal();
@@ -31,9 +28,11 @@ vector<pair<Ray, Color>> Metal::reflection(Intersection & intersection, int amou
     // Calculate the reflection ray
     Ray reflect = Ray(intersection.getPosition(), dir);
     reflect.increment();
-    
-    // Push the ray and color back to result
-    result.push_back(make_pair(reflect, color));
+}
+
+vector<pair<Ray, Color>> Metal::reflection(Intersection & intersection, int amount) {
+    vector<pair<Ray, Color>> result;
+    result.push_back(generateSample(intersection, vec2(0, 0)));
     return result;
 }
 

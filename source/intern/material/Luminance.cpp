@@ -1,27 +1,28 @@
 #include "material/Luminance.h"
 
-Luminance::Luminance() : Luminance(Color::WHITE) {};
+Luminance::Luminance() : Luminance(Color::WHITE, 1) {}
 
-Luminance::Luminance(Color color) {
+Luminance::Luminance(Color color, float intensity) : Material() {
     setColor(color);
-}
-
-void Luminance::setColor(Color color) {
-    this->color = color;
+    setIntensity(intensity);
 }
 
 Color Luminance::getColor() {
     return color;
 }
 
-Color Luminance::computeReflection(Intersection & i, Ray & out) {
-    return Color::BLACK;
+void Luminance::setColor(Color color) {
+    this->color = color;
 }
 
-vector<pair<Ray, Color>> Luminance::reflection(Intersection & i, int amount) {
-    return vector<pair<Ray, Color>>();
+float Luminance::getIntensity() {
+    return intensity;
+}
+
+void Luminance::setIntensity(float intensity) {
+    this->intensity = intensity;
 }
 
 Color Luminance::emission() {
-    return color;
+    return color * intensity;
 }

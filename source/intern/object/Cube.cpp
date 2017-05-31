@@ -58,6 +58,26 @@ vector<vec3> Cube::getBoundingVertices() {
     return result;
 }
 
+vec3 Cube::sampleSurfacePointHelper(float t) {
+    
+    // Initiate Random Value
+    int face = rand() % 6,
+        axis = face / 2, a1 = (axis + 1) % 3, a2 = (axis + 2) % 3,
+        sign = face % 2;
+    vec2 sample = Sampler::random2D();
+    
+    // Initiate Corner Vector and result point
+    vec3 corner = vec3(width / 2, height / 2, length / 2), point;
+    
+    // Setup point
+    point[axis] = pow(-1, sign) * corner[axis];
+    point[a1] = -corner[a1] + 2 * corner[a1] * sample.x;
+    point[a2] = -corner[a2] + 2 * corner[a2] * sample.y;
+    
+    // Return the sample
+    return point;
+}
+
 Cube::Cube() : Object() {
     setWidth(DEFAULT_SIZE);
     setHeight(DEFAULT_SIZE);

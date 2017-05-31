@@ -1,63 +1,36 @@
 #ifndef AREA_LIGHT_H
 #define AREA_LIGHT_H
 
+#include "light/Light.h"
 #include "material/Luminance.h"
-#include "light/PointLight.h"
-#include "object/Object.h"
-#include "util/Orientable.h"
-#include "util/Sampler.h"
+#include "object/InstanceObject.h"
 
-class AreaLight : public Light, public Object, public Orientable {
+class AreaLight : public Light, public InstanceObject {
 private:
     
     using Object::setMaterial;
+    using Object::material;
     
 protected:
     
-    // Default constants
-    const static float DEFAULT_WIDTH;
-    const static float DEFAULT_HEIGHT;
-    
     Luminance * lum;
-    
-    // Size parameters
-    float width;
-    float height;
-    vec3 fallOff;
-    
-    int samplingMethod;
-    int weightingMethod;
-    
-    // Helper method
-    float calcBrightness(float distance);
-    
-    // Object inherited
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
-    virtual vector<vec3> getBoundingVertices();
+    void initiateLuminance();
+    void initiateLuminance(Color color);
     
 public:
     
     AreaLight();
-    AreaLight(Color color, float width, float height, int orientation);
-    AreaLight(float width, float height);
-    ~AreaLight();
+    AreaLight(Object & object);
+    AreaLight(Object & object, Color color);
     
+    virtual Color getColor();
     virtual void setColor(Color color);
-    virtual bool hasMaterial();
-    virtual Material & getMaterial();
+    virtual float getIntensity();
+    virtual void setIntensity(float intensity);
     
-    float getWidth();
-    float getHeight();
-    void setWidth(float width);
-    void setHeight(float height);
-    vec3 getFallOff();
-    void setFallOff(vec3 fallOff);
-    
-    void setSamplingMethod(int samplingMethod);
-    void setWeightingMethod(int weightingMethod);
-    
+    virtual float getBrightness(Scene & scene, Intersection & intersection, float t);
     virtual float getBrightness(Scene & scene, Intersection & intersection, Ray & ray, float t);
-    virtual vector<vec3> getToLightDirection(Intersection & intersection, int sampleAmount, float t);
+    virtual vec3 getToLightDirection(Intersection & intersection);
 };
 
 #endif

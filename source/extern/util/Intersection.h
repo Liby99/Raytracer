@@ -18,6 +18,8 @@ private:
     float t;
     vec3 position;
     vec3 normal;
+    vec3 tangentU;
+    vec3 tangentV;
     
 public:
     
@@ -38,7 +40,11 @@ public:
     vec3 getPosition();
     void setPosition(vec3 position);
     vec3 getNormal();
+    vec3 getTangentU();
+    vec3 getTangentV();
     void setNormal(vec3 normal);
+    void setTangentU(vec3 u);
+    void setTangentV(vec3 v);
     
     float getDistanceToOrigin();
     bool needUpdate(float t);

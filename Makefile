@@ -1,4 +1,4 @@
-CC = @ g++-6 -MMD -O3
+CC = @ g++-7 -MMD -O3
 LD = @ ld -r
 MKDIR = @ mkdir -p
 ECHO = @ echo

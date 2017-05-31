@@ -5,20 +5,21 @@
 
 class Luminance : public Material {
 private:
+    
     Color color;
+    float intensity;
+    
 public:
     
-    //
     Luminance();
-    Luminance(Color color);
+    Luminance(Color color, float intensity);
     
-    //
-    void setColor(Color color);
     Color getColor();
+    void setColor(Color color);
     
-    //
-    virtual Color computeReflection(Intersection & i, Ray & out);
-    virtual vector<pair<Ray, Color>> reflection(Intersection & i, int amount);
+    float getIntensity();
+    void setIntensity(float intensity);
+    
     virtual Color emission();
 };
 

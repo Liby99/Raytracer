@@ -19,12 +19,23 @@ vector<vec3> Object::getBoundingVertices() {
     return vector<vec3>();
 }
 
+vec3 Object::sampleSurfacePointHelper(float t) {
+    throw 100;
+}
+
 Object::Object() {
     setRotate(DEFAULT_ROTATION);
     setTranslate(DEFAULT_POSITION);
     setScale(DEFAULT_SCALER);
+    box = nullptr;
     material = nullptr;
     transformed = false;
+}
+
+Object::~Object() {
+    if (box) {
+        delete box;
+    }
 }
 
 bool Object::hasMaterial() {
@@ -246,44 +257,56 @@ mat4 Object::getTransformMatrix(float t) {
     return translate * rotationZ * rotationY * rotationX * scale;
 }
 
+vec3 Object::sampleSurfacePoint(float t) {
+    vec3 p = sampleSurfacePointHelper(t);
+    mat4 m = getTransformMatrix(t);
+    return transfHomogenous(m, p);
+}
+
 BoundingBox Object::getBoundingBox(float t) {
     
-    // Get all the vertices (approximatly 8) to find the bounding box
-    vector<vec3> vertices = getBoundingVertices();
-    
-    BoundingBox box;
-    
-    // Check if the vector is empty
-    if (vertices.empty()) {
+    if (!box || transformed) {
         
-        // If empty then return the empty box
-        return box;
-    }
-    else {
+        // Get all the vertices (approximatly 8) to find the bounding box
+        vector<vec3> vertices = getBoundingVertices();
         
-        if (transformed) {
-        
-            // First cache the matrix
-            mat4 m = getTransformMatrix(t);
+        // Check if the vector is empty
+        if (vertices.empty()) {
             
-            // Iterate through
-            for (int i = 0; i < vertices.size(); i++) {
-                
-                // Transform and update min max
-                vec3 v = transfHomogenous(m, vertices[i]);
-                box.extend(v);
-            }
+            // If empty then return the empty box
+            return *box;
         }
         else {
             
-            // If not transformed then directly extend v
-            for (int i = 0; i < vertices.size(); i++) {
-                box.extend(vertices[i]);
+            box = new BoundingBox();
+            
+            if (transformed) {
+            
+                // First cache the matrix
+                mat4 m = getTransformMatrix(t);
+                
+                // Iterate through
+                for (int i = 0; i < vertices.size(); i++) {
+                    
+                    // Transform and update min max
+                    vec3 v = transfHomogenous(m, vertices[i]);
+                    box->extend(v);
+                }
             }
+            else {
+                
+                // If not transformed then directly extend v
+                for (int i = 0; i < vertices.size(); i++) {
+                    box->extend(vertices[i]);
+                }
+            }
+            
+            // Return the box
+            return *box;
         }
-        
-        // Return the box
-        return box;
+    }
+    else {
+        return *box;
     }
 }
 

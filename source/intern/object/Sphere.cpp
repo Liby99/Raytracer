@@ -31,7 +31,23 @@ bool Sphere::updateIntersect(Ray & ray, Intersection & intersection) {
 }
 
 vector<vec3> Sphere::getBoundingVertices() {
-    
+    vector<vec3> result;
+    result.push_back(vec3(radius, radius, radius));
+    result.push_back(vec3(radius, radius, -radius));
+    result.push_back(vec3(radius, -radius, radius));
+    result.push_back(vec3(radius, -radius, -radius));
+    result.push_back(vec3(-radius, radius, radius));
+    result.push_back(vec3(-radius, radius, -radius));
+    result.push_back(vec3(-radius, -radius, radius));
+    result.push_back(vec3(-radius, -radius, -radius));
+    return result;
+}
+
+vec3 Sphere::sampleSurfacePointHelper(float t) {
+    vec2 sample = Sampler::random2D();
+    float theta = 2 * pi * sample.x;
+    float phi = pi * sample.y;
+    return radius * vec3(sin(phi) * cos(theta), sin(phi) * sin(theta), cos(phi));
 }
 
 Sphere::Sphere() {

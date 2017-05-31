@@ -35,6 +35,7 @@ public:
     virtual void setColor(Color color);
     virtual float getIntensity();
     virtual void setIntensity(float intensity);
+    
     bool getCastShadow();
     void setCastShadow(bool castShadow);
     

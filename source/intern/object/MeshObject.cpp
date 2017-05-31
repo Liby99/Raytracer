@@ -35,6 +35,11 @@ vector<vec3> MeshObject::getBoundingVertices() {
     return result;
 }
 
+vec3 MeshObject::sampleSurfacePointHelper(float t) {
+    int tri = rand() % triangles.size();
+    return triangles[tri]->sampleSurfacePoint(t);
+}
+
 MeshObject::MeshObject() : Object() {
     
 }

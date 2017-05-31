@@ -19,8 +19,8 @@ public:
     Color getColor();
     
     // Virtual methods
+    virtual pair<Ray, Color> generateSample(Intersection & intersection, vec2 sample);
     virtual Color computeReflection(Intersection & i, Ray & out);
-    virtual vector<pair<Ray, Color>> reflection(Intersection & i, int amount);
     virtual Color emission();
 };
 

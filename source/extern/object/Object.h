@@ -6,6 +6,7 @@
 #include "util/Ray.h"
 #include "util/Intersection.h"
 #include "util/BoundingBox.h"
+#include "util/Sampler.h"
 #include "material/Material.h"
 
 #include <vector>
@@ -21,6 +22,8 @@ protected:
     // Materials
     Material * material;
     
+    BoundingBox * box;
+    
     // Transform properties
     bool transformed;
     Animatable<vec3> position;
@@ -30,16 +33,18 @@ protected:
     // Virtual Functions
     virtual bool updateIntersect(Ray & ray, Intersection & intersection);
     virtual vector<vec3> getBoundingVertices();
+    virtual vec3 sampleSurfacePointHelper(float t);
     
 public:
     
     // Constructor
     Object();
+    ~Object();
     
     // Material Related
     bool hasMaterial();
-    Material & getMaterial();
-    void setMaterial(Material & material);
+    virtual Material & getMaterial();
+    virtual void setMaterial(Material & material);
     
     // Basic Getter
     vec3 getRotation(float t);
@@ -82,6 +87,10 @@ public:
     // Get transformation helper method
     mat4 getTransformMatrix(float t);
     
+    // Random Sample a point on the surface
+    vec3 sampleSurfacePoint(float t);
+    
+    // Get Bounding Box Helper Method
     BoundingBox getBoundingBox(float t);
     
     // Virtaul intersect method
