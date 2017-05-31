@@ -12,6 +12,7 @@ private:
 public:
     
     Luminance();
+    Luminance(Color color);
     Luminance(Color color, float intensity);
     
     Color getColor();

@@ -1,6 +1,8 @@
 #include "material/Luminance.h"
 
-Luminance::Luminance() : Luminance(Color::WHITE, 1) {}
+Luminance::Luminance() : Luminance(Color::WHITE) {}
+
+Luminance::Luminance(Color color) : Luminance(color, 1) {}
 
 Luminance::Luminance(Color color, float intensity) : Material() {
     setColor(color);
