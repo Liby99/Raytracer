@@ -19,7 +19,7 @@ vector<vec3> Object::getBoundingVertices() {
     return vector<vec3>();
 }
 
-vec3 sampleSurfacePointHelper(float t) {
+vec3 Object::sampleSurfacePointHelper(float t) {
     throw 100;
 }
 
