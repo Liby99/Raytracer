@@ -1,5 +1,4 @@
 #include "object/Cube.h"
-#include "util/Sampler.h"
 
 const float Cube::DEFAULT_SIZE = 1;
 

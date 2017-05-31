@@ -6,6 +6,7 @@
 #include "util/Ray.h"
 #include "util/Intersection.h"
 #include "util/BoundingBox.h"
+#include "util/Sampler.h"
 #include "material/Material.h"
 
 #include <vector>

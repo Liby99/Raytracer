@@ -122,6 +122,31 @@ vector<vec3> Cylinder::getBoundingVertices() {
     return result;
 }
 
+vec3 Cylinder::sampleSurfacePointHelper(float t) {
+    vec3 result;
+    float capArea = pi * radius * radius;
+    float sideArea = 2 * pi * radius * height;
+    float totalArea = 2 * capArea + sideArea;
+    float s = Sampler::random() * totalArea;
+    vec2 cs = Sampler::random2D();
+    int axis = getAxis();
+    float hh = height / 2;
+    if (s < 2 * capArea) {
+        int sign = pow(-1, int(s / 2 * capArea));
+        float r = 2 * cs.x * radius - radius;
+        float t = cs.y;
+        result[axis] = sign * hh;
+        result[(axis + 1) % 3] = r * cos(t);
+        result[(axis + 2) % 3] = r * sin(t);
+    }
+    else {
+        result[axis] = -hh + 2 * hh * cs.y;
+        result[(axis + 1) % 3] = radius * cos(cs.x);
+        result[(axis + 2) % 3] = radius * sin(cs.x);
+    }
+    return result;
+}
+
 Cylinder::Cylinder() : Object(), Orientable() {
     setHeight(DEFAULT_HEIGHT);
     setRadius(DEFAULT_RADIUS);
