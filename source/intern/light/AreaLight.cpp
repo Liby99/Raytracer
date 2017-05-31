@@ -41,6 +41,7 @@ void AreaLight::setIntensity(float intensity) {
 
 float AreaLight::getBrightness(Scene & scene, Intersection & intersection, float t) {
     Ray toLight = Ray(intersection.getPosition(), getToLightDirection(intersection));
+    toLight.increment(intersection.getNormal());
     return getBrightness(scene, intersection, toLight, t);
 }
 
@@ -62,12 +63,10 @@ float AreaLight::getBrightness(Scene & scene, Intersection & intersection, Ray &
             }
         }
         
-        return 1;
+        return 1 / dist * dist;
     }
     else {
-        
-        // Not intersecting ray. Not Possible
-        throw 100;
+        return 0;
     }
 }
 
