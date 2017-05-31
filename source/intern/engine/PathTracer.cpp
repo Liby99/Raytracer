@@ -3,27 +3,13 @@
 PathTracer::PathTracer() : PathTracer(DEFAULT_MAX_DEPTH) {}
 
 PathTracer::PathTracer(int maxDepth) : RenderEngine() {
-    enableLight();
     setMaxDepth(maxDepth);
 }
 
 PathTracer::PathTracer(Scene & scene) : PathTracer(scene, DEFAULT_MAX_DEPTH) {}
 
 PathTracer::PathTracer(Scene & scene, int maxDepth) : RenderEngine(scene) {
-    enableLight();
     setMaxDepth(maxDepth);
-}
-
-bool PathTracer::usingLight() {
-    return useLight;
-}
-
-void PathTracer::enableLight() {
-    useLight = true;
-}
-
-void PathTracer::disableLight() {
-    useLight = false;
 }
 
 int PathTracer::getMaxDepth() {
@@ -56,7 +42,7 @@ Color PathTracer::getColor(Intersection & intersection, float t) {
         }
         
         // Calculate the Reflection to Light if set to use light
-        if (useLight && scene->hasLight()) {
+        if (scene->hasLight()) {
             
             // First random a light from all the lights in the scene
             int lightIndex = rand() % scene->lightAmount();

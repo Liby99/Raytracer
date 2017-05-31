@@ -43,12 +43,8 @@ public:
     
     // Material Related
     bool hasMaterial();
-    Material & getMaterial();
-    void setMaterial(Material & material);
-    
-    // Boundable setting
-    bool isBoundable();
-    void setBoundable(bool boundable);
+    virtual Material & getMaterial();
+    virtual void setMaterial(Material & material);
     
     // Basic Getter
     vec3 getRotation(float t);
