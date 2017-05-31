@@ -19,6 +19,10 @@ vector<vec3> Object::getBoundingVertices() {
     return vector<vec3>();
 }
 
+vec3 sampleSurfacePointHelper(float t) {
+    throw 100;
+}
+
 Object::Object() {
     setRotate(DEFAULT_ROTATION);
     setTranslate(DEFAULT_POSITION);
@@ -251,6 +255,12 @@ mat4 Object::getTransformMatrix(float t) {
     mat4 rotationY = Transform::rotate(ro.y, vec3(0, 1, 0));
     mat4 rotationZ = Transform::rotate(ro.z, vec3(0, 0, 1));
     return translate * rotationZ * rotationY * rotationX * scale;
+}
+
+vec3 Object::sampleSurfacePoint(float t) {
+    vec3 p = sampleSurfacePointHelper(t);
+    mat4 m = getTransformMatrix(t);
+    return transfHomogenous(m, p);
 }
 
 BoundingBox Object::getBoundingBox(float t) {

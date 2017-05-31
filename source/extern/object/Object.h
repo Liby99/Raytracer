@@ -32,6 +32,7 @@ protected:
     // Virtual Functions
     virtual bool updateIntersect(Ray & ray, Intersection & intersection);
     virtual vector<vec3> getBoundingVertices();
+    virtual vec3 sampleSurfacePointHelper(float t);
     
 public:
     
@@ -89,6 +90,10 @@ public:
     // Get transformation helper method
     mat4 getTransformMatrix(float t);
     
+    // Random Sample a point on the surface
+    vec3 sampleSurfacePoint(float t);
+    
+    // Get Bounding Box Helper Method
     BoundingBox getBoundingBox(float t);
     
     // Virtaul intersect method
