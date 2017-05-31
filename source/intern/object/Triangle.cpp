@@ -70,6 +70,12 @@ vector<vec3> Triangle::getBoundingVertices() {
     return vertices;
 }
 
+vec3 Triangle::sampleSurfacePointHelper(float t) {
+    vec2 s = Sampler::random2D();
+    vec3 p0 = v0->getPosition(), p1 = v1->getPosition(), p2 = v2->getPosition();
+    return p0 * (1 - sqrt(s.x)) + p1 * sqrt(s.x) * (1 - s.y) + p2 * sqrt(s.x) * s.y;
+}
+
 Triangle::Triangle(Vertex * v0, Vertex * v1, Vertex * v2) : Object() {
     this->v0 = v0;
     this->v1 = v1;
