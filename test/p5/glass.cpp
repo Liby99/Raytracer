@@ -6,7 +6,7 @@
 #include "object/BoxTreeObject.h"
 #include "object/InstanceObject.h"
 #include "object/Cube.h"
-#include "light/DirectionalLight.h"
+#include "light/PointLight.h"
 #include "camera/Camera.h"
 #include "image/Bitmap.h"
 
@@ -27,7 +27,7 @@ int main(int argc, char * argv[]) {
     // Initiate Scene
     Scene scn;
     PathTracer pt = PathTracer(bounce);
-    pt.disableLight();
+    // pt.disableLight();
     scn.setRenderEngine(pt);
     scn.setBackgroundColor(rgb(0.8f, 0.9f, 1.0f));
     
@@ -40,50 +40,24 @@ int main(int argc, char * argv[]) {
     lum.setIntensity(5);
     
     // Setup room
-    Cube flr = Cube(5, 0.1, 5);
+    Cube flr = Cube(10, 0.1, 10);
     flr.setMaterial(white);
-    
-    InstanceObject cel = InstanceObject(flr);
-    cel.translateY(5);
-    cel.setMaterial(white);
-    
-    Cube left = Cube(0.1, 5, 5);
-    left.translateX(-2.5);
-    left.translateY(2.5);
-    left.setMaterial(red);
-    
-    InstanceObject right = InstanceObject(left);
-    right.translateX(5);
-    right.setMaterial(green);
-    
-    Cube front = Cube(5, 5, 0.1);
-    front.translateY(2.5);
-    front.translateZ(2.5);
-    front.setMaterial(white);
-    
-    InstanceObject back = InstanceObject(front);
-    back.translateZ(-5);
-    back.setMaterial(white);
-    
     scn.addObject(flr);
-    scn.addObject(cel);
-    scn.addObject(left);
-    scn.addObject(right);
-    scn.addObject(front);
-    scn.addObject(back);
     
     // Create dragon
     BoxTreeObject dragon = BoxTreeObject("res/dragon.ply");
-    dragon.translateY(0.5);
-    dragon.scale(vec3(15, 15, 15));
-    dragon.setMaterial(white);
+    dragon.translateY(0.1);
+    dragon.setMaterial(trans);
     scn.addObject(dragon);
     
     // Create Light
-    Cube light = Cube(2, 0.1, 2);
-    light.translateY(4.8);
-    light.setMaterial(lum);
-    scn.addObject(light);
+    // Cube light = Cube(2, 0.1, 2);
+    // light.translateY(4.8);
+    // light.setMaterial(lum);
+    // scn.addObject(light);
+    // PointLight light = PointLight(Color::WHITE, vec3(0, 4.8, 0));
+    // light.setIntensity(3);
+    // scn.addLight(light);
     
     // Create camera
     Camera cam;
@@ -111,7 +85,7 @@ int main(int argc, char * argv[]) {
     
     // Render image
     Image image = cam.render(scn);
-    Bitmap::saveImage(image, "dielectric.bmp");
+    Bitmap::saveImage(image, "transparency.bmp");
     
     cout << endl << "Render Time Elapsed: " << time(0) - curr << "s" << endl;
     
