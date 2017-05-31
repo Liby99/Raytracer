@@ -8,28 +8,42 @@ bool Cube::updateIntersect(Ray & ray, Intersection & intersection) {
     vec3 minCorner = getMinCorner();
     vec3 maxCorner = getMaxCorner();
     
-    // Calculate the intersection
-    float tmin = (minCorner.x - ray.getOrigin().x) / ray.getDirection().x;
-    float tmax = (maxCorner.x - ray.getOrigin().x) / ray.getDirection().x;
-    if (tmin > tmax) swap(tmin, tmax);
-    float tymin = (minCorner.y - ray.getOrigin().y) / ray.getDirection().y;
-    float tymax = (maxCorner.y - ray.getOrigin().y) / ray.getDirection().y;
+    vec3 ori = ray.getOrigin();
+    vec3 dir = ray.getDirection();
+    
+    float txmin = (minCorner.x - ori.x) / dir.x;
+    float txmax = (maxCorner.x - ori.x) / dir.x;
+    if (txmin > txmax) swap(txmin, txmax);
+    
+    float tymin = (minCorner.y - ori.y) / dir.y;
+    float tymax = (maxCorner.y - ori.y) / dir.y;
     if (tymin > tymax) swap(tymin, tymax);
-    if ((tmin > tymax) || (tymin > tmax)) return false;
-    if (tymin > tmin) tmin = tymin;
-    if (tymax < tmax) tmax = tymax;
-    float tzmin = (minCorner.z - ray.getOrigin().z) / ray.getDirection().z;
-    float tzmax = (maxCorner.z - ray.getOrigin().z) / ray.getDirection().z;
+    
+    float tzmin = (minCorner.z - ori.z) / dir.z;
+    float tzmax = (maxCorner.z - ori.z) / dir.z;
     if (tzmin > tzmax) swap(tzmin, tzmax);
-    if ((tmin > tzmax) || (tzmin > tmax)) return false;
-    if (tzmin > tmin) tmin = tzmin;
-    if (tzmax < tmax) tmax = tzmax;
+    
+    float tmin = fmax(fmax(txmin, tymin), tzmin);
+    float tmax = fmin(fmin(txmax, tymax), tzmax);
+    
+    if (tmax - tmin < 0) {
+        return false;
+    }
     
     float t;
     vec3 normal;
-    if (tmin > 0 && tmax > 0) t = tmin;
-    else if (tmin < 0 && tmax > 0) t = tmax;
-    else return false;
+    float sign;
+    if (tmin > 0 && tmax > 0) {
+        t = tmin;
+        sign = 1;
+    }
+    else if (tmin < 0 && tmax > 0) {
+        t = tmax;
+        sign = -1;
+    }
+    else {
+        return false;
+    }
     
     vec3 position = ray.getPoint(t);
         
@@ -39,7 +53,7 @@ bool Cube::updateIntersect(Ray & ray, Intersection & intersection) {
     else normal = position[0] > 0 ? vec3(1, 0, 0) : vec3(-1, 0, 0);
     
     // Try updating the intersection
-    return intersection.update(t, position, normal);
+    return intersection.update(t, position, sign * normal);
 }
 
 vector<vec3> Cube::getBoundingVertices() {
