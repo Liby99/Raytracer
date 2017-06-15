@@ -6,9 +6,7 @@ void CircularCloner::retransform() {
         float angle = step * i;
         float rad = glm::radians(angle);
         vec3 position = vec3(cos(rad) * radius, 0, sin(rad) * radius);
-        vec3 rotation = vec3(0, angle, 0);
         instances[i]->setTranslate(position);
-        instances[i]->setRotate(rotation);
     }
 }
 
@@ -19,10 +17,9 @@ void CircularCloner::reconstruct() {
         float angle = step * i;
         float rad = glm::radians(angle);
         vec3 position = vec3(cos(rad) * radius, 0, sin(rad) * radius);
-        vec3 rotation = vec3(0, angle, 0);
         InstanceObject * instance = new InstanceObject(*object);
         instance->setTranslate(position);
-        instance->setRotate(rotation);
+        instance->rotateY(-angle);
         instances.push_back(instance);
     }
 }
