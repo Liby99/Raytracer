@@ -6,6 +6,7 @@
 #include "object/Sphere.h"
 #include "object/Plane.h"
 #include "object/Cube.h"
+#include "object/Sun.h"
 #include "light/PointLight.h"
 #include "camera/Camera.h"
 #include "image/Bitmap.h"
@@ -34,7 +35,7 @@ int main(int argc, char * argv[]) {
     Dielectric trans = Dielectric();
     trans.setAbsorptionColor(rgb(0.3, 1, 0.3));
     trans.setIor(Dielectric::GLASS_IOR);
-    Luminance lum = Luminance(Color::WHITE, 10);
+    Luminance lum = Luminance(Color::WHITE, 20);
     
     Plane ground = Plane();
     ground.setMaterial(grey);
@@ -45,28 +46,33 @@ int main(int argc, char * argv[]) {
     // cube.setMaterial(lum);
     // scn.addObject(cube);
     
-    // Sphere sphere = Sphere(1);
-    // sphere.translateY(1);
-    // sphere.setMaterial(trans);
-    // scn.addObject(sphere);
-    Cube glass = Cube(2, 2, 0.1);
-    glass.translateY(1);
-    glass.rotateX(24);
-    glass.rotateY(12);
-    glass.setMaterial(trans);
-    scn.addObject(glass);
+    Sphere sphere = Sphere(1);
+    sphere.translateY(1);
+    sphere.setMaterial(trans);
+    scn.addObject(sphere);
     
-    Cube normal = Cube(1.3, 1.7, 1);
-    normal.translateY(0.85);
-    normal.translateZ(-1);
-    normal.rotateY(36);
-    normal.setMaterial(grey);
-    scn.addObject(normal);
+    // Cube glass = Cube(2, 2, 0.1);
+    // glass.translateY(1);
+    // glass.rotateX(24);
+    // glass.rotateY(12);
+    // glass.setMaterial(trans);
+    // scn.addObject(glass);
+    
+    Sun sun = Sun(vec3(-1, 1, -1), 10);
+    sun.setMaterial(lum);
+    scn.addObject(sun);
+    
+    // Cube normal = Cube(1.3, 1.7, 1);
+    // normal.translateY(0.85);
+    // normal.translateZ(-1);
+    // normal.rotateY(36);
+    // normal.setMaterial(grey);
+    // scn.addObject(normal);
     
     // Create camera
     Camera cam;
-    cam.lookAt(vec3(3, 1.5, 3), vec3(0, 0, 0));
-    cam.setFovy(75.0f);
+    cam.lookAt(vec3(3, 1.5, 3), vec3(0, 1.5, 0));
+    cam.setFovy(80.0f);
     cam.setResolution(800, 600);
     cam.enableSampling();
     cam.setSamplingAmount(sample);
