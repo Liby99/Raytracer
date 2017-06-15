@@ -2,9 +2,14 @@
 #include "engine/PathTracer.h"
 #include "material/Ashikhmin.h"
 #include "material/Lambert.h"
+#include "material/Dielectric.h"
+#include "material/Luminance.h"
+#include "material/Metal.h"
 #include "object/GridCloner.h"
 #include "object/CircularCloner.h"
 #include "object/Cube.h"
+#include "object/Sphere.h"
+#include "object/Plane.h"
 #include "light/DirectionalLight.h"
 #include "camera/Camera.h"
 #include "image/Bitmap.h"
@@ -29,15 +34,39 @@ int main(int argc, char * argv[]) {
     scn.setBackgroundColor(rgb(0.8f, 0.9f, 1.0f));
     
     Lambert lambert = Lambert(rgb(0.5, 0.5, 0.5));
+    Metal metal = Metal(rgb(0.8, 0.5, 0.5));
+    Dielectric trans = Dielectric();
+    trans.setIor(Dielectric::DIAMOND_IOR);
+    trans.setAbsorptionColor(rgb(0.5, 0.8, 0.6));
+    Ashikhmin ashik;
+    ashik.setDiffuseLevel(0.0f);
+    ashik.setSpecularLevel(1.0f);
+    ashik.setSpecularColor(Color(0.95f, 0.7f, 0.3f));
+    ashik.setRoughness(1.0f, 1000.0f);
+    Luminance lum = Luminance(rgb(1, 1, 1), 10);
     
-    Cube cube = Cube(0.3, 0.3, 0.3);
+    vector<Material *> mtls;
+    mtls.push_back(&lambert);
+    mtls.push_back(&metal);
+    mtls.push_back(&trans);
+    mtls.push_back(&ashik);
+    mtls.push_back(&lum);
+    
+    Cube cube = Cube(0.5, 0.5, 0.5);
     
     CircularCloner cloner = CircularCloner(cube);
-    cloner.setMaterial(lambert);
+    cloner.enableSeparateMaterial();
+    cloner.setMaterial(mtls);
+    cloner.setMaterial(ashik);
     scn.addObject(cloner);
     
+    Plane ground = Plane();
+    ground.setMaterial(lambert);
+    ground.translateY(-0.5);
+    scn.addObject(ground);
+    
     Camera cam;
-    cam.lookAt(vec3(3, 1.5, 3), vec3(0, 0, 0));
+    cam.lookAt(vec3(1, 1, 1), vec3(0, 0, 0));
     cam.setFovy(80.0f);
     cam.setResolution(800, 600);
     cam.enableSampling();
