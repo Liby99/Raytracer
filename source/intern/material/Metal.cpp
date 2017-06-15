@@ -28,6 +28,8 @@ pair<Ray, Color> Metal::generateSample(Intersection & intersection, vec2 sample)
     // Calculate the reflection ray
     Ray reflect = Ray(intersection.getPosition(), dir);
     reflect.increment();
+    
+    return make_pair(reflect, color);
 }
 
 vector<pair<Ray, Color>> Metal::reflection(Intersection & intersection, int amount) {
