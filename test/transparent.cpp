@@ -32,23 +32,36 @@ int main(int argc, char * argv[]) {
     
     Lambert grey = Lambert(rgb(0.8, 0.8, 0.8));
     Dielectric trans = Dielectric();
-    trans.setAbsorptionColor(rgb(1, 1, 1));
-    trans.setIor(Dielectric::WATER_IOR);
+    trans.setAbsorptionColor(rgb(0.3, 1, 0.3));
+    trans.setIor(Dielectric::GLASS_IOR);
     Luminance lum = Luminance(Color::WHITE, 10);
     
     Plane ground = Plane();
     ground.setMaterial(grey);
     scn.addObject(ground);
     
-    Cube cube = Cube(1, 0.01, 1);
-    cube.translateY(3);
-    cube.setMaterial(lum);
-    scn.addObject(cube);
+    // Cube cube = Cube(1, 0.01, 1);
+    // cube.translateY(3);
+    // cube.setMaterial(lum);
+    // scn.addObject(cube);
     
-    Sphere sphere = Sphere(1);
-    sphere.translateY(1);
-    sphere.setMaterial(trans);
-    scn.addObject(sphere);
+    // Sphere sphere = Sphere(1);
+    // sphere.translateY(1);
+    // sphere.setMaterial(trans);
+    // scn.addObject(sphere);
+    Cube glass = Cube(2, 2, 0.1);
+    glass.translateY(1);
+    glass.rotateX(24);
+    glass.rotateY(12);
+    glass.setMaterial(trans);
+    scn.addObject(glass);
+    
+    Cube normal = Cube(1.3, 1.7, 1);
+    normal.translateY(0.85);
+    normal.translateZ(-1);
+    normal.rotateY(36);
+    normal.setMaterial(grey);
+    scn.addObject(normal);
     
     // Create camera
     Camera cam;

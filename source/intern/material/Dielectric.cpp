@@ -91,18 +91,24 @@ pair<Ray, Color> Dielectric::generateSample(Intersection & intersection, vec2 sa
     float rPerp = (ni * ndd - nt * ndt) / (ni * ndd + nt * ndt);
     float fr = 0.5f * (rPar * rPar + rPerp * rPerp);
     
+    Color color = Color::WHITE;
+    if (absorption > 0.0f) {
+        float s = -absorption * intersection.getDistanceToOrigin();
+        color.setR(exp(s * (1.0f - absorptionColor.getR())));
+        color.setG(exp(s * (1.0f - absorptionColor.getG())));
+        color.setB(exp(s * (1.0f - absorptionColor.getB())));
+    }
+    
     if (Sampler::random() < fr) {
         Ray reflect = Ray(pos, r, inray.getDepth() + 1, inray.isInside());
-        return make_pair(reflect, specularColor);
+        if (inray.isInside()) {
+            return make_pair(reflect, color);
+        }
+        else {
+            return make_pair(reflect, specularColor);
+        }
     }
     else {
-        Color color = Color::WHITE;
-        if (absorption > 0.0f) {
-            float s = -absorption * intersection.getDistanceToOrigin();
-            color.setR(exp(s * (1.0f - absorptionColor.getR())));
-            color.setG(exp(s * (1.0f - absorptionColor.getG())));
-            color.setB(exp(s * (1.0f - absorptionColor.getB())));
-        }
         Ray transmit = Ray(pos, t, inray.getDepth() + 1, !inray.isInside());
         return make_pair(transmit, color);
     }
