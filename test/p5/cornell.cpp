@@ -78,16 +78,16 @@ int main(int argc, char * argv[]) {
     dragon.setMaterial(white);
     scn.addObject(dragon);
     
-    // Cube lightCube = Cube(0.5, 0.01, 0.5);
-    // AreaLight lgt = AreaLight(lightCube);
-    PointLight lgt = PointLight(Color::WHITE, vec3(0, 1.9, 0));
+    Cube lightCube = Cube(0.2, 0.01, 0.2);
+    AreaLight lgt = AreaLight(lightCube, Color::WHITE);
+    lgt.setIntensity(0.8);
+    lgt.translateY(1.9);
     lgt.setCastShadow(true);
-    // lgt.translateY(1.9);
     scn.addLight(lgt);
     
     Camera cam;
     cam.lookAt(vec3(-0.1, 0.9, 0.8), vec3(0, 0.8, 0));
-    cam.setFovy(90.0f);
+    cam.setFovy(120.0f);
     cam.setResolution(800, 600);
     cam.enableSampling();
     cam.setSamplingAmount(sample);

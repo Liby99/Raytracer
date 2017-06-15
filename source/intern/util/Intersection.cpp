@@ -96,7 +96,7 @@ bool Intersection::update(float t, vec3 position, vec3 normal) {
         setHit(true);
         setT(t);
         setPosition(position);
-        setNormal(dot(normal, ray->getDirection()) > 0 ? -normal : normal);
+        setNormal(normal);
         return true;
     }
     else {

@@ -9,11 +9,9 @@ class AreaLight : public Light, public InstanceObject {
 private:
     
     using Object::setMaterial;
-    using Object::material;
     
 protected:
     
-    Luminance * lum;
     void initiateLuminance();
     void initiateLuminance(Color color);
     
@@ -31,6 +29,8 @@ public:
     virtual float getBrightness(Scene & scene, Intersection & intersection, float t);
     virtual float getBrightness(Scene & scene, Intersection & intersection, Ray & ray, float t);
     virtual vec3 getToLightDirection(Intersection & intersection);
+    
+    virtual bool intersect(Ray & ray, Intersection & intersection, float t);
 };
 
 #endif

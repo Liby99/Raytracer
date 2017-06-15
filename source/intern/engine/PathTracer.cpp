@@ -51,6 +51,7 @@ Color PathTracer::getColor(Intersection & intersection, float t) {
             // Get the direction of it and generate a ray towards it
             vec3 dir = light.getToLightDirection(intersection);
             Ray toLight = Ray(intersection.getPosition(), dir);
+            toLight.increment(intersection.getNormal());
             
             // Calculate the brightness of the intersection by the light
             float brightness = light.getBrightness(*scene, intersection, toLight, t);
@@ -59,7 +60,8 @@ Color PathTracer::getColor(Intersection & intersection, float t) {
                 // Then calculate the reflection color to that light
                 Color lc = light.getColor() * brightness;
                 float cosTheta = max(dot(dir, normal), 0.0f);
-                Color ob = mtl.computeReflection(intersection, toLight) * cosTheta;
+                Color ref = mtl.computeReflection(intersection, toLight);
+                Color ob = ref * cosTheta;
                 color += lc * ob;
             }
         }

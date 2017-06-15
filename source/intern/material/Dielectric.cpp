@@ -3,7 +3,7 @@
 const float Dielectric::DEFAULT_IOR = 1;
 const float Dielectric::DEFAULT_ABSORPTION_COEF = 1;
 const Color Dielectric::DEFAULT_ABSORPTION_COLOR = Color(1, 1, 1);
-const Color Dielectric::DEFAULT_SPECULAR_COLOR;
+const Color Dielectric::DEFAULT_SPECULAR_COLOR = Color(1, 1, 1);
 
 const float Dielectric::AIR_IOR = 1.0003;
 const float Dielectric::WATER_IOR = 1.3333;
@@ -52,51 +52,58 @@ void Dielectric::setSpecularColor(Color c) {
 
 pair<Ray, Color> Dielectric::generateSample(Intersection & intersection, vec2 sample) {
     
-    // First cache the incoming ray
     Ray & inray = intersection.getRay();
-    vec3 indir = inray.getDirection();
-    vec3 pos = intersection.getPosition();
-    vec3 normal = intersection.getNormal();
     
-    // Then cache all the useful data
-    float n1 = AIR_IOR;
-    float n2 = ior;
+    float ni = AIR_IOR;
+    float nt = ior;
+    float absorption = 0.0f;
+    
     if (inray.isInside()) {
-        swap(n1, n2);
+        swap(ni, nt);
+        absorption = absorptionCoef;
     }
-    float r0 = pow((n2 - n1) / (n2 + n1), 2);
     
-    // Decide transmit or reflect
-    if (Sampler::random() < r0) {
-        
-        // Then reflect
-        vec3 outdir = indir + 2.0f * dot(indir, normal) * normal;
-        Ray out = Ray(pos, outdir, inray.getDepth() + 1, inray.isInside());
-        return make_pair(out, specularColor * r0);
+    vec3 pos = intersection.getPosition();
+    vec3 n = intersection.getNormal();
+    vec3 d = inray.getDirection();
+    float ndd = dot(n, d);
+    if (ndd > 0) {
+        n = -n;
+        ndd = -ndd;
+    }
+    
+    vec3 r = d - 2.0f * ndd * n;
+    r = normalize(r);
+    
+    vec3 z = (d - ndd * n) * ni / nt;
+    float z2 = length(z) * length(z);
+    
+    if (z2 >= 1.0f) {
+        Ray reflect = Ray(pos, r, inray.getDepth() + 1, inray.isInside());
+        return make_pair(reflect, specularColor);
+    }
+    
+    vec3 t = z - sqrt(1.0f - z2) * n;
+    t = normalize(t);
+    
+    float ndt = dot(n, t);
+    float rPar = (nt * ndd - ni * ndt) / (nt * ndd + ni * ndt);
+    float rPerp = (ni * ndd - nt * ndt) / (ni * ndd + nt * ndt);
+    float fr = 0.5f * (rPar * rPar + rPerp * rPerp);
+    
+    if (Sampler::random() < fr) {
+        Ray reflect = Ray(pos, r, inray.getDepth() + 1, inray.isInside());
+        return make_pair(reflect, specularColor);
     }
     else {
-        
-        // Then transmit
-        float ct1 = dot(indir, normal);
-        float ct2 = n1 * ct1 / n2;
-        vec3 orth = cross(-indir, normal);
-        vec3 outdir = mat3(Transform::rotate(glm::degrees(ct2), -orth)) * (-normal);
-        Ray out = Ray(pos, outdir, inray.getDepth() + 1, !inray.isInside());
-        
-        // Check the inside or outside to determine color
-        Color color;
-        if (inray.isInside()) {
-            vec3 diff = pos - inray.getOrigin();
-            float dist = sqrt(dot(diff, diff));
-            float s = -absorptionCoef * dist;
+        Color color = Color::WHITE;
+        if (absorption > 0.0f) {
+            float s = -absorption * intersection.getDistanceToOrigin();
             color.setR(exp(s * (1.0f - absorptionColor.getR())));
             color.setG(exp(s * (1.0f - absorptionColor.getG())));
             color.setB(exp(s * (1.0f - absorptionColor.getB())));
         }
-        else {
-            color = Color::WHITE;
-        }
-        
-        return make_pair(out, color);
+        Ray transmit = Ray(pos, t, inray.getDepth() + 1, !inray.isInside());
+        return make_pair(transmit, color);
     }
 }

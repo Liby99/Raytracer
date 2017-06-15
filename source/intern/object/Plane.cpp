@@ -20,9 +20,10 @@ bool Plane::updateIntersect(Ray & ray, Intersection & intersection) {
 }
 
 Plane::Plane() : Object(), Orientable() {
-    
+    surfaceArea = MAXFLOAT;
 }
 
 Plane::Plane(int orientation) : Object(), Orientable(orientation) {
     Plane();
+    surfaceArea = MAXFLOAT;
 }

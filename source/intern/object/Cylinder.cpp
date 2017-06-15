@@ -147,24 +147,32 @@ vec3 Cylinder::sampleSurfacePointHelper(float t) {
     return result;
 }
 
+float calcCylinderSurfaceArea(float height, float radius) {
+    return height * 2 * pi * radius + 2 * pi * radius * radius;
+}
+
 Cylinder::Cylinder() : Object(), Orientable() {
     setHeight(DEFAULT_HEIGHT);
     setRadius(DEFAULT_RADIUS);
+    surfaceArea = calcCylinderSurfaceArea(DEFAULT_HEIGHT, DEFAULT_RADIUS);
 }
 
 Cylinder::Cylinder(float height, float radius) : Object(), Orientable() {
     setHeight(height);
     setRadius(radius);
+    surfaceArea = calcCylinderSurfaceArea(height, radius);
 }
 
 Cylinder::Cylinder(int orientation) : Object(), Orientable(orientation) {
     setHeight(DEFAULT_HEIGHT);
     setRadius(DEFAULT_RADIUS);
+    surfaceArea = calcCylinderSurfaceArea(DEFAULT_HEIGHT, DEFAULT_RADIUS);
 }
 
 Cylinder::Cylinder(int orientation, float height, float radius) : Object(), Orientable(orientation) {
     setHeight(height);
     setRadius(radius);
+    surfaceArea = calcCylinderSurfaceArea(height, radius);
 }
 
 float Cylinder::getHeight() {

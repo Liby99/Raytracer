@@ -2,7 +2,9 @@
 #include "engine/PathTracer.h"
 #include "camera/Camera.h"
 #include "object/Plane.h"
-#include "light/PointLight.h"
+#include "object/Cube.h"
+#include "material/Luminance.h"
+// #include "light/PointLight.h"
 #include "material/Lambert.h"
 #include "image/Bitmap.h"
 
@@ -14,17 +16,29 @@ int main(int argc, char * argv[]) {
     scn.setBackgroundColor(Color(0.8, 0.9, 1.0));
     
     Lambert white = Lambert(Color(0.6, 0.6, 0.6));
+    Luminance red = Luminance(Color::RED);
+    Luminance green = Luminance(Color::GREEN);
     
     Plane ground;
     ground.setMaterial(white);
     scn.addObject(ground);
     
-    PointLight redlgt = PointLight(Color::RED, vec3(0, 1, 0));
-    PointLight greenlgt = PointLight(Color::GREEN, vec3(0, -1, 0));
-    redlgt.setCastShadow(true);
-    greenlgt.setCastShadow(true);
-    scn.addLight(redlgt);
-    scn.addLight(greenlgt);
+    Cube c1 = Cube(0.5, 0.5, 0.5);
+    c1.translateY(0.25);
+    c1.setMaterial(red);
+    scn.addObject(c1);
+    
+    Cube c2 = Cube(0.5, 0.5, 0.5);
+    c2.translateY(-0.25);
+    c2.setMaterial(green);
+    scn.addObject(c2);
+    
+    // PointLight redlgt = PointLight(Color::RED, vec3(0, 1, 0));
+    // PointLight greenlgt = PointLight(Color::GREEN, vec3(0, -1, 0));
+    // redlgt.setCastShadow(true);
+    // greenlgt.setCastShadow(true);
+    // scn.addLight(redlgt);
+    // scn.addLight(greenlgt);
     
     Camera cam;
     cam.setFovy(90.0f);

@@ -80,6 +80,10 @@ Triangle::Triangle(Vertex * v0, Vertex * v1, Vertex * v2) : Object() {
     this->v0 = v0;
     this->v1 = v1;
     this->v2 = v2;
+    vec3 ab = v1->getPosition() - v0->getPosition();
+    vec3 ac = v2->getPosition() - v0->getPosition();
+    float theta = acos(dot(normalize(ab), normalize(ac)));
+    surfaceArea = 2 * length(ab) * length(ac) * sin(theta);
 }
 
 Vertex & Triangle::getVertex(int i) {

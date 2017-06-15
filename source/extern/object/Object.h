@@ -41,6 +41,8 @@ public:
     Object();
     ~Object();
     
+    float surfaceArea;
+    
     // Material Related
     bool hasMaterial();
     virtual Material & getMaterial();
@@ -94,7 +96,7 @@ public:
     BoundingBox getBoundingBox(float t);
     
     // Virtaul intersect method
-    bool intersect(Ray & ray, Intersection & intersection, float t);
+    virtual bool intersect(Ray & ray, Intersection & intersection, float t);
 };
 
 #endif

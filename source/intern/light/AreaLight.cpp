@@ -6,8 +6,8 @@ void AreaLight::initiateLuminance() {
 }
 
 void AreaLight::initiateLuminance(Color color) {
-    if (!lum) {
-        lum = new Luminance(color, 1);
+    if (!material) {
+        material = new Luminance(color, 1);
     }
 }
 
@@ -24,18 +24,21 @@ AreaLight::AreaLight(Object & object, Color color) : Light(), InstanceObject(obj
 }
 
 Color AreaLight::getColor() {
-    return lum->emission();
+    return material->emission();
 }
 
 void AreaLight::setColor(Color color) {
+    Luminance * lum = static_cast<Luminance *>(material);
     lum->setColor(color);
 }
 
 float AreaLight::getIntensity() {
+    Luminance * lum = static_cast<Luminance *>(material);
     return lum->getIntensity();
 }
 
 void AreaLight::setIntensity(float intensity) {
+    Luminance * lum = static_cast<Luminance *>(material);
     lum->setIntensity(intensity);
 }
 
@@ -48,7 +51,7 @@ float AreaLight::getBrightness(Scene & scene, Intersection & intersection, float
 float AreaLight::getBrightness(Scene & scene, Intersection & intersection, Ray & ray, float t) {
     
     Intersection lgtits = Intersection(ray);
-    if (intersect(ray, lgtits, t)) {
+    if (InstanceObject::intersect(ray, lgtits, t)) {
         
         vec3 pos = lgtits.getPosition();
         vec3 origin = intersection.getPosition();
@@ -58,12 +61,14 @@ float AreaLight::getBrightness(Scene & scene, Intersection & intersection, Ray &
         if (castShadow) {
             
             Intersection barrier = Intersection(ray);
-            if (scene.getIntersection(ray, barrier, t) && barrier.getDistanceToOrigin() < dist) {
+            bool itsct = scene.getIntersection(ray, barrier, t);
+            if (itsct && barrier.getDistanceToOrigin() < dist) {
                 return 0;
             }
         }
         
-        return 1 / dist * dist;
+        Luminance * lum = static_cast<Luminance *>(material);
+        return lum->getIntensity();
     }
     else {
         return 0;
@@ -71,7 +76,13 @@ float AreaLight::getBrightness(Scene & scene, Intersection & intersection, Ray &
 }
 
 vec3 AreaLight::getToLightDirection(Intersection & intersection) {
-    vec3 sample = sampleSurfacePoint(0);
-    vec3 pos = intersection.getPosition();
-    return sample - pos;
+    return sampleSurfacePoint(0) - intersection.getPosition();
+}
+
+bool AreaLight::intersect(Ray & ray, Intersection & intersection, float t) {
+    bool result = InstanceObject::intersect(ray, intersection, t);
+    if (result) {
+        intersection.setObject(*this);
+    }
+    return result;
 }

@@ -30,6 +30,7 @@ Object::Object() {
     box = nullptr;
     material = nullptr;
     transformed = false;
+    surfaceArea = 0;
 }
 
 Object::~Object() {

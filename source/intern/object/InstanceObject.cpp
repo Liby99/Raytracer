@@ -18,6 +18,7 @@ InstanceObject::InstanceObject() : Object() {}
 
 InstanceObject::InstanceObject(Object & object) : Object() {
     setObject(object);
+    surfaceArea = object.surfaceArea;
 }
 
 Object & InstanceObject::getObject() {

@@ -2,7 +2,7 @@
 
 const Color Light::DEFAULT_COLOR = Color::WHITE;
 const float Light::DEFAULT_INTENSITY = 1;
-const bool Light::DEFAULT_CAST_SHADOW = false;
+const bool Light::DEFAULT_CAST_SHADOW = true;
 
 Light::Light() {
     setColor(DEFAULT_COLOR);

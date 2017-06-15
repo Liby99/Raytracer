@@ -51,10 +51,12 @@ vector<vec3> MeshCube::getBoundingVertices() {
 
 MeshCube::MeshCube() : Cube() {
     construct();
+    surfaceArea = DEFAULT_SIZE * DEFAULT_SIZE * DEFAULT_SIZE;
 }
 
 MeshCube::MeshCube(float width, float height, float length) : Cube(width, height, length) {
     construct();
+    surfaceArea = width * height * length;
 }
 
 void MeshCube::setWidth(float width) {

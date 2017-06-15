@@ -52,10 +52,12 @@ vec3 Sphere::sampleSurfacePointHelper(float t) {
 
 Sphere::Sphere() {
     setRadius(1);
+    surfaceArea = 4 * pi;
 }
 
 Sphere::Sphere(float radius) {
     setRadius(radius);
+    surfaceArea = 4 * pi * radius * radius;
 }
 
 float Sphere::getRadius() {
