@@ -8,7 +8,7 @@ class Plane : public Object, public Orientable {
 protected:
     
     // Inherited update intersection
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection, float t);
     
 public:
     

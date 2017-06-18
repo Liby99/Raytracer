@@ -146,7 +146,7 @@ vector<vec3> BoxTreeObject::getBoundingVertices() {
     return root->getBoundingBox().getBoundingVertices();
 }
 
-bool BoxTreeObject::updateIntersect(Ray & ray, Intersection & intersection) {
+bool BoxTreeObject::updateIntersect(Ray & ray, Intersection & intersection, float t) {
     constructTree();
     BoundingBox box = root->getBoundingBox();
     if (box.intersect(ray)) {
@@ -155,7 +155,9 @@ bool BoxTreeObject::updateIntersect(Ray & ray, Intersection & intersection) {
     return false;
 }
 
-BoxTreeObject::BoxTreeObject() : MeshObject() {}
+BoxTreeObject::BoxTreeObject() : MeshObject() {
+    root = nullptr;
+}
 
 BoxTreeObject::BoxTreeObject(const char * filename) : MeshObject(filename) {
     root = nullptr;
@@ -164,4 +166,8 @@ BoxTreeObject::BoxTreeObject(const char * filename) : MeshObject(filename) {
 
 BoxTreeObject::~BoxTreeObject() {
     delete root;
+}
+
+void BoxTreeObject::initiate() {
+    constructTree();
 }

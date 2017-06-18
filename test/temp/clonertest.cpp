@@ -95,6 +95,4 @@ int main(int argc, char * argv[]) {
     cout << endl << "Render Time Elapsed: " << time(0) - curr << "s" << endl;
     
     return 0;
-    
-    return 0;
 }

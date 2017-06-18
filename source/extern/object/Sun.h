@@ -9,7 +9,7 @@ protected:
     vec3 direction;
     float angle;
     
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection, float t);
     
 public:
     

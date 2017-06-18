@@ -18,7 +18,7 @@ protected:
     void getCorner(vec3 minCorner, vec3 maxCorner);
     
     // Intersect
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection, float t);
     virtual vector<vec3> getBoundingVertices();
     virtual vec3 sampleSurfacePointHelper(float t);
     

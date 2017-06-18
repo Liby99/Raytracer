@@ -1,6 +1,6 @@
 #include "object/Plane.h"
 
-bool Plane::updateIntersect(Ray & ray, Intersection & intersection) {
+bool Plane::updateIntersect(Ray & ray, Intersection & intersection, float frame) {
     
     // If the direction is parallel to the plane, then return false
     if (ray.getDirection()[getAxis()] == 0) {

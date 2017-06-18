@@ -2,7 +2,7 @@
 
 const float Cube::DEFAULT_SIZE = 1;
 
-bool Cube::updateIntersect(Ray & ray, Intersection & intersection) {
+bool Cube::updateIntersect(Ray & ray, Intersection & intersection, float frame) {
     
     // Get the min and max corner
     vec3 minCorner = getMinCorner();

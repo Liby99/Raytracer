@@ -105,9 +105,13 @@ T Animatable<T>::get(float t) {
                 int ed = git->second->getFrame();
                 T lval = lit->second->getValue();
                 T rval = git->second->getValue();
+                
                 float sp = t - st;
                 float pg = sp / (ed - st);
-                return lval + pg * (rval - lval);
+                
+                // return lval + pg * (rval - lval);
+                
+                return -(rval - lval) * pg * (pg - 2) + lval;
             }
         }
     }

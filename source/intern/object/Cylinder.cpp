@@ -15,7 +15,7 @@ bool Cylinder::inHeight(float h) {
     return !higher(h) && !lower(h);
 }
 
-bool Cylinder::updateIntersect(Ray & ray, Intersection & intersection) {
+bool Cylinder::updateIntersect(Ray & ray, Intersection & intersection, float frame) {
     
     // Prepare the basic parameters
     int axis = getAxis();

@@ -46,7 +46,7 @@ protected:
     void forceConstruct();
     void constructTree();
     
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection, float t);
     virtual vector<vec3> getBoundingVertices();
     
 public:
@@ -55,6 +55,8 @@ public:
     BoxTreeObject();
     BoxTreeObject(const char * filename);
     ~BoxTreeObject();
+    
+    void initiate();
 };
 
 #endif

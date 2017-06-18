@@ -6,10 +6,10 @@
 class CircularCloner : public Cloner {
 protected:
     
-    float radius;
+    Animatable<float> radius;
     int count;
     
-    void retransform();
+    void retransform(float t);
     void reconstruct();
     
 public:
@@ -17,11 +17,14 @@ public:
     CircularCloner(Object & object);
     CircularCloner(Object & object, float radius, int count);
     
-    float getRadius();
+    float getRadius(float t);
     void setRadius(float radius);
+    void setRadius(float radius, int t);
     
     int getCount();
     void setCount(int count);
+    
+    virtual bool intersect(Ray & ray, Intersection & intersection, float t);
 };
 
 #endif

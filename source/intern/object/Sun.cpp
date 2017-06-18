@@ -7,7 +7,7 @@ using namespace std;
 const vec3 Sun::DEFAULT_DIRECTION = vec3(1, 1, 1);
 const float Sun::DEFAULT_ANGLE = 5;
 
-bool Sun::updateIntersect(Ray & ray, Intersection & intersection) {
+bool Sun::updateIntersect(Ray & ray, Intersection & intersection, float t) {
     vec3 raydir = ray.getDirection();
     if (acos(dot(raydir, direction)) < glm::radians(angle / 2)) {
         return intersection.update(MAXFLOAT, ray.getPoint(MAXFLOAT), -raydir);

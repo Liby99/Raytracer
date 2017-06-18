@@ -11,7 +11,7 @@ vec3 transfHomogenous(mat4 matrix, vec3 vertex) {
     return vec3(v.x, v.y, v.z) / v.w;
 }
 
-bool Object::updateIntersect(Ray & ray, Intersection & intersection) {
+bool Object::updateIntersect(Ray & ray, Intersection & intersection, float t) {
     return false;
 }
 
@@ -313,7 +313,7 @@ BoundingBox Object::getBoundingBox(float t) {
 
 bool Object::intersect(Ray & ray, Intersection & intersection, float t) {
     Ray transfRay = ray.inverseTransform(getTransformMatrix(t));
-    if (updateIntersect(transfRay, intersection)) {
+    if (updateIntersect(transfRay, intersection, t)) {
         intersection.transform(getTransformMatrix(t));
         intersection.setObject(*this);
         return true;

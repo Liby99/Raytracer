@@ -1,6 +1,6 @@
 #include "object/Sphere.h"
 
-bool Sphere::updateIntersect(Ray & ray, Intersection & intersection) {
+bool Sphere::updateIntersect(Ray & ray, Intersection & intersection, float frame) {
     
     vec3 p0 = ray.getOrigin();
     vec3 p1 = ray.getDirection();

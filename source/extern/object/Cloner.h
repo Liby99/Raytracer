@@ -11,7 +11,7 @@ protected:
     
     bool useSeparateMaterial;
     
-    virtual bool updateIntersect(Ray & ray, Intersection & intersection);
+    virtual bool updateIntersect(Ray & ray, Intersection & intersection, float t);
     virtual vec3 sampleSurfacePointHelper(float t);
     
 public:

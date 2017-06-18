@@ -18,7 +18,7 @@ vec3 Triangle::getBaryCentric(vec3 position) {
     return result;
 }
 
-bool Triangle::updateIntersect(Ray & ray, Intersection & intersection) {
+bool Triangle::updateIntersect(Ray & ray, Intersection & intersection, float frame) {
     
     // Pre cache the positions
     vec3 p0 = v0->getPosition();

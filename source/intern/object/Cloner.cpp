@@ -1,9 +1,9 @@
 #include "object/Cloner.h"
 
-bool Cloner::updateIntersect(Ray & ray, Intersection & intersection) {
+bool Cloner::updateIntersect(Ray & ray, Intersection & intersection, float t) {
     bool result = false;
     for (int i = 0; i < instances.size(); i++) {
-        if (instances[i]->intersect(ray, intersection, 0)) {
+        if (instances[i]->intersect(ray, intersection, t)) {
             result = true;
         }
     }
@@ -16,6 +16,7 @@ vec3 Cloner::sampleSurfacePointHelper(float t) {
 
 Cloner::Cloner(Object & object) : Object() {
     this->object = &object;
+    this->useSeparateMaterial = false;
 }
 
 void Cloner::enableSeparateMaterial() {
@@ -42,7 +43,7 @@ void Cloner::setMaterial(vector<Material *> mtls) {
 
 bool Cloner::intersect(Ray & ray, Intersection & intersection, float t) {
     Ray transfRay = ray.inverseTransform(getTransformMatrix(t));
-    if (updateIntersect(transfRay, intersection)) {
+    if (updateIntersect(transfRay, intersection, t)) {
         intersection.transform(getTransformMatrix(t));
         if (!useSeparateMaterial) {
             intersection.setObject(*this);

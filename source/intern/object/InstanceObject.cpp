@@ -1,7 +1,7 @@
 #include "object/InstanceObject.h"
 
-bool InstanceObject::updateIntersect(Ray & ray, Intersection & intersection) {
-    if (object) return object->intersect(ray, intersection, 0);
+bool InstanceObject::updateIntersect(Ray & ray, Intersection & intersection, float t) {
+    if (object) return object->intersect(ray, intersection, t);
     else return false;
 }
 
